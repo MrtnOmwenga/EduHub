@@ -1,0 +1,28 @@
+{
+    "instructors":[
+      { 
+        "name": "Martin Omwenga", 
+        "email": "artohellas@gmail.com",
+        "password": "foobar",
+        "id": 1
+      },
+      { 
+        "name": "Ada Lovelace", 
+        "email": "adalovelace@gmail.com",
+        "password": "foobar",
+        "id": 2
+      },
+      { 
+        "name": "Dan Abramov", 
+        "email": "danabramov@gmail.com",
+        "password": "foobar",
+        "id": 3
+      },
+      { 
+        "name": "Mary Poppendieck", 
+        "email": "marypoppendieck@gmail.com",
+        "password": "foobar",
+        "id": 4
+      }
+    ]
+  }
