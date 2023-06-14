@@ -1,13 +1,13 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3001/students'
+const baseUrl = 'http://localhost:3001'
 
-const getAll = () => {
-    const response = axios.get(baseUrl)
+const getAll = (user) => {
+    const response = axios.get(`${baseUrl}/${user.toLowerCase()}`)
     return response.then(response => response.data)
 }
 
-const addPerson = (newObject) => {
-    const response = axios.post(baseUrl, newObject)
+const addPerson = (newObject, user) => {
+    const response = axios.post(`${baseUrl}/${user.toLowerCase()}`, newObject)
     return response.then(response => response.data)
 }
 

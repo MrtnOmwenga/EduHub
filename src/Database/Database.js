@@ -3,7 +3,7 @@ const instructors = require('./Instructors.json');
 // Something more
 
 module.exports = () => ({
-    students: students.students,
-    instructors: instructors.instructors
+    student: students.students,
+    instructor: instructors.instructors
   // Something more
 });

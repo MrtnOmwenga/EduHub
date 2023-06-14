@@ -1,19 +1,20 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import login from './Style/Login.module.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import database from './../Services/database'
 
-const LoginForm = ({user, onClick}) => {
+const LoginForm = ({user, emailChange, passwordChange, onSubmit}) => {
 
     return (
         <div className={login.loginform}>
             <p className={login.title}>{user} Login</p>
-            <form>
+            <form onSubmit={onSubmit}>
                 <div className={login.inputbox}>
-                    <input type='text' className={login.nameinput} required />
+                    <input type='text' className={login.nameinput} onChange={emailChange} required />
                     <label className={login.namelabel}> Email </label>
                 </div>
                 <div className={login.inputbox}>
-                    <input type='password' className={login.nameinput} required />
+                    <input type='password' className={login.nameinput} onChange={passwordChange} required />
                     <label className={login.namelabel}> Password </label>
                 </div>
                 <div className={login.buttonDiv}>
@@ -29,6 +30,14 @@ const LoginForm = ({user, onClick}) => {
 
 const Login = () => {
     const [user, setUser] = useState('Student')
+    const [persons, setPersons] = useState([])
+    const [newEmail, setNewEmail] = useState('')
+    const [newPassword, setNewPassword] = useState('')
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        database.getAll(user).then(response => setPersons(response))
+      }, [user])
 
     const changeUser = () => {
         if (user === 'Student') {
@@ -45,6 +54,27 @@ const Login = () => {
         alt= 'Student'
     }
 
+    const emailChange = (event) => {
+        setNewEmail(event.target.value)
+    }
+
+    const passwordChange = (event) => {
+        setNewPassword(event.target.value)
+    }
+
+    const checkPerson = () => {
+        const exists = persons.find((person) => person.email === newEmail)
+        if (exists !== undefined) {
+            if (exists.password === newPassword) {
+                navigate('/dashboard', {replace: true})
+            }else {
+                alert('Wrong email or password')
+            }
+        }else {
+            alert('User does not exist')
+        }
+    }
+
     return (
         <div className={login.LoginPage}>
             <div className={login.textcontainer}>
@@ -55,7 +85,9 @@ const Login = () => {
             </Link>
             <div className={login.Login}>
                 <img src={require('./Style/Images/EduHub.png')}  className={login.image} alt=""/>
-                <LoginForm  user={user} onClick={changeUser}/>
+                <LoginForm  user={user}
+                emailChange={emailChange} passwordChange={passwordChange}
+                onSubmit={checkPerson}/>
             </div>
         </div>
     )

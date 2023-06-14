@@ -3,22 +3,23 @@ import register from './Style/Register.module.css'
 import { Link } from 'react-router-dom'
 import database from './../Services/database'
 
-const RegisterForm = ({user, onClick}) => {
+const RegisterForm = ({user, nameChange, emailChange, 
+    passwordChange, onSubmit}) => {
 
     return (
         <div className={register.loginform}>
             <p className={register.title}>{user} Registration</p>
-            <form>
+            <form onSubmit={onSubmit}>
             <div className={register.inputbox}>
-                    <input type='text' className={register.nameinput} required />
+                    <input type='text' className={register.nameinput} onChange={nameChange} required />
                     <label className={register.namelabel}> Name </label>
                 </div>
                 <div className={register.inputbox}>
-                    <input type='text' className={register.nameinput} required />
+                    <input type='text' className={register.nameinput} onChange={emailChange} required />
                     <label className={register.namelabel}> Email </label>
                 </div>
                 <div className={register.inputbox}>
-                    <input type='password' className={register.nameinput} required />
+                    <input type='password' className={register.nameinput} onChange={passwordChange} required />
                     <label className={register.namelabel}> Password </label>
                 </div>
                 <div className={register.buttonDiv}>
@@ -34,14 +35,14 @@ const RegisterForm = ({user, onClick}) => {
 
 const Register = () => {
     const [user, setUser] = useState('Student')
-    const [students, setStudents] = useState([])
+    const [persons, setPersons] = useState([])
     const [newName, setNewName] = useState('')
     const [newEmail, setNewEmail] = useState('')
     const [newPassword, setNewPassword] = useState('')
 
     useEffect(() => {
-        database.getAll().then(response => setStudents(response))
-      }, [])
+        database.getAll(user).then(response => setPersons(response))
+      }, [user])
 
     const changeUser = () => {
         if (user === 'Student') {
@@ -72,20 +73,20 @@ const Register = () => {
 
     const addStudent = (event) => {
         event.preventDefault()
-        const exists = students.find((student) => student.name === newEmail)
+        const exists = persons.find((person) => person.email === newEmail)
         if (exists !== undefined)
         {
-            alert(newName + " is already exists")
+            alert(newEmail + " is already exists")
         } else {
             const newObject = {
                 name: newName,
                 email: newEmail,
                 password: newPassword,
-                id: students.length + 1
+                id: persons.length + 1
             }
     
-            database.addPerson(newObject).then(response => {
-                setStudents(students.concat(response))
+            database.addPerson(newObject, user).then(response => {
+                setPersons(persons.concat(response))
                 setNewName('')
             })
         }
@@ -101,7 +102,7 @@ const Register = () => {
             </Link>
             <div className={register.Login}>
                 <img src={require('./Style/Images/EduHub.png')}  className={register.image} alt=""/>
-                <RegisterForm  user={user} onClick={changeUser} 
+                <RegisterForm  user={user} 
                 nameChange={nameChange} emailChange={emailChange} 
                 passwordChange={passwordChange} onSubmit={addStudent}/>
             </div>
