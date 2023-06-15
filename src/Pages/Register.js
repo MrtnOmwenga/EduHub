@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import register from './Style/Register.module.css'
 import { Link } from 'react-router-dom'
-import database from './../Services/database'
+import database from './Services/database'
 
 const RegisterForm = ({user, nameChange, emailChange, 
     passwordChange, onSubmit}) => {
@@ -88,6 +88,8 @@ const Register = () => {
             database.addPerson(newObject, user).then(response => {
                 setPersons(persons.concat(response))
                 setNewName('')
+                setNewEmail('')
+                setNewPassword('')
             })
         }
     }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import login from './Style/Login.module.css'
 import { Link, useNavigate } from 'react-router-dom'
-import database from './../Services/database'
+import database from './Services/database'
 
 const LoginForm = ({user, emailChange, passwordChange, onSubmit}) => {
 
@@ -62,11 +62,12 @@ const Login = () => {
         setNewPassword(event.target.value)
     }
 
-    const checkPerson = () => {
+    const checkPerson = (event) => {
+        event.preventDefault()
         const exists = persons.find((person) => person.email === newEmail)
         if (exists !== undefined) {
             if (exists.password === newPassword) {
-                navigate('/dashboard', {replace: true})
+                navigate('/dashboard', {replace: true, state: {user: exists, capacity: user}})
             }else {
                 alert('Wrong email or password')
             }

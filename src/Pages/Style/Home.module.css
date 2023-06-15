@@ -30,6 +30,7 @@
     background-color: rgb(0, 0, 0, 0);
     margin-right: 3%;
     margin-top: 1%;
+    padding-bottom: 0.5%;
 
     color: beige;
 }
@@ -89,7 +90,8 @@
 
 .buttontext {
     font-family: 'Oxygen', sans-serif;
-    /*color: beige;*/
+    color: beige;
+    text-decoration: none;
 }
 
 .Section2 {

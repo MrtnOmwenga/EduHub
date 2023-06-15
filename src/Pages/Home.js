@@ -7,9 +7,11 @@ const Home =() => {
         <div className={style.stylePage}>
             <section className={style.Section1}>
                 <nav className={style.navigation}>
-                    <Link to={'/login'}>
-                        <button className={style.navbutton}> <p className={style.buttontext}> LOGIN | REGISTER </p> </button>
-                    </Link>
+                        <button className={style.navbutton}>
+                            <p className={style.buttontext}>
+                                <Link to={'/login'} className={style.buttontext}> LOGIN </Link> | <Link to={'/register'} className={style.buttontext}>REGISTER</Link>
+                            </p>
+                        </button>
                 </nav>
                 <div className={style.container}>
                     <div className={style.textcontainer}>

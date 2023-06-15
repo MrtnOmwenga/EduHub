@@ -4,37 +4,163 @@
       "name": "Arto Hellas",
       "email": "artohellas@gmail.com",
       "password": "foobar",
-      "id": 1
+      "id": 1,
+      "courses": [
+        {
+          "name": "Business Development",
+          "enrollment_date": "17-09-2022",
+          "grade": 89,
+          "id": 1
+        },
+        {
+          "name": "Financial Analysis",
+          "enrollment_date": "11-03-2022",
+          "grade": 75,
+          "id": 2
+        },
+        {
+          "name": "Incestment Banking",
+          "enrollment_date": "11-03-2022",
+          "grade": 75,
+          "id": 3
+        }
+      ]
     },
     {
       "name": "Ada Lovelace",
       "email": "adalovelace@gmail.com",
       "password": "foobar",
-      "id": 2
+      "id": 2,
+      "courses": [
+        {
+          "name": "Mechanical testing",
+          "enrollment_date": "17-01-2022",
+          "grade": 69,
+          "id": 4
+        },
+        {
+          "name": "Solid and Structural Mechanics",
+          "enrollment_date": "23-11-2022",
+          "grade": 60,
+          "id": 5
+        },
+        {
+          "name": "Engineering Drawing",
+          "enrollment_date": "23-11-2022",
+          "grade": 60,
+          "id": 6
+        },
+        {
+          "name": "Engineering Accounting",
+          "enrollment_date": "23-11-2022",
+          "grade": 60,
+          "id": 7
+        }
+      ]
     },
     {
       "name": "Dan Abramov",
       "email": "danabramov@gmail.com",
       "password": "foobar",
-      "id": 3
+      "id": 3,
+      "courses": [
+        {
+          "name": "IT Maintenance",
+          "enrollment_date": "17-09-2022",
+          "grade": 52,
+          "id": 8
+        },
+        {
+          "name": "Network Monitoring",
+          "enrollment_date": "17-09-2022",
+          "grade": 45,
+          "id": 9
+        },
+        {
+          "name": "Cybersecurity Fundamentals",
+          "enrollment_date": "17-09-2022",
+          "grade": 45,
+          "id": 10
+        }
+      ]
     },
     {
       "name": "Mary Poppendieck",
       "email": "marypoppendieck@gmail.com",
       "password": "foobar",
-      "id": 4
+      "id": 4,
+      "courses": [
+        {
+          "name": "Python Programming",
+          "enrollment_date": "17-09-2022",
+          "grade": 66,
+          "id": 11
+        },
+        {
+          "name": "JavaScript Fundamentals",
+          "enrollment_date": "17-09-2022",
+          "grade": 81,
+          "id": 12
+        }
+      ]
     },
     {
       "name": "Kevin Cozner",
       "email": "kevincozner@gmail.com",
       "password": "foobar",
-      "id": 5
+      "id": 5,
+      "courses": [
+        {
+          "name": "Software Engineering",
+          "enrollment_date": "17-09-2022",
+          "grade": 60,
+          "id": 13
+        },
+        {
+          "name": "Cloud Engineering",
+          "enrollment_date": "17-09-2022",
+          "grade": 70,
+          "id": 14
+        },
+        {
+          "name": "Data Structures and Algorithms",
+          "enrollment_date": "17-09-2022",
+          "grade": 70,
+          "id": 15
+        },
+        {
+          "name": "Network Maintenance",
+          "enrollment_date": "17-09-2022",
+          "grade": 70,
+          "id": 16
+        },
+        {
+          "name": "Neural Networks",
+          "enrollment_date": "17-09-2022",
+          "grade": 70,
+          "id": 17
+        }
+      ]
     },
     {
       "name": "Angeline Jolie",
       "email": "angelinajolie@gmail.com",
       "password": "foobar",
-      "id": 6
+      "id": 6,
+      "courses": [
+        {
+          "name": "Civil Structures",
+          "enrollment_date": "17-09-2022",
+          "grade": 95,
+          "id": 18
+        },
+        {
+          "name": "Hydraulics",
+          "enrollment_date": "17-09-2022",
+          "grade": 100,
+          "id": 19
+        }
+      ]
     }
   ]
 }

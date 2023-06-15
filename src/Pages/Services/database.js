@@ -6,6 +6,11 @@ const getAll = (user) => {
     return response.then(response => response.data)
 }
 
+const getOne = (id, user) => {
+    const response = axios.get(`${baseUrl}/${user.toLowerCase()}/${id}`)
+    return response.then(response => response.data)
+}
+
 const addPerson = (newObject, user) => {
     const response = axios.post(`${baseUrl}/${user.toLowerCase()}`, newObject)
     return response.then(response => response.data)
@@ -20,5 +25,5 @@ const updatePerson = (id, newObject) => {
     return response.then(response => response.data)
 }
 
-const database = {getAll, addPerson, deletePerson, updatePerson}
+const database = {getAll, addPerson, deletePerson, updatePerson, getOne}
 export default database
