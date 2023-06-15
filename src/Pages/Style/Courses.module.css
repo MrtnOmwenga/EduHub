@@ -1,0 +1,87 @@
+.outer_container {
+    height: 100%;
+    margin-left: 9em;
+    margin-right: 5em;
+    margin-top: 3em;
+    color: #115a65;
+    font-family: 'Oxygen', sans-serif;
+}
+
+.back {
+    float: left;
+    z-index: 4;
+    position: absolute;
+    left: 1em;
+    top: 0.5em;
+    background-color: transparent;
+    color: #115a65;
+
+    font-family: 'Oxygen', sans-serif;
+}
+
+.title {
+    margin-bottom: 1em;
+    font-size: 2em;
+    margin-left: 10em;
+}
+
+.filter {
+    margin-left: 15em;
+    width: 50%;
+    height: 3em;
+    margin-bottom: 2em;
+    border-color: #115a65;
+    border-style: solid;
+    border-width: 0.05em;
+    border-radius: 0.25em;
+    padding-left: 1em;
+    background-color: beige;
+}
+
+.filter:focus {
+    border-width: 0.01em;
+    border-color: #115a65;
+    background-color: white;
+}
+
+.course_element {
+    list-style: none;
+    margin-bottom: 2em;
+    padding-left: 1em;
+    border-bottom: 0.05em solid;
+    padding-bottom: 1em;
+
+    display: grid;
+    column-count: 2;
+}
+
+.course_info {
+    grid-column-start: 1;
+}
+
+.course_name {
+    font-size: 1.2em;
+    margin-bottom: 0.3em;
+}
+
+.course_instructor {
+    color: rgb(0,0,0,0.5);
+    margin-left: 2%;
+}
+
+.enroll_button {
+    grid-column-start: 2;
+
+    background-color: transparent;
+    color: #115a65;
+    text-align: right;
+    float:right;
+    margin-right: 3em;
+    padding-right: 0.1em;
+    border: none;
+    font-size: 1em;
+}
+
+.course_icon {
+    margin-left: 1%;
+}

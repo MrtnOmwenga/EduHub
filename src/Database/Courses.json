@@ -1,0 +1,194 @@
+{
+    "courses":[
+      { 
+        "name": "Business Development",
+        "id": 1,
+        "instructor": "Ada Lovelace",
+        "modules": [
+            {
+                "name": "Resources"
+            }
+        ]
+      },
+      { 
+        "name": "Financial Analysis",
+        "id": 2,
+        "instructor": "Martin Omwenga",
+        "modules": [
+            {
+                "name": "Excel"
+            }
+        ]
+      },
+      { 
+        "name": "Investment Banking",
+        "id": 3,
+        "instructor": "Dan Abramov",
+        "modules": [
+            {
+                "name": "Federal law"
+            }
+        ]
+      },
+      { 
+        "name": "Mechanical testing",
+        "id": 4,
+        "instructor": "Mary Poppendick",
+        "modules": [
+            {
+                "name": "Strength of Materials"
+            }
+        ]
+      },
+      { 
+        "name": "Solid and Structural Mechanics",
+        "id": 5,
+        "instructor": "Martin Omwenga",
+        "modules": [
+            {
+                "name": "Combined Loading"
+            }
+        ]
+      },
+      { 
+        "name": "Engineering Drawing",
+        "id": 6,
+        "instructor": "Ada Lovelace",
+        "modules": [
+            {
+                "name": "CAD"
+            }
+        ]
+      },
+      { 
+        "name": "Engineering Accounting",
+        "id": 7,
+        "instructor": "Dan abramov",
+        "modules": [
+            {
+                "name": "ACCA"
+            }
+        ]
+      },
+      { 
+        "name": "IT Maintenance",
+        "id": 8,
+        "instructor": "Mary Poppendick",
+        "modules": [
+            {
+                "name": "Networks Overview"
+            }
+        ]
+      },
+      { 
+        "name": "Network Monitoring",
+        "id": 9,
+        "instructor": "Martin Omwenga",
+        "modules": [
+            {
+                "name": "TCP/IP"
+            }
+        ]
+      },
+      { 
+        "name": "Cybersecurity Fundamentals",
+        "id": 10,
+        "instructor": "Ada Lovelace",
+        "modules": [
+            {
+                "name": "DDOS"
+            }
+        ]
+      },
+      { 
+        "name": "Python Programming",
+        "id": 11,
+        "instructor": "Dan Abramov",
+        "modules": [
+            {
+                "name": "Classes"
+            }
+        ]
+      },
+      { 
+        "name": "JavaScript Programming",
+        "id": 12,
+        "instructor": "Mary Poppendick",
+        "modules": [
+            {
+                "name": "Hooks"
+            }
+        ]
+      },
+      { 
+        "name": "Software Engineering",
+        "id": 13,
+        "instructor": "Ada Lovelace",
+        "modules": [
+            {
+                "name": "C Programming"
+            }
+        ]
+      },
+      { 
+        "name": "Cloud Engineering",
+        "id": 14,
+        "instructor": "Martin Omwenga",
+        "modules": [
+            {
+                "name": "AWS"
+            }
+        ]
+      },
+      { 
+        "name": "Data Structures and Algorithms",
+        "id": 15,
+        "instructor": "Dan Abramov",
+        "modules": [
+            {
+                "name": "Hash Tables"
+            }
+        ]
+      },
+      { 
+        "name": "Network Maintenance",
+        "id": 16,
+        "instructor": "Mary Poppendick",
+        "modules": [
+            {
+                "name": "TCP/IP"
+            }
+        ]
+      },
+      { 
+        "name": "Neural Networks",
+        "id": 17,
+        "instructor": "Ada Lovelace",
+        "modules": [
+            {
+                "name": "Algorithms"
+            }
+        ]
+      },
+      { 
+        "name": "Civil Structures",
+        "id": 18,
+        "instructor": "Martin Omwenga",
+        "modules": [
+            {
+                "name": "Concrete"
+            }
+        ]
+      },
+      { 
+        "name": "Hydraulics",
+        "id": 19,
+        "instructor": "Ada Lovelace",
+        "modules": [
+            {
+                "name": "Euler and Bernoulli"
+            }
+        ]
+      }
+    ]
+  }

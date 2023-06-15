@@ -25,5 +25,10 @@ const updatePerson = (id, newObject) => {
     return response.then(response => response.data)
 }
 
-const database = {getAll, addPerson, deletePerson, updatePerson, getOne}
+const getCourses = () => {
+    const response = axios.get(`${baseUrl}/courses`)
+    return response.then(response => response.data)
+}
+
+const database = {getAll, addPerson, deletePerson, updatePerson, getOne, getCourses}
 export default database

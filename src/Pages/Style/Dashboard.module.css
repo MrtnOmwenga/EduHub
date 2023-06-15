@@ -1,0 +1,124 @@
+.outer_container {
+    display: grid;
+    column-count: 2;
+    height: 100%;
+    grid-template-columns: 1fr 4fr;
+}
+
+.menu {
+    grid-column-start: 1;
+
+    background-color: #115a65;
+    height: 100%;
+    position: absolute;
+    padding-right: 5%;
+
+    font-family: 'Oxygen', sans-serif;
+    color: beige;
+}
+
+.title {
+    margin-top: 2em;
+    margin-bottom: 3em;
+    margin-left: 1em
+}
+
+.menu_item {
+    margin-top: 2em;
+    margin-left: 3em;
+    list-style: none;
+    padding-bottom: 3%;
+    font-size: small;
+}
+
+.link {
+    text-decoration: none;
+    color: beige;
+}
+
+.menu_item:hover {
+    border-bottom-style: solid;
+    border-bottom-color: beige;
+}
+
+.content {
+    grid-column-start: 2;
+    margin-top: 2em;
+
+    font-family: 'Oxygen', sans-serif;
+    color: #115a65;
+    font-weight: 0.5em;
+    overflow-y: scroll;
+}
+
+.main_title {
+    margin-bottom: 4em;
+}
+
+table {
+    margin-left: 5%;
+    margin-top: 3em;
+}
+
+.table_head {
+    text-align: left;
+    color: #115a65;
+    opacity: 0.5;
+    height: 20%;
+}
+
+.course_list {
+    table-layout: auto;
+    width: 80%;
+    height: 80%;
+    border-collapse: collapse;
+}
+
+.course_element {
+    text-align: left;
+}
+
+tr {
+    border-bottom: 1px solid;
+}
+
+.course_name {
+    padding-right: 5%;
+    width: 60%;
+}
+
+.course_grade {
+    width: 100%;
+}
+
+.course_btn {
+    background-color: transparent;
+    border: none;
+    color:#115a65;
+    font-size: 1em;
+    padding: 0.5em 1em 0.5em 1em ;
+    display: inline-block;
+}
+
+.course_btn:hover {
+    background-color: #115a65;
+    color: beige;
+}
+
+.course_txt {
+    display: inline-block;
+}
+
+.plus_button {
+    float: right;
+    z-index: 3;
+    
+   position: absolute; /*newly added*/
+   right: 2em; /*newly added*/
+   top: 2em;/*newly added*/
+
+   color: #115a65;
+   font-family: 'Oxygen', sans-serif;
+
+   height: 2em;
+}

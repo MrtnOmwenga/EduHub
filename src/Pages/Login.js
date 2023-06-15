@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import login from './Style/Login.module.css'
 import { Link, useNavigate } from 'react-router-dom'
 import database from './Services/database'
+import Session from './Services/Session'
 
 const LoginForm = ({user, emailChange, passwordChange, onSubmit}) => {
 
@@ -67,7 +68,14 @@ const Login = () => {
         const exists = persons.find((person) => person.email === newEmail)
         if (exists !== undefined) {
             if (exists.password === newPassword) {
-                navigate('/dashboard', {replace: true, state: {user: exists, capacity: user}})
+                Session.setName(exists.name)
+                Session.setId(exists.id)
+                Session.setUsertype(user)
+                if (user === 'Student') {
+                    navigate('/studentsdashboard', {replace: true, state: {user: exists}})
+                }else {
+                    navigate('/instructorsdashboard', {replace: true, state: {user: exists}})
+                }
             }else {
                 alert('Wrong email or password')
             }

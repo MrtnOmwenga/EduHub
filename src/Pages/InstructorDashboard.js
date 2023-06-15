@@ -1,0 +1,60 @@
+import { useState, useEffect } from "react"
+import { useLocation } from "react-router-dom"
+import dash from './Style/Dashboard.module.css'
+import database from './Services/database'
+import { FaArrowRight } from "react-icons/fa";
+import { AiOutlinePlusCircle } from "react-icons/ai"
+import { Link } from "react-router-dom";
+
+const InstructorsDashboard =() => {
+    const location = useLocation()
+    const data = location.state.user
+    const [user, setUser] = useState({})
+
+    useEffect(() => {
+        database.getOne(data.id, 'instructor').then((response) => {
+            setUser(response)
+        })
+    }, [])
+
+    return (
+        <div className={dash.outer_container}>
+            <div className={dash.menu}>
+                <h3 className={dash.title}>HUB <br/> EDUCATION</h3>
+                <ul className={dash.menu_list}>
+                    <li className={dash.menu_item}>DASHBOARD</li>
+                    <Link to={'/courses'} className={dash.link}><li className={dash.menu_item}> COURSES </li></Link>
+                    <li className={dash.menu_item}>QUIZZES</li>
+                    <li className={dash.menu_item}>INSTRUCTORS</li>
+                    <li className={dash.menu_item}>ACCOUNT</li>
+                </ul>
+            </div>
+            <div className={dash.content}>
+                <h2 className={dash.main_title}>Welcome {user.name}</h2>
+                <table className={dash.course_list}>
+                    <thead className={dash.table_head}>
+                        <th> COURSE NAME</th>
+                        <th> STUDENTS</th>
+                        <th>  </th>
+                    </thead>
+                    <tbody>
+                    {user.courses?.map(course => {
+                        return (
+                            <tr className={dash.course_element} key={course.id}>
+                                <th className={dash.course_name}>{course.name}</th>
+                                <th className={dash.course_grade}>{course.students}</th>
+                                <th className={dash.course_button}>
+                                    <button className={dash.course_btn}> View <FaArrowRight className={dash.course_txt}/> </button>
+                                </th>
+                            </tr>
+                        )
+                    })}
+                    </tbody>
+                </table>
+            </div>
+            <Link to={'/newcourse'}> <AiOutlinePlusCircle size={30} className={dash.plus_button}/> </Link>
+        </div>
+    )
+}
+
+export default InstructorsDashboard
