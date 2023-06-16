@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import register from './Style/Register.module.css'
 import { Link, useNavigate } from 'react-router-dom'
 import database from './Services/database'
+import Session from './Services/Session'
 
 const RegisterForm = ({user, nameChange, emailChange, 
     passwordChange, onSubmit}) => {
@@ -42,8 +43,10 @@ const Register = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        database.getAll(user).then(response => setPersons(response))
-      }, [user])
+        database.getAll(user).then(response => setPersons(response)).catch((err) => {
+            navigate('/errorpage')
+        })
+      }, [user, navigate])
 
     const changeUser = () => {
         if (user === 'Student') {
@@ -73,7 +76,7 @@ const Register = () => {
     }
 
     const addStudent = (event) => {
-        event.preventDefault()
+        //event.preventDefault()
         const exists = persons.find((person) => person.email === newEmail)
         if (exists !== undefined)
         {
@@ -83,7 +86,8 @@ const Register = () => {
                 name: newName,
                 email: newEmail,
                 password: newPassword,
-                id: persons.length + 1
+                id: persons.length + 1,
+                courses: []
             }
     
             database.addPerson(newObject, user).then(response => {
@@ -91,12 +95,19 @@ const Register = () => {
                 setNewName('')
                 setNewEmail('')
                 setNewPassword('')
+            }).catch((err) => {
+                navigate('/errorpage')
             })
-            if (user === 'Student') {
-                navigate('/studentsdashboard', {replace: true, state: {user: exists}})
+            
+            Session.setName(newObject.name)
+            Session.setId(newObject.id)
+            Session.setUsertype(user)
+            navigate('/login', {replace: true})
+            /*if (user === 'Student') {
+                navigate('/studentsdashboard', {replace: true, state: {user: newObject}})
             }else {
-                navigate('/instructorsdashboard', {replace: true, state: {user: exists}})
-            }
+                navigate('/instructorsdashboard', {replace: true, state: {user: newObject}})
+            }*/
             
         }
     }

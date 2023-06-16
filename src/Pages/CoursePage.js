@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import courseStyle from './Style/Courses.module.css'
 import database from './Services/database'
 import { FaArrowRight } from "react-icons/fa";
@@ -10,18 +10,20 @@ const CoursePage = () => {
     const [courses, setCourse] = useState()
     const [filter, setFilter] = useState('')
     const location = useLocation()
+    const navigate = useNavigate()
 
     useEffect(() => {
         database.getOne(location.state.id, 'courses').then((course) => {
             setCourse(course)
+        }).catch((err) => {
+            navigate('/errorpage')
         })
-    }, [location.state.id])
+    }, [location.state.id, navigate])
 
     const searchFilter = (event) => {
         setFilter(event.target.value)
     }
 
-    console.log(courses)
     const filteredData = courses?.modules.filter((module) => module.name.toLowerCase() === filter.toLowerCase())
     const coursesFiltered = filteredData?.length === 0 ? courses?.modules : filteredData
 

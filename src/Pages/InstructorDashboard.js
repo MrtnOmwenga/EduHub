@@ -5,6 +5,7 @@ import database from './Services/database'
 import { FaArrowRight } from "react-icons/fa";
 import { AiOutlinePlusCircle } from "react-icons/ai"
 import { Link, useNavigate } from "react-router-dom";
+import Session from "./Services/Session";
 
 const InstructorsDashboard =() => {
     const location = useLocation()
@@ -15,8 +16,10 @@ const InstructorsDashboard =() => {
     useEffect(() => {
         database.getOne(data.id, 'instructor').then((response) => {
             setUser(response)
+        }).catch((err) => {
+            navigate('/errorpage')
         })
-    }, [data.id])
+    }, [data.id, navigate])
 
     const viewCourse = (id) => {
         navigate('/coursepage', {replace: true, state: {id : id}})
@@ -38,9 +41,11 @@ const InstructorsDashboard =() => {
                 <h2 className={dash.main_title}>Welcome {user.name}</h2>
                 <table className={dash.course_list}>
                     <thead className={dash.table_head}>
-                        <th> COURSE NAME</th>
-                        <th> STUDENTS</th>
-                        <th>  </th>
+                        <tr>
+                            <th> COURSE NAME</th>
+                            <th> STUDENTS</th>
+                            <th>  </th>
+                        </tr>
                     </thead>
                     <tbody>
                     {user.courses?.map(course => {

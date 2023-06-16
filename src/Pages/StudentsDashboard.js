@@ -4,6 +4,7 @@ import dash from './Style/Dashboard.module.css'
 import database from './Services/database'
 import { FaArrowRight } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import Session from './Services/Session'
 
 const StudentsDashboard = () => {
     const location = useLocation()
@@ -14,8 +15,10 @@ const StudentsDashboard = () => {
     useEffect(() => {
         database.getOne(data.id, 'student').then((response) => {
             setUser(response)
+        }).catch((err) => {
+            navigate('/errorpage')
         })
-    }, [data.id])
+    }, [data.id, navigate])
 
     const viewCourse = (id) => {
         navigate('/coursepage', {replace: true, state: {id : id}})

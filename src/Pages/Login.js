@@ -37,8 +37,10 @@ const Login = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        database.getAll(user).then(response => setPersons(response))
-      }, [user])
+        database.getAll(user).then(response => setPersons(response)).catch((err) => {
+            navigate('/errorpage')
+        })
+      }, [user, navigate])
 
     const changeUser = () => {
         if (user === 'Student') {

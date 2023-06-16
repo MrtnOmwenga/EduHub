@@ -6,6 +6,7 @@ import InstructorsDashboard from './Pages/InstructorDashboard'
 import Courses from './Pages/Courses'
 import NewCourse from './Pages/NewCourse'
 import CoursePage from './Pages/CoursePage'
+import ErrorPage from './Pages/ErrorPage'
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path={'/courses'} element={<Courses />} />
         <Route path={'/newcourse'} element={<NewCourse />} />
         <Route path={'/coursepage'} element={<CoursePage />} />
+        <Route path={'/errorpage'} element={<ErrorPage />} />
       </Routes>
     </Router>
   );

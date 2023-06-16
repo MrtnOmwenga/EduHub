@@ -13,17 +13,22 @@ const NewCourse = () => {
     const [courses, setCourses] = useState([])
     const [instructor, setInstructor] = useState('')
     const navigate = useNavigate()
+    
     const user = {name: Session.getName(), id: Session.getId()}
 
     useEffect((courses) => {
         database.getCourses().then((course) => {
             setCourses(courses.concat(course))
+        }).catch((err) => {
+            navigate('/errorpage')
         })
 
         database.getOne(user.id, 'Instructor').then(instructor => {
             setInstructor(instructor)
+        }).catch((err) => {
+            navigate('/errorpage')
         })
-    }, [user.id])
+    }, [user.id, navigate])
 
     const moduleChange = (event) => {
         setModuleName(event.target.value)
@@ -83,8 +88,12 @@ const NewCourse = () => {
 
         database.addCourse(newObject).then(response => {
             setCourses(courses.concat(response))
+        }).catch((err) => {
+            navigate('/errorpage')
         })
-        database.updateInstructor(user.id, newInstructor)
+        database.updateInstructor(user.id, newInstructor).catch((err) => {
+            navigate('/errorpage')
+        })
         navigate('/instructorsdashboard', {replace: true, state: {user}})
     }
 

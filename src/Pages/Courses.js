@@ -11,17 +11,22 @@ const Courses = () => {
     const [filter, setFilter] = useState('')
     const [student, setStudent] = useState('')
     const navigate = useNavigate()
+    
     const user = {name: Session.getName(), id: Session.getId()}
 
     useEffect((courses) => {
         database.getCourses().then((course) => {
             setCourse(course)
+        }).catch((err) => {
+            navigate('/errorpage')
         })
 
         database.getOne(user.id, 'Student').then(student => {
             setStudent(student)
+        }).catch((err) => {
+            navigate('/errorpage')
         })
-    }, [user.id])
+    }, [user.id, navigate])
 
     const searchFilter = (event) => {
         setFilter(event.target.value)
@@ -30,14 +35,17 @@ const Courses = () => {
     const viewCourse = (course) => {
         if (Session.getUser() === 'Student') {
             const exists = student.courses.filter(enrolled_course => enrolled_course.id === course.id)
-            if (exists === undefined) {
+            console.log(exists)
+            if (exists === undefined || exists.length === 0) {
                 const newStudent = {...student, courses: student.courses.concat({
                     name: course.name,
                     id: course.id,
                     grade: 0
                 })}
 
-                database.updatePerson(user.id, newStudent)
+                database.updatePerson(user.id, newStudent).catch((err) => {
+                    navigate('/errorpage')
+                })
             }else {
                 alert ("You are already enrolled to this course")
             }

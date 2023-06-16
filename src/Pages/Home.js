@@ -18,7 +18,7 @@ const Home =() => {
                         <h1 className={style.title}> HUB <br/> EDUCATION </h1>
                         <h3 className={style.bite}> LEARN. GROW. PROSPER</h3>
                         <h5 className={style.text1}> SELFPACED ON DEMAND LEARNING ANYWHERE ANY TIME </h5>
-                        <Link to={'/login'}>
+                        <Link to={'/register'}>
                             <button className={style.registerbutton}> <p className={style.buttontext}>REGISTER NOW</p> </button>
                         </Link>
                     </div>
