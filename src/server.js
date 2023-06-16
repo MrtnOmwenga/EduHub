@@ -1,33 +1,32 @@
-const students = require('./Database/Students').students
 const express = require('express')
+const multer = require('multer')
+const cors = require('cors')
+
 const app = express()
 
-var cors = require('cors');
 app.use(cors());
 
-app.get('/', (request, response) => {
-  response.send('<h1>Hello World!</h1>')
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public')
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname)
+  }
 })
 
-app.get('/api/students', (request, response) => {
-  response.json(students)
+const upload = multer({storage}).single('file')
+
+app.post('/upload', (req, res) => {
+  upload(req, res, (err) => {
+    if (err){
+      return res.status(500).json(err)
+    }
+    return res.status(200).send(req.file)
+  })
 })
 
-app.post('/api/students', (request, response) => {
-    const student = request.body
-    students.push(student)
-    console.log(students)
-    response.json(student)
-  })
-
-app.delete('/api/notes/:id', (request, response) => {
-    const id = Number(request.params.id)
-    notes = notes.filter(note => note.id !== id)
-  
-    response.status(204).end()
-  })
-
-const PORT = 3001
+const PORT = 3006
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })

@@ -1,19 +1,20 @@
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import courseStyle from './Style/Courses.module.css'
 import database from './Services/database'
 import { FaArrowRight } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import Session from './Services/Session'
-import { useNavigate } from 'react-router-dom'
 
-const Courses = () => {
-    const [courses, setCourse] = useState([])
+const CoursePage = () => {
+    const [courses, setCourse] = useState()
     const [filter, setFilter] = useState('')
-    const navigate = useNavigate()
+    const location = useLocation()
 
     useEffect(() => {
-        database.getCourses().then((course) => {
-            setCourse(courses.concat(course))
+        database.getOne(location.state.id, 'courses').then((course) => {
+            console.log(course)
+            setCourse(course)
         })
     }, [])
 
@@ -21,24 +22,20 @@ const Courses = () => {
         setFilter(event.target.value)
     }
 
-    const viewCourse = (id) => {
-        navigate('/coursepage', {replace: true, state: {id : id}})
-    }
-
-    const filteredData = courses.filter((course) => course.name.toLowerCase() === filter.toLowerCase())
-    const coursesFiltered = filteredData.length === 0 ? courses : filteredData
+    console.log(courses)
+    const filteredData = courses?.modules.filter((module) => module.name.toLowerCase() === filter.toLowerCase())
+    const coursesFiltered = filteredData?.length === 0 ? courses?.modules : filteredData
 
     const user = {name: Session.getName(), id: Session.getId()}
 
     let baseUrl = Session.getUser() === 'Student' ? '/studentsdashboard' : '/instructorsdashboard'
-    let buttonText = Session.getUser() === 'Student' ? 'Enroll' : 'View'
 
     return (
         <div className={courseStyle.outer_container}>
             <Link to={baseUrl} state={{user}} className={courseStyle.back}>
                 <p className={courseStyle.back}> Back </p>
             </Link>
-            <h3 className={courseStyle.title}>All courses</h3>
+            <h3 className={courseStyle.title}>All Modules</h3>
             <input className={courseStyle.filter} placeholder='Search' onChange={searchFilter} value={filter}/>
             <ul className={courseStyle.course_list}>
                 {coursesFiltered?.map(course => {
@@ -46,9 +43,9 @@ const Courses = () => {
                         <li className={courseStyle.course_element} key={course.id}>
                             <div className={courseStyle.course_info}>
                                 <h4 className={courseStyle.course_name}>{course.name} </h4>
-                                <p className={courseStyle.course_instructor}> {course.instructor} </p>
+                                <p className={courseStyle.course_instructor}> {course.file} </p>
                             </div>
-                            <button className={courseStyle.enroll_button} onClick={() => viewCourse(course.id)}> {buttonText} <FaArrowRight className={courseStyle.course_icon}/></button>
+                            <button className={courseStyle.enroll_button}> View <FaArrowRight className={courseStyle.course_icon}/></button>
                         </li>
                     )
                 })}
@@ -57,4 +54,4 @@ const Courses = () => {
     )
 }
 
-export default Courses
+export default CoursePage

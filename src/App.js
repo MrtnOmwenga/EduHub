@@ -5,6 +5,7 @@ import StudentsDashboard from './Pages/StudentsDashboard'
 import InstructorsDashboard from './Pages/InstructorDashboard'
 import Courses from './Pages/Courses'
 import NewCourse from './Pages/NewCourse'
+import CoursePage from './Pages/CoursePage'
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path={'/instructorsdashboard'} element={<InstructorsDashboard />} />
         <Route path={'/courses'} element={<Courses />} />
         <Route path={'/newcourse'} element={<NewCourse />} />
+        <Route path={'/coursepage'} element={<CoursePage />} />
       </Routes>
     </Router>
   );

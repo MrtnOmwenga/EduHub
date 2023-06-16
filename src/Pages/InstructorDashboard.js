@@ -4,18 +4,23 @@ import dash from './Style/Dashboard.module.css'
 import database from './Services/database'
 import { FaArrowRight } from "react-icons/fa";
 import { AiOutlinePlusCircle } from "react-icons/ai"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const InstructorsDashboard =() => {
     const location = useLocation()
     const data = location.state.user
     const [user, setUser] = useState({})
+    const navigate = useNavigate()
 
     useEffect(() => {
         database.getOne(data.id, 'instructor').then((response) => {
             setUser(response)
         })
     }, [])
+
+    const viewCourse = (id) => {
+        navigate('/coursepage', {replace: true, state: {id : id}})
+    }
 
     return (
         <div className={dash.outer_container}>
@@ -44,7 +49,7 @@ const InstructorsDashboard =() => {
                                 <th className={dash.course_name}>{course.name}</th>
                                 <th className={dash.course_grade}>{course.students}</th>
                                 <th className={dash.course_button}>
-                                    <button className={dash.course_btn}> View <FaArrowRight className={dash.course_txt}/> </button>
+                                    <button className={dash.course_btn} onClick={() => viewCourse(course.id)}> View <FaArrowRight className={dash.course_txt}/> </button>
                                 </th>
                             </tr>
                         )

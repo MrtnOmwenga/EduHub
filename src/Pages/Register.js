@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import register from './Style/Register.module.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import database from './Services/database'
 
 const RegisterForm = ({user, nameChange, emailChange, 
@@ -39,6 +39,7 @@ const Register = () => {
     const [newName, setNewName] = useState('')
     const [newEmail, setNewEmail] = useState('')
     const [newPassword, setNewPassword] = useState('')
+    const navigate = useNavigate()
 
     useEffect(() => {
         database.getAll(user).then(response => setPersons(response))
@@ -91,6 +92,12 @@ const Register = () => {
                 setNewEmail('')
                 setNewPassword('')
             })
+            if (user === 'Student') {
+                navigate('/studentsdashboard', {replace: true, state: {user: exists}})
+            }else {
+                navigate('/instructorsdashboard', {replace: true, state: {user: exists}})
+            }
+            
         }
     }
 

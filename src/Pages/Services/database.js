@@ -16,12 +16,22 @@ const addPerson = (newObject, user) => {
     return response.then(response => response.data)
 }
 
+const addCourse = (newObject) => {
+    const response = axios.post(`${baseUrl}/courses`, newObject)
+    return response.then(response => response.data)
+}
+
 const deletePerson = (id) => {
     axios.delete(`${baseUrl}/${id}`)
 }
 
 const updatePerson = (id, newObject) => {
-    const response = axios.put(`${baseUrl}/${id}`, newObject)
+    const response = axios.put(`${baseUrl}/student/${id}`, newObject)
+    return response.then(response => response.data)
+}
+
+const updateInstructor = (id, newObject) => {
+    const response = axios.put(`${baseUrl}/instructor/${id}`, newObject)
     return response.then(response => response.data)
 }
 
@@ -30,5 +40,8 @@ const getCourses = () => {
     return response.then(response => response.data)
 }
 
-const database = {getAll, addPerson, deletePerson, updatePerson, getOne, getCourses}
+const database = {getAll, addPerson, deletePerson, 
+    updatePerson, getOne, getCourses, addCourse,
+    updateInstructor
+}
 export default database
