@@ -15,7 +15,7 @@ const NewCourse = () => {
     const navigate = useNavigate()
     const user = {name: Session.getName(), id: Session.getId()}
 
-    useEffect(() => {
+    useEffect((courses) => {
         database.getCourses().then((course) => {
             setCourses(courses.concat(course))
         })
@@ -23,7 +23,7 @@ const NewCourse = () => {
         database.getOne(user.id, 'Instructor').then(instructor => {
             setInstructor(instructor)
         })
-    }, [])
+    }, [user.id])
 
     const moduleChange = (event) => {
         setModuleName(event.target.value)

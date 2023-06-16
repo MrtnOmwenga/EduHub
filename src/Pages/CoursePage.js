@@ -13,10 +13,9 @@ const CoursePage = () => {
 
     useEffect(() => {
         database.getOne(location.state.id, 'courses').then((course) => {
-            console.log(course)
             setCourse(course)
         })
-    }, [])
+    }, [location.state.id])
 
     const searchFilter = (event) => {
         setFilter(event.target.value)

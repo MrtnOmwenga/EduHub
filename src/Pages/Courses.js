@@ -9,26 +9,44 @@ import { useNavigate } from 'react-router-dom'
 const Courses = () => {
     const [courses, setCourse] = useState([])
     const [filter, setFilter] = useState('')
+    const [student, setStudent] = useState('')
     const navigate = useNavigate()
+    const user = {name: Session.getName(), id: Session.getId()}
 
-    useEffect(() => {
+    useEffect((courses) => {
         database.getCourses().then((course) => {
-            setCourse(courses.concat(course))
+            setCourse(course)
         })
-    }, [])
+
+        database.getOne(user.id, 'Student').then(student => {
+            setStudent(student)
+        })
+    }, [user.id])
 
     const searchFilter = (event) => {
         setFilter(event.target.value)
     }
 
-    const viewCourse = (id) => {
-        navigate('/coursepage', {replace: true, state: {id : id}})
+    const viewCourse = (course) => {
+        if (Session.getUser() === 'Student') {
+            const exists = student.courses.filter(enrolled_course => enrolled_course.id === course.id)
+            if (exists === undefined) {
+                const newStudent = {...student, courses: student.courses.concat({
+                    name: course.name,
+                    id: course.id,
+                    grade: 0
+                })}
+
+                database.updatePerson(user.id, newStudent)
+            }else {
+                alert ("You are already enrolled to this course")
+            }
+        }
+        navigate('/coursepage', {replace: true, state: {id : course.id}})
     }
 
     const filteredData = courses.filter((course) => course.name.toLowerCase() === filter.toLowerCase())
     const coursesFiltered = filteredData.length === 0 ? courses : filteredData
-
-    const user = {name: Session.getName(), id: Session.getId()}
 
     let baseUrl = Session.getUser() === 'Student' ? '/studentsdashboard' : '/instructorsdashboard'
     let buttonText = Session.getUser() === 'Student' ? 'Enroll' : 'View'
@@ -48,7 +66,7 @@ const Courses = () => {
                                 <h4 className={courseStyle.course_name}>{course.name} </h4>
                                 <p className={courseStyle.course_instructor}> {course.instructor} </p>
                             </div>
-                            <button className={courseStyle.enroll_button} onClick={() => viewCourse(course.id)}> {buttonText} <FaArrowRight className={courseStyle.course_icon}/></button>
+                            <button className={courseStyle.enroll_button} onClick={() => viewCourse(course)}> {buttonText} <FaArrowRight className={courseStyle.course_icon}/></button>
                         </li>
                     )
                 })}

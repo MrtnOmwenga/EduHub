@@ -15,7 +15,7 @@ const StudentsDashboard = () => {
         database.getOne(data.id, 'student').then((response) => {
             setUser(response)
         })
-    }, [])
+    }, [data.id])
 
     const viewCourse = (id) => {
         navigate('/coursepage', {replace: true, state: {id : id}})
@@ -37,9 +37,11 @@ const StudentsDashboard = () => {
                 <h2 className={dash.main_title}>Welcome {user.name}</h2>
                 <table className={dash.course_list}>
                     <thead className={dash.table_head}>
-                        <th> COURSE NAME</th>
-                        <th> GRADE</th>
-                        <th>  </th>
+                        <tr>
+                            <th> COURSE NAME</th>
+                            <th> GRADE</th>
+                            <th>  </th>
+                        </tr>
                     </thead>
                     <tbody>
                     {user.courses?.map(course => {

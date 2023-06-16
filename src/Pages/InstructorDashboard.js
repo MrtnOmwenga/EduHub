@@ -16,7 +16,7 @@ const InstructorsDashboard =() => {
         database.getOne(data.id, 'instructor').then((response) => {
             setUser(response)
         })
-    }, [])
+    }, [data.id])
 
     const viewCourse = (id) => {
         navigate('/coursepage', {replace: true, state: {id : id}})
