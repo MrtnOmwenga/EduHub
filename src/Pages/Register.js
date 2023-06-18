@@ -4,6 +4,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import database from './Services/database'
 import Session from './Services/Session'
 
+var bcrypt = require('bcryptjs');
+var salt = bcrypt.genSaltSync(10);
+
 const RegisterForm = ({user, nameChange, emailChange, 
     passwordChange, onSubmit}) => {
 
@@ -82,10 +85,11 @@ const Register = () => {
         {
             alert(newEmail + " is already exists")
         } else {
+            var hash = bcrypt.hashSync(newPassword, salt);
             const newObject = {
                 name: newName,
                 email: newEmail,
-                password: newPassword,
+                password: hash,  //newPassword
                 id: persons.length + 1,
                 courses: []
             }

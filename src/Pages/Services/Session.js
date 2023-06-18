@@ -3,7 +3,6 @@ const Session = (function() {
     let username = ""
     let userid = 0
     let usertype = ""
-    let status = false
 
     const getName = function() {
         return username;
@@ -37,10 +36,6 @@ const Session = (function() {
         usertype = user;
     };
 
-    const setStatus = function(bool) {
-        status = bool;
-    }
-
     return {
         getName: getName,
         setName: setName,
@@ -49,7 +44,6 @@ const Session = (function() {
         getUser: getUser,
         setUsertype: setUsertype,
         getStatus: getStatus,
-        setStatus: setStatus
       }
 })();
 

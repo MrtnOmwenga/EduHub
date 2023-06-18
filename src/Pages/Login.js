@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import database from './Services/database'
 import Session from './Services/Session'
 
+var bcrypt = require('bcryptjs');
+
 const LoginForm = ({user, emailChange, passwordChange, onSubmit}) => {
 
     return (
@@ -69,7 +71,7 @@ const Login = () => {
         event.preventDefault()
         const exists = persons.find((person) => person.email === newEmail)
         if (exists !== undefined) {
-            if (exists.password === newPassword) {
+            if (bcrypt.compareSync(newPassword, exists.password)) { //exists.password === newPassword
                 Session.setName(exists.name)
                 Session.setId(exists.id)
                 Session.setUsertype(user)

@@ -5,7 +5,7 @@ import database from './Services/database'
 import { FaArrowRight } from "react-icons/fa";
 import { AiOutlinePlusCircle } from "react-icons/ai"
 import { Link, useNavigate } from "react-router-dom";
-import Session from "./Services/Session";
+//import Session from "./Services/Session";
 
 const InstructorsDashboard =() => {
     const location = useLocation()

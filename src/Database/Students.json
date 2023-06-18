@@ -3,7 +3,7 @@
     {
       "name": "Arto Hellas",
       "email": "artohellas@gmail.com",
-      "password": "foobar",
+      "password": "$2a$10$m.LqguHbxRa4UKzCw.t6mudaRPZrethCZsSS9FpZMuttaM476T5.C",
       "id": 1,
       "courses": [
         {
@@ -29,7 +29,7 @@
     {
       "name": "Ada Lovelace",
       "email": "adalovelace@gmail.com",
-      "password": "foobar",
+      "password": "$2a$10$m.LqguHbxRa4UKzCw.t6mudaRPZrethCZsSS9FpZMuttaM476T5.C",
       "id": 2,
       "courses": [
         {
@@ -61,7 +61,7 @@
     {
       "name": "Dan Abramov",
       "email": "danabramov@gmail.com",
-      "password": "foobar",
+      "password": "$2a$10$m.LqguHbxRa4UKzCw.t6mudaRPZrethCZsSS9FpZMuttaM476T5.C",
       "id": 3,
       "courses": [
         {
@@ -87,7 +87,7 @@
     {
       "name": "Mary Poppendieck",
       "email": "marypoppendieck@gmail.com",
-      "password": "foobar",
+      "password": "$2a$10$m.LqguHbxRa4UKzCw.t6mudaRPZrethCZsSS9FpZMuttaM476T5.C",
       "id": 4,
       "courses": [
         {
@@ -107,7 +107,7 @@
     {
       "name": "Kevin Cozner",
       "email": "kevincozner@gmail.com",
-      "password": "foobar",
+      "password": "$2a$10$m.LqguHbxRa4UKzCw.t6mudaRPZrethCZsSS9FpZMuttaM476T5.C",
       "id": 5,
       "courses": [
         {
@@ -145,7 +145,7 @@
     {
       "name": "Angeline Jolie",
       "email": "angelinajolie@gmail.com",
-      "password": "foobar",
+      "password": "$2a$10$m.LqguHbxRa4UKzCw.t6mudaRPZrethCZsSS9FpZMuttaM476T5.C",
       "id": 6,
       "courses": [
         {
