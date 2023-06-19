@@ -40,8 +40,13 @@ const getCourses = () => {
     return response.then(response => response.data)
 }
 
+const saveFile = (data) => {
+    const response = axios.post('//localhost:3006/upload', data)
+    return response
+}
+
 const database = {getAll, addPerson, deletePerson, 
     updatePerson, getOne, getCourses, addCourse,
-    updateInstructor
+    updateInstructor, saveFile
 }
 export default database

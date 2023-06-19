@@ -49,6 +49,8 @@
 .module_link {
     grid-column-start: 2;
     width: 70%;
+    padding-top: 3%;
+    border: none;
 }
 
 .add_module {

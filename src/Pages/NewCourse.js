@@ -9,24 +9,20 @@ const NewCourse = () => {
     const [courseName, setCourseName] = useState('')
     const [modules, setModules] = useState([])
     const [moduleName, setModuleName] = useState('')
-    const [file, setFile] = useState('')
+    const [file, setFile] = useState(null)
     const [courses, setCourses] = useState([])
     const [instructor, setInstructor] = useState('')
     const navigate = useNavigate()
     
     const user = {name: Session.getName(), id: Session.getId()}
 
-    useEffect((courses) => {
+    useEffect(() => {
         database.getCourses().then((course) => {
-            setCourses(courses.concat(course))
-        }).catch((err) => {
-            navigate('/errorpage')
+            setCourses(course)
         })
 
         database.getOne(user.id, 'Instructor').then(instructor => {
             setInstructor(instructor)
-        }).catch((err) => {
-            navigate('/errorpage')
         })
     }, [user.id, navigate])
 
@@ -35,26 +31,46 @@ const NewCourse = () => {
     }
 
     const fileChange = (event) => {
-        setFile(event.target.value)
+        setFile(event.target.files[0])
     }
 
     const addModule =(event) => {
-        const newObject = {
-            name: moduleName,
-            file: file
-        }
-        setModules(modules.concat(newObject))
-        setModuleName('')
-        setFile('')
+        event.preventDefault()
 
-        setModuleCount(moduleCount + 1)
+        if (file) {
+            const newObject = {
+                name: moduleName,
+                file: moduleName + '-' + file.name
+            }
+    
+            const renamedFile = new File([file], moduleName + '-' + file.name)
+            
+            const data = new FormData()
+            data.append('file', renamedFile)
+    
+            database.saveFile(data).then((e) => {
+                console.log('Success')
+            }).catch((e) => {
+                console.error('Error', e)
+            })
+    
+            setModules(modules.concat(newObject))
+            setModuleName('')
+            setFile(null)
+    
+            setModuleCount(moduleCount + 1)
+        }else {
+            alert('Please Choose File before Adding another module')
+        } 
     }
 
     var content = []
     for (let count=0; count < moduleCount; count++) {
         content.push(<div className={newCourse.module_element}>
-                <input key={'module'+count} className={newCourse.module_name} type='text' onChange={moduleChange} placeholder='Module name'/>
-                <input key={'file'+count} className={newCourse.module_link} type='text' onChange={fileChange} placeholder='Paste document Link'/>
+                <input key={'module'+count} className={newCourse.module_name} 
+                type='text' onChange={moduleChange} placeholder='Module name'/>
+                <input key={'file'+count} className={newCourse.module_link} 
+                type='file' onChange={fileChange} accept='application/pdf'/>
             </div>)
     }
 
@@ -64,8 +80,6 @@ const NewCourse = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log(courseName)
-        console.log(modules)
         const newObject = {
             name: courseName,
             id: courses.length + 1,

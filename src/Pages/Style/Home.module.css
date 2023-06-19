@@ -82,6 +82,9 @@
 
     margin-left: 2em;
     margin-bottom: 10%;
+
+    font-family: 'Oxygen', sans-serif;
+    text-decoration: none;
 }
 .registerbutton:hover {
     background-color: beige;
@@ -90,8 +93,8 @@
 
 .buttontext {
     font-family: 'Oxygen', sans-serif;
-    color: beige;
     text-decoration: none;
+    color: beige;
 }
 
 .Section2 {

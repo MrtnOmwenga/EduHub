@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import courseStyle from './Style/Courses.module.css'
 import database from './Services/database'
-import { FaArrowRight } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import Session from './Services/Session'
 
@@ -42,11 +41,10 @@ const CoursePage = () => {
                 {coursesFiltered?.map(course => {
                     return (
                         <li className={courseStyle.course_element} key={course.id}>
-                            <div className={courseStyle.course_info}>
+                            <Link to={'/documentviewer'} state={{file: course.file}} className={`${courseStyle.course_info} ${courseStyle.document_link} `}>
                                 <h4 className={courseStyle.course_name}>{course.name} </h4>
                                 <p className={courseStyle.course_instructor}> {course.file} </p>
-                            </div>
-                            <button className={courseStyle.enroll_button}> View <FaArrowRight className={courseStyle.course_icon}/></button>
+                            </Link>
                         </li>
                     )
                 })}

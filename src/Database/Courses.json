@@ -6,7 +6,8 @@
         "instructor": "Ada Lovelace",
         "modules": [
             {
-                "name": "Resources"
+                "name": "Resources",
+                "file": "Resources-Business Management And Organization Booklet.pdf"
             }
         ]
       },
@@ -16,7 +17,8 @@
         "instructor": "Martin Omwenga",
         "modules": [
             {
-                "name": "Excel"
+                "name": "Excel",
+                "file": "Excel-Excel Cheat Sheet.pdf"
             }
         ]
       },
@@ -26,7 +28,8 @@
         "instructor": "Dan Abramov",
         "modules": [
             {
-                "name": "Federal law"
+                "name": "Federal law",
+                "file": "Federal Law-LN145_2019.pdf"
             }
         ]
       },
@@ -36,7 +39,8 @@
         "instructor": "Mary Poppendick",
         "modules": [
             {
-                "name": "Strength of Materials"
+                "name": "Strength of Materials",
+                "file": "Strength of Materials-Strain & Mechanical properties_27075125.pdf"
             }
         ]
       },
@@ -46,7 +50,8 @@
         "instructor": "Martin Omwenga",
         "modules": [
             {
-                "name": "Combined Loading"
+                "name": "Combined Loading",
+                "file": "Combined Loading-Combined Loading.pdf"
             }
         ]
       },
@@ -56,7 +61,8 @@
         "instructor": "Ada Lovelace",
         "modules": [
             {
-                "name": "CAD"
+                "name": "CAD",
+                "file": "CAD-SOLID MODELING IN ENGINEERING.pdf"
             }
         ]
       },
@@ -66,7 +72,8 @@
         "instructor": "Dan abramov",
         "modules": [
             {
-                "name": "ACCA"
+                "name": "ACCA",
+                "file": "Engineering Accounting-ACCA.pdf"
             }
         ]
       },
