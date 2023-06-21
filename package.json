@@ -34,7 +34,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "nodemon src/Pages/Services/Server/server.js",
-    "server": "json-server -p3001 --watch src/Database/Database.js"
+    "server": "node src/Database/jsonServer.js"
   },
   "eslintConfig": {
     "extends": [
