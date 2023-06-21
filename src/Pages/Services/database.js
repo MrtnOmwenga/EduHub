@@ -1,5 +1,6 @@
-import axios from 'axios'
-const baseUrl = 'http://localhost:3001'
+import axios from 'axios';
+const baseUrl = 'https://hubeducation-json-server.onrender.com';//'http://localhost:3001'
+const uploadUrl = 'https://hubeducation-express-server.onrender.com'
 
 const getAll = (user) => {
     const response = axios.get(`${baseUrl}/${user.toLowerCase()}`)
@@ -41,7 +42,7 @@ const getCourses = () => {
 }
 
 const saveFile = (data) => {
-    const response = axios.post('//localhost:3006/upload', data)
+    const response = axios.post(`${uploadUrl}/upload`, data)
     return response
 }
 

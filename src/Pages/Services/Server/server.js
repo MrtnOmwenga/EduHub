@@ -32,7 +32,7 @@ app.post('/name', (req, res) => {
     console.log(name)
 })
 
-const PORT = 3006
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`App is running on ${PORT}`)
 });
