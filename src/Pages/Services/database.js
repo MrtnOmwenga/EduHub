@@ -1,6 +1,6 @@
 import axios from 'axios';
-const baseUrl = 'https://hubeducation-json-server.onrender.com';//'http://localhost:3001'
-const uploadUrl = 'https://hubeducation-express-server.onrender.com'
+const baseUrl = 'https://hubeducation-json-server.onrender.com'; //'http://localhost:3001';
+const uploadUrl = 'https://hubeducation-express-server.onrender.com'; //'http://localhost:8000';
 
 const getAll = (user) => {
     const response = axios.get(`${baseUrl}/${user.toLowerCase()}`)
