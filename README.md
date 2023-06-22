@@ -10,7 +10,7 @@ Project Link: https://eduhub-t297.onrender.com/login
 
 *Clone the repository:*
 
-> https://github.com/MrtnOmwenga/EduHub.git
+> git clone https://github.com/MrtnOmwenga/EduHub.git
 
 *Install npm packages:*
 
