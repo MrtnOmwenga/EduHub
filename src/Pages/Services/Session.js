@@ -1,50 +1,48 @@
-const Session = (function() {
+const Session = (function session() {
+  let username = '';
+  let userid = 0;
+  let usertype = '';
 
-    let username = ""
-    let userid = 0
-    let usertype = ""
+  const getName = function getname() {
+    return username;
+  };
 
-    const getName = function() {
-        return username;
-    };
+  const getId = function getid() {
+    return userid;
+  };
 
-    const getId = function() {
-        return userid;
-    };
+  const getUser = function getuser() {
+    return usertype;
+  };
 
-    const getUser = function() {
-        return usertype;
-    };
-
-    const getStatus = function() {
-        if (username === "" || userid === 0 || usertype || "") {
-            return false
-        }else {
-            return true
-        }
+  const getStatus = function getstatus() {
+    if (username === '' || userid === 0 || usertype || '') {
+      return false;
     }
-    
-    const setName = function(name) {
-        username = name;     
-    };
+    return true;
+  };
 
-    const setId = function(id) {
-        userid = id;     
-    };
+  const setName = function setname(name) {
+    username = name;
+  };
 
-    const setUsertype = function(user) {
-        usertype = user;
-    };
+  const setId = function setid(id) {
+    userid = id;
+  };
 
-    return {
-        getName: getName,
-        setName: setName,
-        getId: getId,
-        setId: setId,
-        getUser: getUser,
-        setUsertype: setUsertype,
-        getStatus: getStatus,
-      }
-})();
+  const setUsertype = function setusertype(user) {
+    usertype = user;
+  };
 
-export default Session
+  return {
+    getName,
+    setName,
+    getId,
+    setId,
+    getUser,
+    setUsertype,
+    getStatus,
+  };
+}());
+
+export default Session;

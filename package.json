@@ -14,6 +14,7 @@
     "crypto-browserify": "^3.12.0",
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
+    "json-server": "^0.17.3",
     "multer": "^1.4.5-lts.1",
     "node-polyfill-webpack-plugin": "^2.0.1",
     "pdfjs-dist": "^2.15.349",
@@ -55,7 +56,12 @@
     ]
   },
   "devDependencies": {
-    "json-server": "^0.17.3",
+    "eslint": "^8.44.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "nodemon": "^2.0.22",
     "npm-run-all": "^4.1.5"
   }
