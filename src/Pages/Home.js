@@ -10,7 +10,7 @@ const Home = () => (
     <section className={style.Section1}>
       <nav className={style.navigation}>
         <button type="button" className={style.navbutton}>
-          <p className={style.buttontext}>
+          <p>
             <Link to="/login" className={style.buttontext}> LOGIN </Link>
             {' '}
             |

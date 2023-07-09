@@ -35,6 +35,12 @@
     color: beige;
 }
 
+.navbutton p .buttontext {
+    color: beige;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
 .navbutton:hover {
     border-bottom: solid;
     border-bottom-color: beige;
@@ -94,7 +100,6 @@
 .buttontext {
     font-family: 'Oxygen', sans-serif;
     text-decoration: none;
-    color: beige;
 }
 
 .Section2 {
@@ -172,6 +177,7 @@
 .subText {
     color: #115a65;
     font-family: 'Oxygen', sans-serif;
+    margin-top: 2%;
 }
 
 .ImageSlides {
@@ -253,6 +259,8 @@
 
 .Activitytitle {
     font-family: 'Oxygen', sans-serif;
+    margin-top: 5%;
+    margin-bottom: 5%;
     /*color: rgb(38, 48, 48);*/
 }
 

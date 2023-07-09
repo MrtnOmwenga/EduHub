@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
 import dash from './Style/Dashboard.module.css';
-import database from './Services/database';
+import database from '../Services/database';
 
 // import Session from './Services/Session'
 

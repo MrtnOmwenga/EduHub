@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import courseStyle from './Style/Courses.module.css';
-import database from './Services/database';
+import database from '../Services/database';
 
-import Session from './Services/Session';
+import Session from '../Services/Session';
 
 const CoursePage = () => {
   const [courses, setCourse] = useState();

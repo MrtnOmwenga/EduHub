@@ -9,7 +9,7 @@ import Courses from './Pages/Courses';
 import NewCourse from './Pages/NewCourse';
 import CoursePage from './Pages/CoursePage';
 import ErrorPage from './Pages/ErrorPage';
-import DocumentViewer from './Database/DocumentViewer';
+import DocumentViewer from './Components/DocumentViewer';
 
 const App = () => (
   <Router>

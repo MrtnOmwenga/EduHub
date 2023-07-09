@@ -3,7 +3,7 @@ import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import dash from './Style/Dashboard.module.css';
-import database from './Services/database';
+import database from '../Services/database';
 
 // import Session from "./Services/Session";
 

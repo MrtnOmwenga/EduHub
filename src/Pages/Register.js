@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import register from './Style/Register.module.css';
-import database from './Services/database';
-import Session from './Services/Session';
+import database from '../Services/database';
+import Session from '../Services/Session';
 
 const bcrypt = require('bcryptjs');
 

@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
+const path = require('path');
 
 const app = express();
 app.use(cors());
@@ -23,6 +24,11 @@ app.post('/upload', (req, res) => {
     }
     return res.status(200).send(req.file);
   });
+});
+
+app.get('/file', (req, res) => {
+  const filePath = req.query.fileName;
+  res.sendFile(path.join(__dirname, `/Files/${filePath}`));
 });
 
 const PORT = process.env.PORT || 8000;

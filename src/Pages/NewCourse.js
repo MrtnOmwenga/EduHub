@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import newCourse from './Style/NewCourse.module.css';
-import database from './Services/database';
-import Session from './Services/Session';
+import database from '../Services/database';
+import Session from '../Services/Session';
 
 const NewCourse = () => {
   const [moduleCount, setModuleCount] = useState(1);

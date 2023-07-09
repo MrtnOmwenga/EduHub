@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import courseStyle from './Style/Courses.module.css';
-import database from './Services/database';
-import Session from './Services/Session';
+import database from '../Services/database';
+import Session from '../Services/Session';
 
 const Courses = () => {
   const [courses, setCourse] = useState([]);

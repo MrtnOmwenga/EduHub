@@ -26,6 +26,8 @@ module.exports = {
     'linebreak-style': 0,
     'no-plusplus': 'off',
     'no-alert': 'off',
+    'import/no-dynamic-require': 0,
+    'global-require': 0,
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/prop-types': 'off',
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
