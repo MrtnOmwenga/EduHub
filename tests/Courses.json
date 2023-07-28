@@ -1,0 +1,182 @@
+{
+    "courses":[
+      { 
+        "name": "Business Development",
+        "instructor": "Ada Lovelace",
+        "modules": [
+            {
+                "name": "Resources",
+                "file": "Resources-Business Management And Organization Booklet.pdf"
+            }
+        ]
+      },
+      { 
+        "name": "Financial Analysis",
+        "instructor": "Martin Omwenga",
+        "modules": [
+            {
+                "name": "Excel",
+                "file": "Excel-Excel Cheat Sheet.pdf"
+            }
+        ]
+      },
+      { 
+        "name": "Investment Banking",
+        "instructor": "Dan Abramov",
+        "modules": [
+            {
+                "name": "Federal law",
+                "file": "Federal Law-LN145_2019.pdf"
+            }
+        ]
+      },
+      { 
+        "name": "Mechanical testing",
+        "instructor": "Mary Poppendick",
+        "modules": [
+            {
+                "name": "Strength of Materials",
+                "file": "Strength of Materials-Strain & Mechanical properties_27075125.pdf"
+            }
+        ]
+      },
+      { 
+        "name": "Solid and Structural Mechanics",
+        "instructor": "Martin Omwenga",
+        "modules": [
+            {
+                "name": "Combined Loading",
+                "file": "Combined Loading-Combined Loading.pdf"
+            }
+        ]
+      },
+      { 
+        "name": "Engineering Drawing",
+        "instructor": "Ada Lovelace",
+        "modules": [
+            {
+                "name": "CAD",
+                "file": "CAD-SOLID MODELING IN ENGINEERING.pdf"
+            }
+        ]
+      },
+      { 
+        "name": "Engineering Accounting",
+        "instructor": "Dan abramov",
+        "modules": [
+            {
+                "name": "ACCA",
+                "file": "Engineering Accounting-ACCA.pdf"
+            }
+        ]
+      },
+      { 
+        "name": "IT Maintenance",
+        "instructor": "Mary Poppendick",
+        "modules": [
+            {
+                "name": "Networks Overview"
+            }
+        ]
+      },
+      { 
+        "name": "Network Monitoring",
+        "instructor": "Martin Omwenga",
+        "modules": [
+            {
+                "name": "TCP/IP"
+            }
+        ]
+      },
+      { 
+        "name": "Cybersecurity Fundamentals",
+        "instructor": "Ada Lovelace",
+        "modules": [
+            {
+                "name": "DDOS"
+            }
+        ]
+      },
+      { 
+        "name": "Python Programming",
+        "instructor": "Dan Abramov",
+        "modules": [
+            {
+                "name": "Classes"
+            }
+        ]
+      },
+      { 
+        "name": "JavaScript Programming",
+        "instructor": "Mary Poppendick",
+        "modules": [
+            {
+                "name": "Hooks"
+            }
+        ]
+      },
+      { 
+        "name": "Software Engineering",
+        "instructor": "Ada Lovelace",
+        "modules": [
+            {
+                "name": "C Programming"
+            }
+        ]
+      },
+      { 
+        "name": "Cloud Engineering",
+        "instructor": "Martin Omwenga",
+        "modules": [
+            {
+                "name": "AWS"
+            }
+        ]
+      },
+      { 
+        "name": "Data Structures and Algorithms",
+        "instructor": "Dan Abramov",
+        "modules": [
+            {
+                "name": "Hash Tables"
+            }
+        ]
+      },
+      { 
+        "name": "Network Maintenance",
+        "instructor": "Mary Poppendick",
+        "modules": [
+            {
+                "name": "TCP/IP"
+            }
+        ]
+      },
+      { 
+        "name": "Neural Networks",
+        "instructor": "Ada Lovelace",
+        "modules": [
+            {
+                "name": "Algorithms"
+            }
+        ]
+      },
+      { 
+        "name": "Civil Structures",
+        "instructor": "Martin Omwenga",
+        "modules": [
+            {
+                "name": "Concrete"
+            }
+        ]
+      },
+      { 
+        "name": "Hydraulics",
+        "instructor": "Ada Lovelace",
+        "modules": [
+            {
+                "name": "Euler and Bernoulli"
+            }
+        ]
+      }
+    ]
+  }

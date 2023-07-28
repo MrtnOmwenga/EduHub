@@ -1,96 +1,45 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import login from './Style/Login.module.css';
-import database from '../Services/database';
-import Session from '../Services/Session';
+import LoginForm from '../Components/LoginForm';
+import LoginService from '../Services/Login';
 
-const bcrypt = require('bcryptjs');
 const eduhubJPG = require('./Style/Images/EduHub.png');
 
-const LoginForm = ({
-  user, emailChange, passwordChange, onSubmit,
-}) => (
-  <div className={login.loginform}>
-    <p className={login.title}>
-      {user}
-      {' '}
-      Login
-    </p>
-    <form onSubmit={onSubmit}>
-      <div className={login.inputbox}>
-        <input type="text" className={login.nameinput} onChange={emailChange} required />
-        { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
-        <label className={login.namelabel}> Email </label>
-      </div>
-      <div className={login.inputbox}>
-        <input type="password" className={login.nameinput} onChange={passwordChange} required />
-        { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
-        <label className={login.namelabel}> Password </label>
-      </div>
-      <div className={login.buttonDiv}>
-        <button type="submit" className={login.submitButton}> Login </button>
-      </div>
-    </form>
-    <Link to="/register" className={login.buttonDiv}>
-      <button type="button" className={login.register}> I don&apost Have an account</button>
-    </Link>
-  </div>
-);
-
 const Login = () => {
-  const [user, setUser] = useState('Student');
-  const [persons, setPersons] = useState([]);
-  const [newEmail, setNewEmail] = useState('');
-  const [newPassword, setNewPassword] = useState('');
+  const [UserType, setUsertype] = useState('Student');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  useEffect(() => {
-    database.getAll(user).then((response) => setPersons(response)).catch(() => {
-      navigate('/errorpage');
-    });
-  }, [user, navigate]);
+  const changeUser = () => (UserType === 'Student' ? setUsertype('Instructor') : setUsertype('Student'));
 
-  const changeUser = () => {
-    if (user === 'Student') {
-      setUser('Instructor');
-    } else {
-      setUser('Student');
-    }
-  };
-
-  let alt;
-  if (user === 'Student') {
-    alt = 'Instructor';
-  } else {
-    alt = 'Student';
-  }
+  const alt = UserType === 'Student' ? 'Instructor' : 'Student';
 
   const emailChange = (event) => {
-    setNewEmail(event.target.value);
+    setEmail(event.target.value);
   };
 
   const passwordChange = (event) => {
-    setNewPassword(event.target.value);
+    setPassword(event.target.value);
   };
 
-  const checkPerson = (event) => {
+  const HandleLogin = async (event) => {
     event.preventDefault();
-    const exists = persons.find((person) => person.email === newEmail);
-    if (exists !== undefined) {
-      if (bcrypt.compareSync(newPassword, exists.password)) { // exists.password === newPassword
-        Session.setName(exists.name);
-        Session.setId(exists.id);
-        Session.setUsertype(user);
-        if (user === 'Student') {
-          navigate('/studentsdashboard', { replace: true, state: { user: exists } });
-        } else {
-          navigate('/instructorsdashboard', { replace: true, state: { user: exists } });
-        }
+
+    try {
+      const user = await LoginService.Login({ email, password, UserType });
+      if (UserType === 'Student') {
+        navigate('/studentsdashboard', { replace: true, state: { ...user, UserType } });
       } else {
-        alert('Wrong email or password');
+        navigate('/instructorsdashboard', { replace: true, state: { ...user, UserType } });
       }
-    } else {
-      alert('User does not exist');
+      setEmail('');
+      setPassword('');
+    } catch (exception) {
+      console.log(exception);
+      /* eslint-disable */
+      alert('Wrong credentials');
     }
   };
 
@@ -109,10 +58,10 @@ const Login = () => {
       <div className={login.Login}>
         <img src={eduhubJPG} className={login.image} alt="" />
         <LoginForm
-          user={user}
+          user={UserType}
           emailChange={emailChange}
           passwordChange={passwordChange}
-          onSubmit={checkPerson}
+          onSubmit={HandleLogin}
         />
       </div>
     </div>

@@ -3,26 +3,24 @@ import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import dash from './Style/Dashboard.module.css';
-import database from '../Services/database';
-
-// import Session from "./Services/Session";
+import DataServices from '../Services/Data';
 
 const InstructorsDashboard = () => {
   const location = useLocation();
-  const data = location.state.user;
+  const data = location.state;
   const [user, setUser] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
-    database.getOne(data.id, 'instructor').then((response) => {
+    const _ = async () => {
+      const response = await DataServices.GetUser(data.id, 'instructors');
       setUser(response);
-    }).catch(() => {
-      navigate('/errorpage');
-    });
+    };
+    _();
   }, [data.id, navigate]);
 
   const viewCourse = (id) => {
-    navigate('/coursepage', { replace: true, state: { id } });
+    navigate('/coursepage', { replace: true, state: { id, data } });
   };
 
   return (
@@ -37,7 +35,15 @@ const InstructorsDashboard = () => {
         </h3>
         <ul className={dash.menu_list}>
           <li className={dash.menu_item}>DASHBOARD</li>
-          <Link to="/courses" className={dash.link}><li className={dash.menu_item}> COURSES </li></Link>
+          <Link
+            to="/courses"
+            state={{ ...data }}
+            className={dash.link}
+          >
+            <li className={dash.menu_item}> COURSES </li>
+
+          </Link>
+          {' '}
           <li className={dash.menu_item}>QUIZZES</li>
           <li className={dash.menu_item}>INSTRUCTORS</li>
           <li className={dash.menu_item}>ACCOUNT</li>

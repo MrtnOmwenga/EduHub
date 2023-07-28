@@ -3,47 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import register from './Style/Register.module.css';
 import database from '../Services/database';
 import Session from '../Services/Session';
+import RegisterForm from '../Components/RegisterForm';
 
 const bcrypt = require('bcryptjs');
 
 const salt = bcrypt.genSaltSync(10);
 const eduhubJPG = require('./Style/Images/EduHub.png');
-
-const RegisterForm = ({
-  user, nameChange, emailChange,
-  passwordChange, onSubmit,
-}) => (
-  <div className={register.loginform}>
-    <p className={register.title}>
-      {user}
-      {' '}
-      Registration
-    </p>
-    <form onSubmit={onSubmit}>
-      <div className={register.inputbox}>
-        <input type="text" className={register.nameinput} onChange={nameChange} required />
-        { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
-        <label className={register.namelabel}> Name </label>
-      </div>
-      <div className={register.inputbox}>
-        <input type="text" className={register.nameinput} onChange={emailChange} required />
-        { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
-        <label className={register.namelabel}> Email </label>
-      </div>
-      <div className={register.inputbox}>
-        <input type="password" className={register.nameinput} onChange={passwordChange} required />
-        { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
-        <label className={register.namelabel}> Password </label>
-      </div>
-      <div className={register.buttonDiv}>
-        <button type="submit" className={register.submitButton}> Register </button>
-      </div>
-    </form>
-    <div className={register.buttonDiv}>
-      <button type="button" className={register.register}> I don&apost Have an account</button>
-    </div>
-  </div>
-);
 
 const Register = () => {
   const [user, setUser] = useState('Student');
@@ -114,11 +79,6 @@ const Register = () => {
       Session.setId(newObject.id);
       Session.setUsertype(user);
       navigate('/login', { replace: true });
-      /* if (user === 'Student') {
-                navigate('/studentsdashboard', {replace: true, state: {user: newObject}})
-            }else {
-                navigate('/instructorsdashboard', {replace: true, state: {user: newObject}})
-            } */
     }
   };
 
