@@ -80,7 +80,7 @@ const InstructorsDashboard = () => {
           </tbody>
         </table>
       </div>
-      <Link to="/newcourse">
+      <Link to="/newcourse" state={{ ...data }}>
         {' '}
         <AiOutlinePlusCircle size={30} className={dash.plus_button} />
         {' '}

@@ -36,4 +36,9 @@ InstructorRoutes.post('/', async (request, response) => {
   return response.status(201).json(result);
 });
 
+InstructorRoutes.put('/:id', async (request, response) => {
+  const result = await Instructors.findByIdAndUpdate(request.params.id, request.body);
+  return response.status(200).json(result);
+});
+
 module.exports = InstructorRoutes;

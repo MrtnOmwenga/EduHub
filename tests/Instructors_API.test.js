@@ -79,6 +79,24 @@ describe('Test post url', () => {
   });
 });
 
+describe('Test put url', () => {
+  test('Valid id and object gets updated', async () => {
+    const InstructorsInDB = await Instructors.find({});
+    const UpdatedUser = {
+      name: 'UpdatedUser',
+      email: 'updateduser@gmail.com',
+      password: 'foobar',
+    };
+
+    const response = await api
+      .put(`/api/students/${InstructorsInDB[0]._id}`)
+      .send(UpdatedUser)
+      .expect(200);
+
+    expect(response.body.name).toContain(InstructorsInDB[0].name);
+  });
+});
+
 afterAll(async () => {
   await mongoose.connection.close();
 });

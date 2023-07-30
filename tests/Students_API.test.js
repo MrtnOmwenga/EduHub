@@ -78,6 +78,21 @@ describe('Test post url', () => {
 
     expect(response.body.name).toContain(ValidUser.name);
   });
+
+  test('Non-unique email gets rejected', async () => {
+    const DuplicateUser = {
+      name: 'Duplicate User',
+      email: 'adalovelace@gmail.com',
+      password: 'foobar',
+    };
+
+    const response = await api
+      .post('/api/students')
+      .send(DuplicateUser)
+      .expect(500);
+
+    console.log(response);
+  });
 });
 
 describe('Test put url', () => {

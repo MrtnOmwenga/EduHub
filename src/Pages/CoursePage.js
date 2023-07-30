@@ -14,6 +14,7 @@ const CoursePage = () => {
     const _ = async () => {
       try {
         const response = await DataServices.GetCourse(location.state.id);
+        console.log(response);
         setCourse(response);
       } catch (error) {
         console.log(error);
@@ -22,6 +23,8 @@ const CoursePage = () => {
     };
     _();
   }, [location.state.id, navigate]);
+
+  console.log(courses);
 
   const searchFilter = (event) => {
     setFilter(event.target.value);

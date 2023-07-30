@@ -1,9 +1,16 @@
 const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 
 const StudentsSchema = new mongoose.Schema({
   name: String,
-  email: String,
-  password: String,
+  email: {
+    type: String,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
   courses: [{
     name: String,
     enrollment_date: String,
@@ -14,6 +21,8 @@ const StudentsSchema = new mongoose.Schema({
     },
   }],
 });
+
+StudentsSchema.plugin(uniqueValidator);
 
 StudentsSchema.set('toJSON', {
   transform: (document, returnedObject) => {

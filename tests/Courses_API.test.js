@@ -35,6 +35,22 @@ describe('Test get url', () => {
   });
 });
 
+describe('Test post url', () => {
+  test('Valid user object gets added to database', async () => {
+    const ValidCourse = {
+      name: 'Valid Course',
+      instructor: 'Valid Instructor',
+    };
+
+    const response = await api
+      .post('/api/courses')
+      .send(ValidCourse)
+      .expect(201);
+
+    expect(response.body.name).toContain(ValidCourse.name);
+  });
+});
+
 afterAll(async () => {
   await mongoose.connection.close();
 });

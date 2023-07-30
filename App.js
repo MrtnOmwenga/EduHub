@@ -24,10 +24,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/files', FileRoutes);
 app.use('/api/students', StudentRoutes);
 app.use('/api/instructors', InstructorRoutes);
 app.use('/api/courses', CoursesRoutes);
 app.use('/services/login', LoginRoutes);
+app.use('/resources/files', FileRoutes);
 
 module.exports = app;

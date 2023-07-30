@@ -20,6 +20,16 @@ const GetAllCourses = async () => {
   return response.data;
 };
 
+const SaveFile = async (data) => {
+  const res = axios.post('/resources/files', data);
+  return res;
+};
+
+const CreateCourse = async (NewCourseObject) => {
+  const response = axios.post('/api/courses', NewCourseObject);
+  return response.data;
+};
+
 export default {
-  GetUser, GetCourse, GetAllCourses, UpdateUser,
+  GetUser, GetCourse, GetAllCourses, UpdateUser, SaveFile, CreateCourse,
 };

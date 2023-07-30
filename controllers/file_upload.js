@@ -4,7 +4,7 @@ const path = require('path');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'src/Database/Files');
+    cb(null, 'public/Files');
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname);
@@ -16,6 +16,7 @@ const upload = multer({ storage }).single('file');
 FileRoutes.post('/', (req, res) => {
   upload(req, res, (err) => {
     if (err) {
+      console.log(err);
       return res.status(500).json(err);
     }
     return res.status(200).send(req.file);
@@ -24,7 +25,7 @@ FileRoutes.post('/', (req, res) => {
 
 FileRoutes.get('/', (req, res) => {
   const filePath = req.query.fileName;
-  res.sendFile(path.join(__dirname, `/Files/${filePath}`));
+  res.sendFile(path.join(__dirname, `/../public/Files/${filePath}`));
 });
 
 module.exports = FileRoutes;

@@ -1,84 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import register from './Style/Register.module.css';
-import database from '../Services/database';
-import Session from '../Services/Session';
+import RegisterService from '../Services/Register';
 import RegisterForm from '../Components/RegisterForm';
 
-const bcrypt = require('bcryptjs');
-
-const salt = bcrypt.genSaltSync(10);
 const eduhubJPG = require('./Style/Images/EduHub.png');
 
 const Register = () => {
-  const [user, setUser] = useState('Student');
-  const [persons, setPersons] = useState([]);
-  const [newName, setNewName] = useState('');
-  const [newEmail, setNewEmail] = useState('');
-  const [newPassword, setNewPassword] = useState('');
+  const [UserType, setUserType] = useState('Student');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  useEffect(() => {
-    database.getAll(user).then((response) => setPersons(response)).catch(() => {
-      navigate('/errorpage');
-    });
-  }, [user, navigate]);
+  const changeUser = () => (UserType === 'Student' ? setUserType('Instructor') : setUserType('Student'));
+  const alt = () => (UserType === 'Student' ? 'Instructor' : 'Student');
 
-  const changeUser = () => {
-    if (user === 'Student') {
-      setUser('Instructor');
-    } else {
-      setUser('Student');
-    }
-  };
+  const NameChange = (event) => setName(event.target.value);
+  const EmailChange = (event) => setEmail(event.target.value);
+  const PasswordChange = (event) => setPassword(event.target.value);
 
-  let alt;
-  if (user === 'Student') {
-    alt = 'Instructor';
-  } else {
-    alt = 'Student';
-  }
-
-  const nameChange = (event) => {
-    setNewName(event.target.value);
-  };
-
-  const emailChange = (event) => {
-    setNewEmail(event.target.value);
-  };
-
-  const passwordChange = (event) => {
-    setNewPassword(event.target.value);
-  };
-
-  const addStudent = () => {
-    // event.preventDefault()
-    const exists = persons.find((person) => person.email === newEmail);
-    if (exists !== undefined) {
-      alert(`${newEmail} is already exists`);
-    } else {
-      const hash = bcrypt.hashSync(newPassword, salt);
-      const newObject = {
-        name: newName,
-        email: newEmail,
-        password: hash, // newPassword
-        id: persons.length + 1,
-        courses: [],
-      };
-
-      database.addPerson(newObject, user).then((response) => {
-        setPersons(persons.concat(response));
-        setNewName('');
-        setNewEmail('');
-        setNewPassword('');
-      }).catch(() => {
-        navigate('/errorpage');
-      });
-
-      Session.setName(newObject.name);
-      Session.setId(newObject.id);
-      Session.setUsertype(user);
+  const CreateUser = async (event) => {
+    event.preventDefault();
+    try {
+      await RegisterService.Register({ name, email, password }, UserType);
       navigate('/login', { replace: true });
+      setName('');
+      setEmail('');
+      setPassword('');
+    } catch (error) {
+      console.log(error);
+      toast.error('Wrong Credentials');
     }
   };
 
@@ -97,13 +50,14 @@ const Register = () => {
       <div className={register.Login}>
         <img src={eduhubJPG} className={register.image} alt="" />
         <RegisterForm
-          user={user}
-          nameChange={nameChange}
-          emailChange={emailChange}
-          passwordChange={passwordChange}
-          onSubmit={addStudent}
+          user={UserType}
+          nameChange={NameChange}
+          emailChange={EmailChange}
+          passwordChange={PasswordChange}
+          onSubmit={CreateUser}
         />
       </div>
+      <ToastContainer />
     </div>
   );
 };

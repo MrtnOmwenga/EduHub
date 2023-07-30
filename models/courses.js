@@ -1,8 +1,14 @@
 const mongoose = require('mongoose');
 
 const CoursesSchema = new mongoose.Schema({
-  name: String,
-  instructor: String,
+  name: {
+    type: String,
+    required: true,
+  },
+  instructor: {
+    type: String,
+    required: true,
+  },
   modules: [{
     name: String,
     file: String,

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import login from './Style/Login.module.css';
 import LoginForm from '../Components/LoginForm';
 import LoginService from '../Services/Login';
@@ -13,22 +15,17 @@ const Login = () => {
   const navigate = useNavigate();
 
   const changeUser = () => (UserType === 'Student' ? setUsertype('Instructor') : setUsertype('Student'));
-
   const alt = UserType === 'Student' ? 'Instructor' : 'Student';
 
-  const emailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const passwordChange = (event) => {
-    setPassword(event.target.value);
-  };
+  const emailChange = (event) => setEmail(event.target.value);
+  const passwordChange = (event) => setPassword(event.target.value);
 
   const HandleLogin = async (event) => {
     event.preventDefault();
 
     try {
       const user = await LoginService.Login({ email, password, UserType });
+      toast.success('Successful login');
       if (UserType === 'Student') {
         navigate('/studentsdashboard', { replace: true, state: { ...user, UserType } });
       } else {
@@ -38,8 +35,7 @@ const Login = () => {
       setPassword('');
     } catch (exception) {
       console.log(exception);
-      /* eslint-disable */
-      alert('Wrong credentials');
+      toast.error('Incorrect username or password');
     }
   };
 
@@ -64,6 +60,7 @@ const Login = () => {
           onSubmit={HandleLogin}
         />
       </div>
+      <ToastContainer />
     </div>
   );
 };

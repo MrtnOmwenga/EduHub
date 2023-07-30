@@ -12,4 +12,13 @@ CoursesRoutes.get('/:id', async (request, response) => {
   response.json(courses);
 });
 
+CoursesRoutes.post('/', async (request, response) => {
+  const NewCourseObject = request.body;
+
+  const CourseModel = new Courses(NewCourseObject);
+  const result = await CourseModel.save();
+
+  return response.status(201).json(result);
+});
+
 module.exports = CoursesRoutes;
