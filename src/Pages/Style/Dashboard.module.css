@@ -14,7 +14,7 @@
     padding-right: 5%;
 
     font-family: 'Oxygen', sans-serif;
-    color: beige;
+    color: aliceblue;
 }
 
 .title {
@@ -33,12 +33,12 @@
 
 .link {
     text-decoration: none;
-    color: beige;
+    color: aliceblue;
 }
 
 .menu_item:hover {
     border-bottom-style: solid;
-    border-bottom-color: beige;
+    border-bottom-color: aliceblue;
 }
 
 .content {
@@ -94,15 +94,17 @@ tr {
 .course_btn {
     background-color: transparent;
     border: none;
+    border-radius: 5px;
     color:#115a65;
     font-size: 1em;
     padding: 0.5em 1em 0.5em 1em ;
-    display: inline-block;
+    display: flex;
+    gap: 1em;
 }
 
 .course_btn:hover {
     background-color: #115a65;
-    color: beige;
+    color: aliceblue;
 }
 
 .course_txt {

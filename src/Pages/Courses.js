@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa6';
+import { useNavigate, useLocation } from 'react-router-dom';
 import courseStyle from './Style/Courses.module.css';
 import DataServices from '../Services/Data';
 
@@ -11,6 +12,10 @@ const Courses = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const user = location.state;
+
+  if (user === null) {
+    navigate('/errorpage');
+  }
 
   useEffect(() => {
     const _ = async () => {
@@ -65,11 +70,13 @@ const Courses = () => {
   const baseUrl = user.UserType === 'Student' ? '/studentsdashboard' : '/instructorsdashboard';
   const buttonText = user.UserType === 'Student' ? 'Enroll' : 'View';
 
+  const back = () => {
+    navigate(baseUrl, { replace: true, state: { ...user } });
+  };
+
   return (
     <div className={courseStyle.outer_container}>
-      <Link to={baseUrl} state={{ ...user }} className={courseStyle.back}>
-        <p className={courseStyle.back}> Back </p>
-      </Link>
+      <FaArrowLeft size={25} className={courseStyle.back} onClick={back} />
       <h3 className={courseStyle.title}>All courses</h3>
       <input className={courseStyle.filter} placeholder="Search" onChange={searchFilter} value={filter} />
       <ul className={courseStyle.course_list}>
@@ -86,12 +93,14 @@ const Courses = () => {
                 {' '}
               </p>
             </div>
-            <button type="button" className={courseStyle.enroll_button} onClick={() => viewCourse(course)}>
-              {' '}
-              {buttonText}
-              {' '}
-              <FaArrowRight className={courseStyle.course_icon} />
-            </button>
+            <div className={courseStyle.btn_container}>
+              <button type="button" className={courseStyle.enroll_button} onClick={() => viewCourse(course)}>
+                {' '}
+                {buttonText}
+                {' '}
+                <FaArrowRight className={courseStyle.course_icon} />
+              </button>
+            </div>
           </li>
         ))}
       </ul>

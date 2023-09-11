@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
-import dash from './Style/Dashboard.module.css';
+import dash from './Style/InstructorDashboard.module.css';
 import DataServices from '../Services/Data';
 
 const InstructorsDashboard = () => {
@@ -10,6 +10,10 @@ const InstructorsDashboard = () => {
   const data = location.state;
   const [user, setUser] = useState({});
   const navigate = useNavigate();
+
+  if (data === null) {
+    navigate('/errorpage');
+  }
 
   useEffect(() => {
     const _ = async () => {
@@ -44,9 +48,27 @@ const InstructorsDashboard = () => {
 
           </Link>
           {' '}
-          <li className={dash.menu_item}>QUIZZES</li>
-          <li className={dash.menu_item}>INSTRUCTORS</li>
-          <li className={dash.menu_item}>ACCOUNT</li>
+          <Link
+            to="/indevelopment"
+            state={{ ...data }}
+            className={dash.link}
+          >
+            <li className={dash.menu_item}>QUIZZES</li>
+          </Link>
+          <Link
+            to="/indevelopment"
+            state={{ ...data }}
+            className={dash.link}
+          >
+            <li className={dash.menu_item}>ACCOUNT</li>
+          </Link>
+          <Link
+            to="/login"
+            state={{ ...data }}
+            className={dash.link}
+          >
+            <li className={dash.menu_item}> LOGOUT </li>
+          </Link>
         </ul>
       </div>
       <div className={dash.content}>

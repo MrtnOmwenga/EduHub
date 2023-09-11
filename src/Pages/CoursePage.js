@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FaArrowLeft } from 'react-icons/fa6';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import courseStyle from './Style/Courses.module.css';
 import DataServices from '../Services/Data';
@@ -10,21 +11,21 @@ const CoursePage = () => {
   const navigate = useNavigate();
   const user = location.state.data;
 
+  if (user === null) {
+    navigate('/errorpage');
+  }
+
   useEffect(() => {
     const _ = async () => {
       try {
         const response = await DataServices.GetCourse(location.state.id);
-        console.log(response);
         setCourse(response);
       } catch (error) {
-        console.log(error);
         navigate('/errorpage');
       }
     };
     _();
   }, [location.state.id, navigate]);
-
-  console.log(courses);
 
   const searchFilter = (event) => {
     setFilter(event.target.value);
@@ -35,11 +36,13 @@ const CoursePage = () => {
 
   const baseUrl = user.UserType === 'Student' ? '/studentsdashboard' : '/instructorsdashboard';
 
+  const back = () => {
+    navigate(baseUrl, { replace: true, state: { ...user } });
+  };
+
   return (
     <div className={courseStyle.outer_container}>
-      <Link to={baseUrl} state={{ ...user }} className={courseStyle.back}>
-        <p className={courseStyle.back}> Back </p>
-      </Link>
+      <FaArrowLeft size={25} className={courseStyle.back} onClick={back} />
       <h3 className={courseStyle.title}>All Modules</h3>
       <input className={courseStyle.filter} placeholder="Search" onChange={searchFilter} value={filter} />
       <ul className={courseStyle.course_list}>

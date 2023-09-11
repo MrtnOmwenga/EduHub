@@ -21,12 +21,12 @@ const GetAllCourses = async () => {
 };
 
 const SaveFile = async (data) => {
-  const res = axios.post('/resources/files', data);
+  const res = await axios.post('/resources/files', data);
   return res;
 };
 
 const CreateCourse = async (NewCourseObject) => {
-  const response = axios.post('/api/courses', NewCourseObject);
+  const response = await axios.post('/api/courses', NewCourseObject);
   return response.data;
 };
 

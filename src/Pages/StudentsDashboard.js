@@ -10,6 +10,10 @@ const StudentsDashboard = () => {
   const [user, setUser] = useState({});
   const navigate = useNavigate();
 
+  if (data === null) {
+    navigate('/errorpage');
+  }
+
   useEffect(() => {
     const _ = async () => {
       const response = await DataServices.GetUser(data.id, 'students');
@@ -42,9 +46,34 @@ const StudentsDashboard = () => {
             <li className={dash.menu_item}> COURSES </li>
 
           </Link>
-          <li className={dash.menu_item}>QUIZZES</li>
-          <li className={dash.menu_item}>INSTRUCTORS</li>
-          <li className={dash.menu_item}>ACCOUNT</li>
+          <Link
+            to="/indevelopment"
+            state={{ ...data }}
+            className={dash.link}
+          >
+            <li className={dash.menu_item}>QUIZZES</li>
+          </Link>
+          <Link
+            to="/indevelopment"
+            state={{ ...data }}
+            className={dash.link}
+          >
+            <li className={dash.menu_item}>INSTRUCTORS</li>
+          </Link>
+          <Link
+            to="/indevelopment"
+            state={{ ...data }}
+            className={dash.link}
+          >
+            <li className={dash.menu_item}>ACCOUNT</li>
+          </Link>
+          <Link
+            to="/login"
+            state={{ ...data }}
+            className={dash.link}
+          >
+            <li className={dash.menu_item}> LOGOUT </li>
+          </Link>
         </ul>
       </div>
       <div className={dash.content}>

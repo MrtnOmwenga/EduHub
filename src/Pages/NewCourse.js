@@ -1,19 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import newCourse from './Style/NewCourse.module.css';
 import DataServices from '../Services/Data';
 
+let FileList = [];
+let modules = [];
+
 const NewCourse = () => {
   const [moduleCount, setModuleCount] = useState(1);
   const [courseName, setCourseName] = useState('');
-  const [modules, setModules] = useState([]);
   const [moduleName, setModuleName] = useState('');
   const [file, setFile] = useState(null);
   const [instructor, setInstructor] = useState('');
+  let ModuleComplete = useRef(false);
   const navigate = useNavigate();
   const location = useLocation();
   const user = location.state;
+
+  if (user === null) {
+    navigate('/errorpage');
+  }
 
   useEffect(() => {
     const _ = async () => {
@@ -23,40 +31,57 @@ const NewCourse = () => {
     _();
   }, [user.id, navigate]);
 
-  const moduleChange = (event) => setModuleName(event.target.value);
-  const fileChange = (event) => setFile(event.target.files[0]);
+  const moduleChange = (event) => {
+    setModuleName(event.target.value);
+    ModuleComplete = false;
+  };
+  const fileChange = (event) => {
+    setFile(event.target.files[0]);
+    ModuleComplete = false;
+  };
 
-  const addModule = async (event) => {
-    event.preventDefault();
-
+  const SaveModule = async () => {
     if (file) {
       const newObject = {
         name: moduleName,
         file: `${moduleName}-${file.name}`,
       };
 
-      /* eslint no-undef: "error" */
       const renamedFile = new File([file], `${moduleName}-${file.name}`);
 
-      const data = new FormData();
-      data.append('file', renamedFile);
+      FileList.push(renamedFile);
+      modules.push(newObject);
 
-      try {
-        await DataServices.SaveFile(data);
-      } catch (error) {
-        console.log(error);
-        navigate('/errorpage');
-      }
+      console.log(modules);
 
-      setModules(modules.concat(newObject));
+      ModuleComplete = true;
       setModuleName('');
       setFile(null);
-      setModuleCount(moduleCount + 1);
-
-      toast.success('Module Added');
     } else {
       toast.error('Please Choose File before Adding another module');
     }
+  };
+
+  const addModule = async (event) => {
+    event.preventDefault();
+
+    try {
+      await SaveModule();
+      setModuleCount(moduleCount + 1);
+      toast.success('Module Added');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const RemoveModule = () => {
+    modules.splice(-1);
+    FileList.splice(-1);
+    setModuleName('');
+    setFile(null);
+    setModuleCount(moduleCount - 1);
+
+    toast.success('Module removed');
   };
 
   const content = [];
@@ -85,6 +110,11 @@ const NewCourse = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (ModuleComplete) {
+      SaveModule();
+    }
+
     const NewCourseObject = {
       name: courseName,
       instructor: user.name,
@@ -107,28 +137,44 @@ const NewCourse = () => {
         courses: instructor.courses.concat({
           name: courseName,
           students: 0,
-          id: response._id,
+          id: response.id,
         }),
       };
 
       await DataServices.UpdateUser(instructor.id, 'instructors', newInstructor);
+
+      FileList.forEach(async (FileObject) => {
+        const data = new FormData();
+        data.append('file', FileObject);
+
+        try {
+          await DataServices.SaveFile(data);
+        } catch (error) {
+          navigate('/errorpage');
+        }
+      });
+
+      FileList = [];
+      modules = [];
     } catch (error) {
-      console.log(error);
       navigate('/errorpage');
     }
     navigate('/instructorsdashboard', { replace: true, state: { ...user } });
   };
 
+  const back = () => {
+    navigate('/instructorsdashboard', { replace: true, state: { ...user } });
+  };
+
   return (
     <div className={newCourse.body}>
-      <Link to="/instructorsdashboard" state={{ ...user }} className={newCourse.back}>
-        <p className={newCourse.back}> Back </p>
-      </Link>
+      <FaArrowLeft size={25} className={newCourse.back} onClick={back} />
       <form className={newCourse.form} onSubmit={handleSubmit}>
         <h3 className={newCourse.title}> Create Course </h3>
         <input className={newCourse.course_name} type="text" placeholder="Course Name" onChange={courseChange} />
         {content.map((resContent) => resContent)}
         <button type="button" className={newCourse.add_module} onClick={addModule}> Add Module </button>
+        <button type="button" className={newCourse.remove_module} onClick={RemoveModule}> Remove Module </button>
         <div>
           <button className={newCourse.submit} type="submit">Submit</button>
         </div>

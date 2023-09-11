@@ -27,7 +27,7 @@ const LoginForm = ({
       </div>
     </form>
     <Link to="/register" className={login.buttonDiv}>
-      <button type="button" className={login.register}> I don&apost Have an account</button>
+      <button type="button" className={login.register}> I don&lsquo;t Have an account</button>
     </Link>
   </div>
 );

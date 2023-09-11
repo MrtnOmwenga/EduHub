@@ -32,7 +32,7 @@ const RegisterForm = ({
       </div>
     </form>
     <div className={register.buttonDiv}>
-      <button type="button" className={register.register}> I don&apost Have an account</button>
+      <button type="button" className={register.register}> I don&lsquo;t Have an account</button>
     </div>
   </div>
 );

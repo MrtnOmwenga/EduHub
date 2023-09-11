@@ -1,5 +1,6 @@
 const StudentRoutes = require('express').Router();
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const Students = require('../models/students');
 require('express-async-errors');
 
@@ -33,7 +34,15 @@ StudentRoutes.post('/', async (request, response) => {
 
   const result = await NewStudent.save();
 
-  return response.status(201).json(result);
+  const forToken = {
+    name: result.name,
+    id: result.id,
+  };
+  const token = jwt.sign(forToken, process.env.SECRET);
+
+  return response
+    .status(200)
+    .json({ token, name: result.name, id: result.id });
 });
 
 StudentRoutes.put('/:id', async (request, response) => {

@@ -11,8 +11,8 @@
     float: left;
     z-index: 4;
     position: absolute;
-    left: 1em;
-    top: 0.5em;
+    left: 1.5em;
+    top: 1.5em;
     background-color: transparent;
     color: #115a65;
 
@@ -35,7 +35,7 @@
     border-width: 0.05em;
     border-radius: 0.25em;
     padding-left: 1em;
-    background-color: beige;
+    background-color: aliceblue;
 }
 
 .filter:focus {
@@ -69,21 +69,36 @@
     margin-left: 2%;
 }
 
-.enroll_button {
+.btn_container {
     grid-column-start: 2;
+    align-items: center;
+    justify-content: center;
+}
+
+.enroll_button {
+    display: flex;
+    gap: 1em;
 
     background-color: transparent;
     color: #115a65;
     text-align: right;
     float:right;
+    margin-top: 0.5em;
     margin-right: 3em;
-    padding-right: 0.1em;
+    padding: 0.5em;
     border: none;
+    border-radius: 5px;
     font-size: 1em;
+}
+
+.enroll_button:hover {
+    background-color: #115a65;
+    color: aliceblue;
 }
 
 .course_icon {
     margin-left: 1%;
+    padding-top: 1%;
 }
 
 .document_link {

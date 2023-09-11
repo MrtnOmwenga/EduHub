@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa6';
+import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import login from './Style/Login.module.css';
@@ -39,6 +40,10 @@ const Login = () => {
     }
   };
 
+  const back = () => {
+    navigate('/');
+  };
+
   return (
     <div className={login.LoginPage}>
       <div className={login.textcontainer}>
@@ -48,9 +53,7 @@ const Login = () => {
           {alt}
         </button>
       </div>
-      <Link to="/" className={login.back}>
-        <button type="button" className={login.back} onClick={changeUser}> Back </button>
-      </Link>
+      <FaArrowLeft size={25} className={login.back} onClick={back} />
       <div className={login.Login}>
         <img src={eduhubJPG} className={login.image} alt="" />
         <LoginForm

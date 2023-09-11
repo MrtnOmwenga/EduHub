@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa6';
+import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import register from './Style/Register.module.css';
 import RegisterService from '../Services/Register';
@@ -24,8 +25,12 @@ const Register = () => {
   const CreateUser = async (event) => {
     event.preventDefault();
     try {
-      await RegisterService.Register({ name, email, password }, UserType);
-      navigate('/login', { replace: true });
+      const user = await RegisterService.Register({ name, email, password }, UserType);
+      if (UserType === 'Student') {
+        navigate('/studentsdashboard', { replace: true, state: { ...user, UserType } });
+      } else {
+        navigate('/instructorsdashboard', { replace: true, state: { ...user, UserType } });
+      }
       setName('');
       setEmail('');
       setPassword('');
@@ -35,18 +40,18 @@ const Register = () => {
     }
   };
 
+  const back = () => {
+    navigate('/');
+  };
+
   return (
     <div className={register.LoginPage}>
       <div className={register.textcontainer}>
         <button type="button" className={register.changeuser} onClick={changeUser}>
-          Register As
-          {' '}
-          {alt}
+          {`Register as ${alt()}`}
         </button>
       </div>
-      <Link to="/" className={register.back}>
-        <button type="button" className={register.back} onClick={changeUser}> Back </button>
-      </Link>
+      <FaArrowLeft size={25} className={register.back} onClick={back} />
       <div className={register.Login}>
         <img src={eduhubJPG} className={register.image} alt="" />
         <RegisterForm
