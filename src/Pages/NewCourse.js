@@ -1,42 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
 import newCourse from './Style/NewCourse.module.css';
-import database from '../Services/database';
-import Session from '../Services/Session';
+import DataServices from '../Services/Data';
+
+let FileList = [];
+let modules = [];
 
 const NewCourse = () => {
   const [moduleCount, setModuleCount] = useState(1);
   const [courseName, setCourseName] = useState('');
-  const [modules, setModules] = useState([]);
   const [moduleName, setModuleName] = useState('');
   const [file, setFile] = useState(null);
-  const [courses, setCourses] = useState([]);
   const [instructor, setInstructor] = useState('');
+  let ModuleComplete = useRef(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const user = location.state;
 
-  const user = { name: Session.getName(), id: Session.getId() };
+  if (user === null) {
+    navigate('/errorpage');
+  }
 
   useEffect(() => {
-    database.getCourses().then((course) => {
-      setCourses(course);
-    });
-
-    database.getOne(user.id, 'Instructor').then((res) => {
-      setInstructor(res);
-    });
+    const _ = async () => {
+      const response = await DataServices.GetUser(user.id, 'instructors');
+      setInstructor(response);
+    };
+    _();
   }, [user.id, navigate]);
 
   const moduleChange = (event) => {
     setModuleName(event.target.value);
+    ModuleComplete = false;
   };
-
   const fileChange = (event) => {
     setFile(event.target.files[0]);
+    ModuleComplete = false;
   };
 
-  const addModule = (event) => {
-    event.preventDefault();
-
+  const SaveModule = async () => {
     if (file) {
       const newObject = {
         name: moduleName,
@@ -45,23 +49,37 @@ const NewCourse = () => {
 
       const renamedFile = new File([file], `${moduleName}-${file.name}`);
 
-      const data = new FormData();
-      data.append('file', renamedFile);
+      FileList.push(renamedFile);
+      modules.push(newObject);
 
-      database.saveFile(data).then(() => {
-        console.log('Success');
-      }).catch((e) => {
-        console.error('Error', e);
-      });
-
-      setModules(modules.concat(newObject));
+      ModuleComplete = true;
       setModuleName('');
       setFile(null);
-
-      setModuleCount(moduleCount + 1);
     } else {
-      alert('Please Choose File before Adding another module');
+      toast.error('Please Choose File before Adding another module');
     }
+  };
+
+  const addModule = async (event) => {
+    event.preventDefault();
+
+    try {
+      await SaveModule();
+      setModuleCount(moduleCount + 1);
+      toast.success('Module Added');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const RemoveModule = () => {
+    modules.splice(-1);
+    FileList.splice(-1);
+    setModuleName('');
+    setFile(null);
+    setModuleCount(moduleCount - 1);
+
+    toast.success('Module removed');
   };
 
   const content = [];
@@ -86,61 +104,80 @@ const NewCourse = () => {
     );
   }
 
-  const courseChange = (event) => {
-    setCourseName(event.target.value);
-  };
+  const courseChange = (event) => setCourseName(event.target.value);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const newObject = {
+
+    if (ModuleComplete) {
+      SaveModule();
+    }
+
+    const NewCourseObject = {
       name: courseName,
-      id: courses.length + 1,
       instructor: user.name,
       modules: [],
     };
 
     modules.map((module) => {
-      newObject.modules.push({
+      NewCourseObject.modules.push({
         name: module.name,
         file: module.file,
       });
       return null;
     });
 
-    const newInstructor = {
-      ...instructor,
-      courses: instructor.courses.concat({
-        name: courseName,
-        id: courses.length + 1,
-        students: 0,
-      }),
-    };
+    try {
+      const response = await DataServices.CreateCourse(NewCourseObject);
 
-    database.addCourse(newObject).then((response) => {
-      setCourses(courses.concat(response));
-    }).catch(() => {
+      const newInstructor = {
+        ...instructor,
+        courses: instructor.courses.concat({
+          name: courseName,
+          students: 0,
+          id: response.id,
+        }),
+      };
+
+      await DataServices.UpdateUser(instructor.id, 'instructors', newInstructor);
+
+      FileList.forEach(async (FileObject) => {
+        const data = new FormData();
+        data.append('file', FileObject);
+
+        try {
+          await DataServices.SaveFile(data);
+        } catch (error) {
+          navigate('/errorpage');
+        }
+      });
+
+      FileList = [];
+      modules = [];
+    } catch (error) {
       navigate('/errorpage');
-    });
-    database.updateInstructor(user.id, newInstructor).catch(() => {
-      navigate('/errorpage');
-    });
-    navigate('/instructorsdashboard', { replace: true, state: { user } });
+    }
+    navigate('/instructorsdashboard', { replace: true, state: { ...user } });
+  };
+
+  const back = () => {
+    navigate('/instructorsdashboard', { replace: true, state: { ...user } });
   };
 
   return (
     <div className={newCourse.body}>
-      <Link to="/instructorsdashboard" state={{ user }} className={newCourse.back}>
-        <p className={newCourse.back}> Back </p>
-      </Link>
+      <FaArrowLeft size={25} className={newCourse.back} onClick={back} />
       <form className={newCourse.form} onSubmit={handleSubmit}>
         <h3 className={newCourse.title}> Create Course </h3>
         <input className={newCourse.course_name} type="text" placeholder="Course Name" onChange={courseChange} />
         {content.map((resContent) => resContent)}
         <button type="button" className={newCourse.add_module} onClick={addModule}> Add Module </button>
+        <button type="button" className={newCourse.remove_module} onClick={RemoveModule}> Remove Module </button>
         <div>
           <button className={newCourse.submit} type="submit">Submit</button>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 };

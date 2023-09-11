@@ -32,18 +32,23 @@
     margin-top: 1%;
     padding-bottom: 0.5%;
 
-    color: beige;
+    color: aliceblue;
+}
+
+.navbutton p {
+    font-size: 1.2em;
+    font-weight: 100;
 }
 
 .navbutton p .buttontext {
-    color: beige;
+    color: aliceblue;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
 }
 
 .navbutton:hover {
     border-bottom: solid;
-    border-bottom-color: beige;
+    border-bottom-color: aliceblue;
 }
 
 .textcontainer {
@@ -51,7 +56,7 @@
 }
 
 .title{
-    color: beige;
+    color: aliceblue;
     font-family: 'Oxygen', sans-serif;
 
     font-size: 3.8em;
@@ -60,7 +65,7 @@
 }
 
 .bite {
-    color: beige;
+    color: aliceblue;
     font-family: 'Oxygen', sans-serif;
 
     font-size: 1em;
@@ -69,31 +74,31 @@
 }
 
 .text1 {
-    color: beige;
+    color: aliceblue;
     font-family: 'Oxygen', sans-serif;
     margin-bottom: 1em;
 }
 
 .registerbutton {
-    color: beige;
+    color: aliceblue;
     border: solid;
     margin-bottom: 3em;
     margin-top: 1em;
     background-color: rgb(0, 0, 0, 0);
-    border-color: beige;
+    border-color: aliceblue;
     /*background-color: #3824cd;*/
     border-radius: 50px;
     width: 20%;
     height: 3em;
 
-    margin-left: 2em;
     margin-bottom: 10%;
 
     font-family: 'Oxygen', sans-serif;
+    font-size: 1em;
     text-decoration: none;
 }
 .registerbutton:hover {
-    background-color: beige;
+    background-color: aliceblue;
     color: #115a65;
 }
 
@@ -121,7 +126,7 @@
 }
 
 .AboutUstitle {
-    color: beige;
+    color: aliceblue;
     font-family: 'Oxygen', sans-serif;
 
     font-size: 2.0em;
@@ -131,7 +136,7 @@
 }
 
 .aboutus {
-    color: beige;
+    color: aliceblue;
     font-family: 'Oxygen', sans-serif;
 
     font-size: 1em;
@@ -147,7 +152,7 @@
     margin-bottom: 1em;
     margin-top: 1em;
     background-color: rgb(0, 0, 0, 0);
-    border-color: beige/*#011e31*/;
+    border-color: aliceblue/*#011e31*/;
     border-radius: 50px;
     width: 20%;
     height: 10%;
@@ -156,10 +161,10 @@
 }
 
 .Section3 {
-    padding-top: 7.5%;
+    padding-top: 5%;
     padding-bottom: 7.5%;
 
-    background-color: beige;
+    background-color: aliceblue;
 }
 
 .textcontainer3 {
@@ -169,7 +174,7 @@
 .title3 {
     font-family: 'Oxygen', sans-serif;
     color: rgb(38, 48, 48);
-    font-weight: 700;
+    font-weight: 200;
 
     font-size: 2.5em;
 }
@@ -185,8 +190,8 @@
     column-count: 3;
     column-gap: 2em;
 
-    margin-left: 1em;
-    margin-right: 1em;
+    margin-left: 2em;
+    margin-right: 2em;
     margin-top: 4em;
 }
 
@@ -194,8 +199,11 @@
     border-radius: 1em;
     overflow: hidden;
     margin: 0.5em;
-    color: rgb(38, 48, 48);
+    color: aliceblue;
     padding-bottom: 5%;
+    background: #115a65;
+    padding-top: 15%;
+    padding-bottom: 15%;
 
     transition: 0.6s;
     transform: translate(0);
@@ -207,15 +215,17 @@
     top: -75px;
     left: -45px;
     z-index: -1;
-    background: #115a65;
+    background: aliceblue;
     border-radius: 50%;
+    border-style: solid;
+    border-color: #115a65;
     width: 50px;
     height: 50px;
     transition: 0.6s;
 }
 
 .slides:hover {
-    color: beige;
+    color: rgb(38, 48, 48);
 }
 
 .slides:hover::before {
@@ -234,24 +244,6 @@
     grid-column-start: 3;
 }
 
-.circle {
-    height: 5em;
-    width: 5em;
-    margin: auto;
-
-    border: none;
-    border-radius: 50%;
-    background-color: #115a65;
-}
-
-.slideNumber {
-    display: block;
-    color: beige;
-    font-family: 'Oxygen', sans-serif;
-    font-weight: 700;
-    padding-top: 0.9em;
-}
-
 .Activities {
     margin-left: 10%;
     margin-right: 10%;
@@ -259,22 +251,20 @@
 
 .Activitytitle {
     font-family: 'Oxygen', sans-serif;
+    font-weight: 200;
     margin-top: 5%;
-    margin-bottom: 5%;
+    margin-bottom: 10%;
     /*color: rgb(38, 48, 48);*/
-}
-
-.Activitytitle:hover {
-    color: beige;
 }
 
 .activitiestext {
     font-family: 'Oxygen', sans-serif;
+    font-weight: 100;
     /*color: rgb(38, 48, 48);*/
 }
 
 .Section4 {
-    background-color: beige;
+    background-color: aliceblue;
     height: 300%;
     padding-top: 5%;
 }
@@ -289,8 +279,10 @@
     font-family: 'Oxygen', sans-serif;
     color: rgb(38, 48, 48);
     margin-top: 0px;
+    margin-bottom: 5%;
 
     font-size: 2.5em;
+    font-weight: 200;
 }
 
 .instructors {
@@ -333,29 +325,31 @@
     text-align: right;
     border-bottom: solid;
     border-bottom-color: #115a65;
-    border-bottom-width: 1.5em;
+    border-bottom-width: 1em;
 }
 
 .instructorname {
-    color: beige;
+    color: aliceblue;
     font-family: 'Oxygen', sans-serif;
+    padding: 0% 10% 2.5% 0%;
 
     margin-top: 20em;
 }
 
 .instructordetails {
-    color: beige;
+    color: aliceblue;
     font-family: 'Oxygen', sans-serif;
+    padding: 0% 5% 2% 5%;
 }
 
 .Section5 {
-    background-color: beige;
+    background-color: aliceblue;
     padding-top: 5%;
     padding-bottom: 5%;
 }
 
 .textcontainer5 {
-    margin: 10%;
+    margin: 5% 10% 0% 10%;
 
     display: grid;
     column-count: 2;
@@ -393,4 +387,21 @@
     height: 30em;
     display: flex;
     float:right
+}
+
+footer {
+    position: relative;
+    background-color: #115a65;
+    height: 5em;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    bottom: 0;
+    margin: 0;
+}
+
+footer p {
+    color: aliceblue;
+    padding-top: 2.5%;
+    font-family: 'Oxygen', sans-serif;
 }

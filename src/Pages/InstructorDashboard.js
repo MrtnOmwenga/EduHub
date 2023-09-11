@@ -2,27 +2,29 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
-import dash from './Style/Dashboard.module.css';
-import database from '../Services/database';
-
-// import Session from "./Services/Session";
+import dash from './Style/InstructorDashboard.module.css';
+import DataServices from '../Services/Data';
 
 const InstructorsDashboard = () => {
   const location = useLocation();
-  const data = location.state.user;
+  const data = location.state;
   const [user, setUser] = useState({});
   const navigate = useNavigate();
 
+  if (data === null) {
+    navigate('/errorpage');
+  }
+
   useEffect(() => {
-    database.getOne(data.id, 'instructor').then((response) => {
+    const _ = async () => {
+      const response = await DataServices.GetUser(data.id, 'instructors');
       setUser(response);
-    }).catch(() => {
-      navigate('/errorpage');
-    });
+    };
+    _();
   }, [data.id, navigate]);
 
   const viewCourse = (id) => {
-    navigate('/coursepage', { replace: true, state: { id } });
+    navigate('/coursepage', { replace: true, state: { id, user: { ...data } } });
   };
 
   return (
@@ -37,10 +39,36 @@ const InstructorsDashboard = () => {
         </h3>
         <ul className={dash.menu_list}>
           <li className={dash.menu_item}>DASHBOARD</li>
-          <Link to="/courses" className={dash.link}><li className={dash.menu_item}> COURSES </li></Link>
-          <li className={dash.menu_item}>QUIZZES</li>
-          <li className={dash.menu_item}>INSTRUCTORS</li>
-          <li className={dash.menu_item}>ACCOUNT</li>
+          <Link
+            to="/courses"
+            state={{ ...data }}
+            className={dash.link}
+          >
+            <li className={dash.menu_item}> COURSES </li>
+
+          </Link>
+          {' '}
+          <Link
+            to="/indevelopment"
+            state={{ ...data }}
+            className={dash.link}
+          >
+            <li className={dash.menu_item}>QUIZZES</li>
+          </Link>
+          <Link
+            to="/indevelopment"
+            state={{ ...data }}
+            className={dash.link}
+          >
+            <li className={dash.menu_item}>ACCOUNT</li>
+          </Link>
+          <Link
+            to="/login"
+            state={{ ...data }}
+            className={dash.link}
+          >
+            <li className={dash.menu_item}> LOGOUT </li>
+          </Link>
         </ul>
       </div>
       <div className={dash.content}>
@@ -74,7 +102,7 @@ const InstructorsDashboard = () => {
           </tbody>
         </table>
       </div>
-      <Link to="/newcourse">
+      <Link to="/newcourse" state={{ ...data }}>
         {' '}
         <AiOutlinePlusCircle size={30} className={dash.plus_button} />
         {' '}

@@ -46,7 +46,6 @@ const Home = () => (
         <p className={style.subText}> HUB EDUCATION </p>
         <div className={style.ImageSlides}>
           <div className={`${style.slide1} ${style.slides}`}>
-            <div className={style.circle}><h1 className={style.slideNumber}>1</h1></div>
             <div className={style.Activities}>
               <h1 className={style.Activitytitle}>DETAILED NOTES</h1>
               <p className={style.activitiestext}>
@@ -58,7 +57,6 @@ const Home = () => (
             </div>
           </div>
           <div className={`${style.slide2} ${style.slides}`}>
-            <div className={style.circle}><h1 className={style.slideNumber}>2</h1></div>
             <div className={style.Activities}>
               <h1 className={style.Activitytitle}> INTERACTIVE QUIZZES </h1>
               <p className={style.activitiestext}>
@@ -70,7 +68,6 @@ const Home = () => (
             </div>
           </div>
           <div className={`${style.slide3} ${style.slides}`}>
-            <div className={style.circle}><h1 className={style.slideNumber}>3</h1></div>
             <div className={style.Activities}>
               <h1 className={style.Activitytitle}> ONE ON ONE COACHING</h1>
               <p className={style.activitiestext}>
@@ -147,6 +144,9 @@ const Home = () => (
         <img src={backgroundJPG} className={style.contactimage} alt="" />
       </div>
     </section>
+    <footer>
+      <p>This website is by Martin Omwenga</p>
+    </footer>
   </div>
 );
 

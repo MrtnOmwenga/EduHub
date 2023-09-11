@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from 'react';
+import { FaArrowLeft } from 'react-icons/fa6';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import courseStyle from './Style/Courses.module.css';
-import database from '../Services/database';
-
-import Session from '../Services/Session';
+import DataServices from '../Services/Data';
 
 const CoursePage = () => {
   const [courses, setCourse] = useState();
   const [filter, setFilter] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
+  const { user } = location.state;
+
+  if (user === null) {
+    navigate('/errorpage');
+  }
 
   useEffect(() => {
-    database.getOne(location.state.id, 'courses').then((course) => {
-      setCourse(course);
-    }).catch(() => {
-      navigate('/errorpage');
-    });
+    const _ = async () => {
+      try {
+        const response = await DataServices.GetCourse(location.state.id);
+        setCourse(response);
+      } catch (error) {
+        navigate('/errorpage');
+      }
+    };
+    _();
   }, [location.state.id, navigate]);
 
   const searchFilter = (event) => {
@@ -26,15 +34,15 @@ const CoursePage = () => {
   const filteredData = courses?.modules.filter((module) => module.name.toLowerCase() === filter.toLowerCase());
   const coursesFiltered = filteredData?.length === 0 ? courses?.modules : filteredData;
 
-  const user = { name: Session.getName(), id: Session.getId() };
+  const baseUrl = user.UserType === 'Student' ? '/studentsdashboard' : '/instructorsdashboard';
 
-  const baseUrl = Session.getUser() === 'Student' ? '/studentsdashboard' : '/instructorsdashboard';
+  const back = () => {
+    navigate(baseUrl, { replace: true, state: { ...user } });
+  };
 
   return (
     <div className={courseStyle.outer_container}>
-      <Link to={baseUrl} state={{ user }} className={courseStyle.back}>
-        <p className={courseStyle.back}> Back </p>
-      </Link>
+      <FaArrowLeft size={25} className={courseStyle.back} onClick={back} />
       <h3 className={courseStyle.title}>All Modules</h3>
       <input className={courseStyle.filter} placeholder="Search" onChange={searchFilter} value={filter} />
       <ul className={courseStyle.course_list}>

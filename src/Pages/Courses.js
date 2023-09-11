@@ -1,40 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
-import { Link, useNavigate } from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa6';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import courseStyle from './Style/Courses.module.css';
-import database from '../Services/database';
-import Session from '../Services/Session';
+import DataServices from '../Services/Data';
 
 const Courses = () => {
   const [courses, setCourse] = useState([]);
   const [filter, setFilter] = useState('');
   const [student, setStudent] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
+  const user = location.state;
 
-  const user = { name: Session.getName(), id: Session.getId() };
+  if (user === null) {
+    navigate('/errorpage');
+  }
 
   useEffect(() => {
-    database.getCourses().then((course) => {
-      setCourse(course);
-    }).catch(() => {
-      navigate('/errorpage');
-    });
+    const _ = async () => {
+      try {
+        const response = await DataServices.GetAllCourses();
+        setCourse(response);
 
-    database.getOne(user.id, 'Student').then((res) => {
-      setStudent(res);
-    }).catch(() => {
-      navigate('/errorpage');
-    });
+        const res = await DataServices.GetUser(user.id, 'students');
+        setStudent(res);
+      } catch (error) {
+        toast.error(`${error}`);
+        navigate('/errorpage');
+      }
+    };
+    _();
   }, [user.id, navigate]);
 
   const searchFilter = (event) => {
     setFilter(event.target.value);
   };
 
-  const viewCourse = (course) => {
-    if (Session.getUser() === 'Student') {
+  const viewCourse = async (course) => {
+    if (user.UserType === 'Student') {
       const exists = student.courses.filter((enrolledCourse) => enrolledCourse.id === course.id);
-      console.log(exists);
       if (exists === undefined || exists.length === 0) {
         const newStudent = {
           ...student,
@@ -45,27 +51,34 @@ const Courses = () => {
           }),
         };
 
-        database.updatePerson(user.id, newStudent).catch(() => {
-          navigate('/errorpage');
-        });
+        try {
+          await DataServices.UpdateUser(user.id, 'students', newStudent);
+        } catch (error) {
+          toast.error(`${error}`);
+          setTimeout(() => {
+            navigate('/errorpage');
+          }, 5000);
+        }
       } else {
-        alert('You are already enrolled to this course');
+        toast('You are already enrolled to this course');
       }
     }
-    navigate('/coursepage', { replace: true, state: { id: course.id } });
+    navigate('/coursepage', { replace: true, state: { id: course.id, user } });
   };
 
   const filteredData = courses.filter((course) => course.name.toLowerCase() === filter.toLowerCase());
   const coursesFiltered = filteredData.length === 0 ? courses : filteredData;
 
-  const baseUrl = Session.getUser() === 'Student' ? '/studentsdashboard' : '/instructorsdashboard';
-  const buttonText = Session.getUser() === 'Student' ? 'Enroll' : 'View';
+  const baseUrl = user.UserType === 'Student' ? '/studentsdashboard' : '/instructorsdashboard';
+  const buttonText = user.UserType === 'Student' ? 'Enroll' : 'View';
+
+  const back = () => {
+    navigate(baseUrl, { replace: true, state: { ...user } });
+  };
 
   return (
     <div className={courseStyle.outer_container}>
-      <Link to={baseUrl} state={{ user }} className={courseStyle.back}>
-        <p className={courseStyle.back}> Back </p>
-      </Link>
+      <FaArrowLeft size={25} className={courseStyle.back} onClick={back} />
       <h3 className={courseStyle.title}>All courses</h3>
       <input className={courseStyle.filter} placeholder="Search" onChange={searchFilter} value={filter} />
       <ul className={courseStyle.course_list}>
@@ -82,15 +95,18 @@ const Courses = () => {
                 {' '}
               </p>
             </div>
-            <button type="button" className={courseStyle.enroll_button} onClick={() => viewCourse(course)}>
-              {' '}
-              {buttonText}
-              {' '}
-              <FaArrowRight className={courseStyle.course_icon} />
-            </button>
+            <div className={courseStyle.btn_container}>
+              <button type="button" className={courseStyle.enroll_button} onClick={() => viewCourse(course)}>
+                {' '}
+                {buttonText}
+                {' '}
+                <FaArrowRight className={courseStyle.course_icon} />
+              </button>
+            </div>
           </li>
         ))}
       </ul>
+      <ToastContainer />
     </div>
   );
 };

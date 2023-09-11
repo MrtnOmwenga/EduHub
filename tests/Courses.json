@@ -2,7 +2,6 @@
     "courses":[
       { 
         "name": "Business Development",
-        "id": 1,
         "instructor": "Ada Lovelace",
         "modules": [
             {
@@ -13,7 +12,6 @@
       },
       { 
         "name": "Financial Analysis",
-        "id": 2,
         "instructor": "Martin Omwenga",
         "modules": [
             {
@@ -24,7 +22,6 @@
       },
       { 
         "name": "Investment Banking",
-        "id": 3,
         "instructor": "Dan Abramov",
         "modules": [
             {
@@ -35,7 +32,6 @@
       },
       { 
         "name": "Mechanical testing",
-        "id": 4,
         "instructor": "Mary Poppendick",
         "modules": [
             {
@@ -46,7 +42,6 @@
       },
       { 
         "name": "Solid and Structural Mechanics",
-        "id": 5,
         "instructor": "Martin Omwenga",
         "modules": [
             {
@@ -57,7 +52,6 @@
       },
       { 
         "name": "Engineering Drawing",
-        "id": 6,
         "instructor": "Ada Lovelace",
         "modules": [
             {
@@ -68,7 +62,6 @@
       },
       { 
         "name": "Engineering Accounting",
-        "id": 7,
         "instructor": "Dan abramov",
         "modules": [
             {
@@ -79,7 +72,6 @@
       },
       { 
         "name": "IT Maintenance",
-        "id": 8,
         "instructor": "Mary Poppendick",
         "modules": [
             {
@@ -89,7 +81,6 @@
       },
       { 
         "name": "Network Monitoring",
-        "id": 9,
         "instructor": "Martin Omwenga",
         "modules": [
             {
@@ -99,7 +90,6 @@
       },
       { 
         "name": "Cybersecurity Fundamentals",
-        "id": 10,
         "instructor": "Ada Lovelace",
         "modules": [
             {
@@ -109,7 +99,6 @@
       },
       { 
         "name": "Python Programming",
-        "id": 11,
         "instructor": "Dan Abramov",
         "modules": [
             {
@@ -119,7 +108,6 @@
       },
       { 
         "name": "JavaScript Programming",
-        "id": 12,
         "instructor": "Mary Poppendick",
         "modules": [
             {
@@ -129,7 +117,6 @@
       },
       { 
         "name": "Software Engineering",
-        "id": 13,
         "instructor": "Ada Lovelace",
         "modules": [
             {
@@ -139,7 +126,6 @@
       },
       { 
         "name": "Cloud Engineering",
-        "id": 14,
         "instructor": "Martin Omwenga",
         "modules": [
             {
@@ -149,7 +135,6 @@
       },
       { 
         "name": "Data Structures and Algorithms",
-        "id": 15,
         "instructor": "Dan Abramov",
         "modules": [
             {
@@ -159,7 +144,6 @@
       },
       { 
         "name": "Network Maintenance",
-        "id": 16,
         "instructor": "Mary Poppendick",
         "modules": [
             {
@@ -169,7 +153,6 @@
       },
       { 
         "name": "Neural Networks",
-        "id": 17,
         "instructor": "Ada Lovelace",
         "modules": [
             {
@@ -179,7 +162,6 @@
       },
       { 
         "name": "Civil Structures",
-        "id": 18,
         "instructor": "Martin Omwenga",
         "modules": [
             {
@@ -189,7 +171,6 @@
       },
       { 
         "name": "Hydraulics",
-        "id": 19,
         "instructor": "Ada Lovelace",
         "modules": [
             {

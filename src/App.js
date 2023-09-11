@@ -8,7 +8,8 @@ import InstructorsDashboard from './Pages/InstructorDashboard';
 import Courses from './Pages/Courses';
 import NewCourse from './Pages/NewCourse';
 import CoursePage from './Pages/CoursePage';
-import ErrorPage from './Pages/ErrorPage';
+import ErrorPage from './Pages/Error';
+import InDevelopmentPage from './Pages/InDevelopment';
 import DocumentViewer from './Components/DocumentViewer';
 
 const App = () => (
@@ -24,6 +25,7 @@ const App = () => (
       <Route path="/newcourse" element={<NewCourse />} />
       <Route path="/coursepage" element={<CoursePage />} />
       <Route path="/errorpage" element={<ErrorPage />} />
+      <Route path="/indevelopment" element={<InDevelopmentPage />} />
       <Route path="/documentviewer" element={<DocumentViewer />} />
     </Routes>
   </Router>

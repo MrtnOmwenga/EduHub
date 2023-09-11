@@ -7,7 +7,7 @@ const DocumentViewer = () => {
   const location = useLocation();
   const { file } = location.state;
   const [pdfUrl, setPdfUrl] = useState('');
-  const fileUrl = 'https://hubeducation-express-server.onrender.com/file'; // '//localhost:8000/file';
+  const fileUrl = 'resources/files'; // 'https://hubeducation-express-server.onrender.com/file';
 
   useEffect(() => {
     // Fetch the PDF file from the server

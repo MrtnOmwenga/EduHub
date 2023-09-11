@@ -4,32 +4,26 @@
         "name": "Martin Omwenga", 
         "email": "artohellas@gmail.com",
         "password": "$2a$10$m.LqguHbxRa4UKzCw.t6mudaRPZrethCZsSS9FpZMuttaM476T5.C",
-        "id": 1,
         "courses": [
           {
             "name": "Financial Analysis",
-            "students": 101,
-            "id": 2
+            "students": 101
           },
           {
             "name": "Solid and Structureal Mechanics",
-            "students": 79,
-            "id": 5
+            "students": 79
           },
           {
             "name": "Network Monitoring",
-            "students": 186,
-            "id": 9
+            "students": 186
           },
           {
             "name": "Coud Engineering",
-            "students": 201,
-            "id": 14
+            "students": 201
           },
           {
             "name": "Civil Structures",
-            "students": 98,
-            "id": 18
+            "students": 98
           }
         ]
       },
@@ -37,37 +31,30 @@
         "name": "Ada Lovelace", 
         "email": "adalovelace@gmail.com",
         "password": "$2a$10$m.LqguHbxRa4UKzCw.t6mudaRPZrethCZsSS9FpZMuttaM476T5.C",
-        "id": 2,
         "courses": [
           {
             "name": "Business Development",
-            "students": 77,
-            "id": 1
+            "students": 77
           },
           {
             "name": "Engineering Drawing",
-            "students": 91,
-            "id": 6
+            "students": 91
           },
           {
             "name": "Cybersecurity Fundamentals",
-            "students": 111,
-            "id": 10
+            "students": 111
           },
           {
             "name": "Software Engineering",
-            "students": 123,
-            "id": 13
+            "students": 123
           },
           {
             "name": "Neural Networks",
-            "students": 211,
-            "id": 17
+            "students": 211
           },
           {
             "name": "Hydraulics",
-            "students": 126,
-            "id": 19
+            "students": 126
           }
         ]
       },
@@ -75,27 +62,22 @@
         "name": "Dan Abramov", 
         "email": "danabramov@gmail.com",
         "password": "$2a$10$m.LqguHbxRa4UKzCw.t6mudaRPZrethCZsSS9FpZMuttaM476T5.C",
-        "id": 3,
         "courses": [
           {
             "name": "Investment Banking",
-            "students": 81,
-            "id": 3
+            "students": 81
           },
           {
             "name": "Engineering Accounting",
-            "students": 49,
-            "id": 7
+            "students": 49
           },
           {
             "name": "Python Programming",
-            "students": 36,
-            "id": 11
+            "students": 36
           },
           {
             "name": "Data Structures and Algorithms",
-            "students": 121,
-            "id": 15
+            "students": 121
           }
         ]
       },
@@ -103,27 +85,22 @@
         "name": "Mary Poppendieck", 
         "email": "marypoppendieck@gmail.com",
         "password": "$2a$10$m.LqguHbxRa4UKzCw.t6mudaRPZrethCZsSS9FpZMuttaM476T5.C",
-        "id": 4,
         "courses": [
           {
             "name": "Mechanical Testing",
-            "students": 196,
-            "id": 4
+            "students": 196
           },
           {
             "name": "IT Maintenance",
-            "students": 169,
-            "id": 8
+            "students": 169
           },
           {
             "name": "JavaScript Programming",
-            "students": 189,
-            "id": 12
+            "students": 189
           },
           {
             "name": "Network Maintenanve",
-            "students": 225,
-            "id": 16
+            "students": 225
           }
         ]
       }
