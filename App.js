@@ -6,6 +6,7 @@ const StudentRoutes = require('./controllers/students');
 const InstructorRoutes = require('./controllers/instructors');
 const CoursesRoutes = require('./controllers/courses');
 const LoginRoutes = require('./controllers/login');
+const middleware = require('./utils/middlewares');
 const log = require('./utils/logger');
 const config = require('./utils/config');
 
@@ -23,6 +24,9 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+app.use(middleware.requestLogger);
+app.use(middleware.TokenExtractor);
 
 app.use('/api/students', StudentRoutes);
 app.use('/api/instructors', InstructorRoutes);

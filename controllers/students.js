@@ -5,24 +5,36 @@ const Students = require('../models/students');
 require('express-async-errors');
 
 StudentRoutes.get('/', async (request, response) => {
+  const auth = request.token;
+
+  if (!auth) {
+    return response.status(400).send('Invalid Token');
+  }
+
   const students = await Students.find({});
-  response.json(students);
+  return response.json(students);
 });
 
 StudentRoutes.get('/:id', async (request, response) => {
+  const auth = request.token;
+
+  if (!auth) {
+    return response.status(400).send('Invalid Token');
+  }
+
   const students = await Students.findById(request.params.id);
-  response.json(students);
+  return response.json(students);
 });
 
 StudentRoutes.post('/', async (request, response) => {
   const { name, email, password } = request.body;
 
   if (!name || !email || !password) {
-    return response.status(400).send({ error: 'Bad Request' });
+    return response.status(400).send('Invalid Name, Email or Password');
   }
 
   if (password.length < 3) {
-    return response.status(400).send({ error: 'Password too short' });
+    return response.status(400).send('Password must be at least three chatacters');
   }
 
   const passwordHash = await bcrypt.hash(password, 10);
@@ -46,6 +58,12 @@ StudentRoutes.post('/', async (request, response) => {
 });
 
 StudentRoutes.put('/:id', async (request, response) => {
+  const auth = request.token;
+
+  if (!auth) {
+    return response.status(400).send('Invalid Token');
+  }
+
   const result = await Students.findByIdAndUpdate(request.params.id, request.body);
   return response.status(200).json(result);
 });

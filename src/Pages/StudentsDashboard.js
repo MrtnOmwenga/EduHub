@@ -23,7 +23,7 @@ const StudentsDashboard = () => {
   }, [data.id, navigate]);
 
   const viewCourse = (id) => {
-    navigate('/coursepage', { replace: true, state: { id, data } });
+    navigate('/coursepage', { replace: true, state: { id, user: { ...data } } });
   };
 
   return (

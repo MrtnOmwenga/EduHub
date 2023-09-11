@@ -9,7 +9,7 @@ const CoursePage = () => {
   const [filter, setFilter] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
-  const user = location.state.data;
+  const { user } = location.state;
 
   if (user === null) {
     navigate('/errorpage');

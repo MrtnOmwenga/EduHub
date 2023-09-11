@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import register from './Style/Register.module.css';
 import RegisterService from '../Services/Register';
 import RegisterForm from '../Components/RegisterForm';
+import DataServices from '../Services/Data';
 
 const eduhubJPG = require('./Style/Images/EduHub.png');
 
@@ -26,6 +27,7 @@ const Register = () => {
     event.preventDefault();
     try {
       const user = await RegisterService.Register({ name, email, password }, UserType);
+      DataServices.SetToken(user.token);
       if (UserType === 'Student') {
         navigate('/studentsdashboard', { replace: true, state: { ...user, UserType } });
       } else {
@@ -35,8 +37,7 @@ const Register = () => {
       setEmail('');
       setPassword('');
     } catch (error) {
-      console.log(error);
-      toast.error('Wrong Credentials');
+      toast.error(`${error}`);
     }
   };
 

@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import login from './Style/Login.module.css';
 import LoginForm from '../Components/LoginForm';
 import LoginService from '../Services/Login';
+import DataServices from '../Services/Data';
 
 const eduhubJPG = require('./Style/Images/EduHub.png');
 
@@ -26,6 +27,7 @@ const Login = () => {
 
     try {
       const user = await LoginService.Login({ email, password, UserType });
+      DataServices.SetToken(user.token);
       toast.success('Successful login');
       if (UserType === 'Student') {
         navigate('/studentsdashboard', { replace: true, state: { ...user, UserType } });
@@ -35,8 +37,7 @@ const Login = () => {
       setEmail('');
       setPassword('');
     } catch (exception) {
-      console.log(exception);
-      toast.error('Incorrect username or password');
+      toast.error(`${exception}`);
     }
   };
 

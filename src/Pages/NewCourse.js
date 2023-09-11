@@ -52,8 +52,6 @@ const NewCourse = () => {
       FileList.push(renamedFile);
       modules.push(newObject);
 
-      console.log(modules);
-
       ModuleComplete = true;
       setModuleName('');
       setFile(null);

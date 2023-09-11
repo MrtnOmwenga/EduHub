@@ -11,7 +11,7 @@ LoginRoutes.post('/', async (request, response) => {
   const CorrectPassword = user === null ? false : await bcrypt.compare(password, user.password);
 
   if (!(user && CorrectPassword)) {
-    return response.status(401).send({ error: 'Unauthorized' });
+    return response.status(401).send('Invalid username or password');
   }
 
   const forToken = {

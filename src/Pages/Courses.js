@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import { FaArrowLeft } from 'react-icons/fa6';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import courseStyle from './Style/Courses.module.css';
 import DataServices from '../Services/Data';
 
@@ -26,7 +27,7 @@ const Courses = () => {
         const res = await DataServices.GetUser(user.id, 'students');
         setStudent(res);
       } catch (error) {
-        console.log(error);
+        toast.error(`${error}`);
         navigate('/errorpage');
       }
     };
@@ -53,12 +54,13 @@ const Courses = () => {
         try {
           await DataServices.UpdateUser(user.id, 'students', newStudent);
         } catch (error) {
-          console.log(error);
-          navigate('/errorpage');
+          toast.error(`${error}`);
+          setTimeout(() => {
+            navigate('/errorpage');
+          }, 5000);
         }
       } else {
-        /* eslint-disable */
-        alert('You are already enrolled to this course');
+        toast('You are already enrolled to this course');
       }
     }
     navigate('/coursepage', { replace: true, state: { id: course.id, user } });
@@ -104,6 +106,7 @@ const Courses = () => {
           </li>
         ))}
       </ul>
+      <ToastContainer />
     </div>
   );
 };
