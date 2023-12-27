@@ -16,6 +16,9 @@ const CoursePage = () => {
   }
 
   useEffect(() => {
+    const token = window.localStorage.getItem('token');
+    DataServices.SetToken(token);
+
     const _ = async () => {
       try {
         const response = await DataServices.GetCourse(location.state.id);

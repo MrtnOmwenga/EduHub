@@ -16,6 +16,9 @@ const InstructorsDashboard = () => {
   }
 
   useEffect(() => {
+    const token = window.localStorage.getItem('token');
+    DataServices.SetToken(token);
+
     const _ = async () => {
       const response = await DataServices.GetUser(data.id, 'instructors');
       setUser(response);

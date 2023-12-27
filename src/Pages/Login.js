@@ -27,7 +27,10 @@ const Login = () => {
 
     try {
       const user = await LoginService.Login({ email, password, UserType });
+
       DataServices.SetToken(user.token);
+      window.localStorage.setItem('token', user.token);
+
       toast.success('Successful login');
       if (UserType === 'Student') {
         navigate('/studentsdashboard', { replace: true, state: { ...user, UserType } });

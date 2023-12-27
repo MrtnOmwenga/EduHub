@@ -21,6 +21,9 @@ const NewCourse = () => {
   }
 
   useEffect(() => {
+    const token = window.localStorage.getItem('token');
+    DataServices.SetToken(token);
+
     const _ = async () => {
       const response = await DataServices.GetUser(user.id, 'instructors');
       setInstructor(response);
