@@ -1,29 +1,79 @@
 .body {
-    margin-top: 5em;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+}
+
+.menu {
+    grid-column-start: 1;
+
+    background-color: #115a65;
+    height: 100%;
+    position: absolute;
+    padding-right: 5%;
+
+    font-family: 'Oxygen', sans-serif;
+    color: aliceblue;
+}
+
+.menu_title {
+    margin-top: 2em;
+    margin-bottom: 3em;
+    margin-left: 1em
+}
+
+.menu_item {
+    margin-top: 2em;
+    margin-left: 3em;
+    list-style: none;
+    padding-bottom: 3%;
+    font-size: small;
+}
+
+.logout {
+    margin-top: 2em;
+    margin-left: 3em;
+    list-style: none;
+    padding-bottom: 3%;
+    font-size: small;
+    position: absolute;
+    bottom: 20px;
+}
+
+.link {
+    text-decoration: none;
+    color: aliceblue;
+}
+
+.menu_item:hover {
+    color: rgb(38, 58, 58);
+}
+
+.logout:hover {
+    color: rgb(38, 58, 58);
+}
+
+.form_container {
+    grid-column-start: 2
 }
 
 .form {
-  margin: auto;
-  width: 50%;
-  padding: 10px 10px 3% 10px;
-  box-shadow: rgba(0, 0, 0, 0.5) 4.95px 4.95px 5.6px;
+    margin-top: 7em;
 }
 
 .title {
     font-family: 'Oxygen', sans-serif;
     color: #115a65;
-    margin-left: 7em;
+    margin-left: 3em;
     margin-top: 1em;
     margin-bottom: 2em;
     font-size: 1.5em;
 }
 
 .module_name,
-.module_link,
 .course_name {
-    margin-left: 5em;
+    margin-left: 2em;
     height: 3em;
-    margin-bottom: 2em;
+    margin-bottom: 3em;
     border-color: #115a65;
     border-style: solid;
     border-width: 0.05em;
@@ -37,27 +87,70 @@
 }
 
 .module_element {
-    display: grid;
-    column-count: 2;
+    display: flex;
+    flex-direction: row;
+    gap: 5em;
 }
 
 .module_name {
-    grid-column-start: 1;
-    width: 70%;
+    width: 35%;
+}
+
+label.label input[type="file"] {
+    position: absolute;
+    opacity: 0;
+}
+
+.label {
+    cursor: pointer;
+    border: 1px solid #115a65;
+    border-radius: 5px;
+    padding: 5px 5px;
+    background: #115a65;
+    display: inline-block;
+    height: 1.9em;
+    width: 15%;
+
+    text-align: center;
+    vertical-align: middle;
+    color: aliceblue;
+}
+.label:hover {
+    background: aliceblue;
+    color: #115a65;
+}
+.label:active {
+    background: #9fa1a0;
+}
+.label:invalid+span {
+    color: #000000;
+}
+.label:valid+span {
+    color: #ffffff;
+}
+
+.label span {
+    margin: auto;
+    font-family: 'Oxygen', sans-serif;
+    font-size: 1em;
 }
 
 .module_link {
-    grid-column-start: 2;
-    width: 70%;
-    padding-top: 3%;
-    border: none;
+    width: 5%;
 }
 
-.remove_module,
 .add_module {
-    margin-left: 5em;
+    margin-left: 2em;
     padding: 0.5em 1em;
     border-radius: 5px;
+    height: 3em;
+    width: 15em;
+}
+
+.remove_module {
+    background-color: transparent;
+    color: #115a65;
+    padding-top: 1.5%;
 }
 
 .submit {
@@ -67,7 +160,6 @@
 }
 
 .add_module,
-.remove_module,
 .submit {
     background-color: #115a65;
     color: aliceblue;

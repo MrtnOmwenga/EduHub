@@ -72,7 +72,7 @@ const StudentsDashboard = () => {
             state={{ ...data }}
             className={dash.link}
           >
-            <li className={dash.menu_item}> LOGOUT </li>
+            <li className={dash.logout}> LOGOUT </li>
           </Link>
         </ul>
       </div>

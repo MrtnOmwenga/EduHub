@@ -31,14 +31,27 @@
   font-size: small;
 }
 
+.logout {
+  margin-top: 2em;
+  margin-left: 3em;
+  list-style: none;
+  padding-bottom: 3%;
+  font-size: small;
+  position: absolute;
+  bottom: 20px;
+}
+
 .link {
   text-decoration: none;
   color: aliceblue;
 }
 
 .menu_item:hover {
-  border-bottom-style: solid;
-  border-bottom-color: aliceblue;
+  color: rgb(38, 58, 58);
+}
+
+.logout:hover {
+  color: rgb(38, 58, 58);
 }
 
 .content {
@@ -52,11 +65,13 @@
 }
 
 .main_title {
-  margin-bottom: 4em;
+  margin-bottom: 3em;
+  margin-top: 1em;
+  margin-left: 2em;
 }
 
 table {
-  margin-left: 5%;
+  margin-left: 2%;
   margin-top: 3em;
 }
 
@@ -67,10 +82,17 @@ table {
   height: 5em;
 }
 
+thead tr th {
+  padding-left: 5%;
+}
+
+tbody tr th {
+  padding-left: 2%;
+}
+
 .course_list {
   table-layout: auto;
-  width: 80%;
-  height: 80%;
+  width: 90%;
   border-collapse: collapse;
 }
 
@@ -81,6 +103,8 @@ table {
 
 tr {
   border-bottom: 1px solid;
+  border-bottom-color: rgb(38, 58, 58);
+  height: 70px;
 }
 
 .course_name {
@@ -101,6 +125,7 @@ tr {
   padding: 0.5em 1em 0.5em 1em ;
   display: flex;
   gap: 1em;
+  height: 100%;
 }
 
 .course_btn:hover {

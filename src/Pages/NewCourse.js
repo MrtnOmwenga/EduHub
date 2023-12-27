@@ -1,20 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { FaArrowLeft } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import { FaX } from 'react-icons/fa6';
 import newCourse from './Style/NewCourse.module.css';
 import DataServices from '../Services/Data';
 
-let FileList = [];
-let modules = [];
-
 const NewCourse = () => {
-  const [moduleCount, setModuleCount] = useState(1);
   const [courseName, setCourseName] = useState('');
-  const [moduleName, setModuleName] = useState('');
-  const [file, setFile] = useState(null);
+  const [ModuleList, setModuleList] = useState([
+    { id: 1, name: 'Module 1', file: null },
+  ]);
   const [instructor, setInstructor] = useState('');
-  let ModuleComplete = useRef(false);
+
   const navigate = useNavigate();
   const location = useLocation();
   const user = location.state;
@@ -31,87 +28,33 @@ const NewCourse = () => {
     _();
   }, [user.id, navigate]);
 
-  const moduleChange = (event) => {
-    setModuleName(event.target.value);
-    ModuleComplete = false;
+  const ModuleChange = (id, name) => {
+    const updatedList = ModuleList.map((item) => (item.id === id ? { ...item, name } : item));
+    setModuleList(updatedList);
   };
-  const fileChange = (event) => {
-    setFile(event.target.files[0]);
-    ModuleComplete = false;
-  };
-
-  const SaveModule = async () => {
-    if (file) {
-      const newObject = {
-        name: moduleName,
-        file: `${moduleName}-${file.name}`,
-      };
-
-      const renamedFile = new File([file], `${moduleName}-${file.name}`);
-
-      FileList.push(renamedFile);
-      modules.push(newObject);
-
-      ModuleComplete = true;
-      setModuleName('');
-      setFile(null);
-    } else {
-      toast.error('Please Choose File before Adding another module');
-    }
+  const FileChange = (id, file) => {
+    const updatedList = ModuleList.map((item) => (item.id === id ? { ...item, file } : item));
+    setModuleList(updatedList);
   };
 
   const addModule = async (event) => {
     event.preventDefault();
 
-    try {
-      await SaveModule();
-      setModuleCount(moduleCount + 1);
-      toast.success('Module Added');
-    } catch (error) {
-      console.log(error);
-    }
+    const newId = ModuleList.length + 1;
+    setModuleList([...ModuleList, { id: newId, name: '', file: null }]);
   };
 
-  const RemoveModule = () => {
-    modules.splice(-1);
-    FileList.splice(-1);
-    setModuleName('');
-    setFile(null);
-    setModuleCount(moduleCount - 1);
+  const RemoveModule = (id) => {
+    const updatedList = ModuleList.filter((item) => item.id !== id);
+    setModuleList(updatedList);
 
     toast.success('Module removed');
   };
-
-  const content = [];
-  for (let count = 0; count < moduleCount; count++) {
-    content.push(
-      <div className={newCourse.module_element}>
-        <input
-          key={`module${count}`}
-          className={newCourse.module_name}
-          type="text"
-          onChange={moduleChange}
-          placeholder="Module name"
-        />
-        <input
-          key={`file${count}`}
-          className={newCourse.module_link}
-          type="file"
-          onChange={fileChange}
-          accept="application/pdf"
-        />
-      </div>,
-    );
-  }
 
   const courseChange = (event) => setCourseName(event.target.value);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    if (ModuleComplete) {
-      SaveModule();
-    }
 
     const NewCourseObject = {
       name: courseName,
@@ -119,11 +62,13 @@ const NewCourse = () => {
       modules: [],
     };
 
-    modules.map((module) => {
+    ModuleList.map((module) => {
+      console.log(module);
       NewCourseObject.modules.push({
         name: module.name,
-        file: module.file,
+        file: `${module.name}-${module.file.name}`,
       });
+
       return null;
     });
 
@@ -141,7 +86,9 @@ const NewCourse = () => {
 
       await DataServices.UpdateUser(instructor.id, 'instructors', newInstructor);
 
-      FileList.forEach(async (FileObject) => {
+      ModuleList.forEach(async (module) => {
+        const FileObject = new File([module.file], `${module.name}-${module.file.name}`);
+
         const data = new FormData();
         data.append('file', FileObject);
 
@@ -151,32 +98,97 @@ const NewCourse = () => {
           navigate('/errorpage');
         }
       });
-
-      FileList = [];
-      modules = [];
     } catch (error) {
       navigate('/errorpage');
     }
     navigate('/instructorsdashboard', { replace: true, state: { ...user } });
   };
 
-  const back = () => {
-    navigate('/instructorsdashboard', { replace: true, state: { ...user } });
-  };
-
   return (
     <div className={newCourse.body}>
-      <FaArrowLeft size={25} className={newCourse.back} onClick={back} />
-      <form className={newCourse.form} onSubmit={handleSubmit}>
-        <h3 className={newCourse.title}> Create Course </h3>
-        <input className={newCourse.course_name} type="text" placeholder="Course Name" onChange={courseChange} />
-        {content.map((resContent) => resContent)}
-        <button type="button" className={newCourse.add_module} onClick={addModule}> Add Module </button>
-        <button type="button" className={newCourse.remove_module} onClick={RemoveModule}> Remove Module </button>
-        <div>
-          <button className={newCourse.submit} type="submit">Submit</button>
-        </div>
-      </form>
+      <div className={newCourse.menu}>
+        <h3 className={newCourse.menu_title}>
+          HUB
+          {' '}
+          <br />
+          {' '}
+          EDUCATION
+        </h3>
+        <ul className={newCourse.menu_list}>
+          <Link
+            to="/instructorsdashboard"
+            state={{ ...user }}
+            className={newCourse.link}
+          >
+            <li className={newCourse.menu_item}>DASHBOARD</li>
+          </Link>
+          {' '}
+          <Link
+            to="/courses"
+            state={{ ...user }}
+            className={newCourse.link}
+          >
+            <li className={newCourse.menu_item}> COURSES </li>
+
+          </Link>
+          {' '}
+          <Link
+            to="/indevelopment"
+            state={{ ...user }}
+            className={newCourse.link}
+          >
+            <li className={newCourse.menu_item}>QUIZZES</li>
+          </Link>
+          <Link
+            to="/indevelopment"
+            state={{ ...user }}
+            className={newCourse.link}
+          >
+            <li className={newCourse.menu_item}>ACCOUNT</li>
+          </Link>
+          <Link
+            to="/login"
+            state={{ ...user }}
+            className={newCourse.link}
+          >
+            <li className={newCourse.logout}> LOGOUT </li>
+          </Link>
+        </ul>
+      </div>
+      <div className={newCourse.form_container}>
+        <form className={newCourse.form} onSubmit={handleSubmit}>
+          <h3 className={newCourse.title}> Create Course </h3>
+          <input className={newCourse.course_name} type="text" placeholder="Course Name" onChange={courseChange} />
+          {ModuleList.map((item) => (
+            <div className={newCourse.module_element}>
+              <input
+                key={`name_${item.id}`}
+                className={newCourse.module_name}
+                type="text"
+                onChange={(e) => ModuleChange(item.id, e.target.value)}
+                placeholder="Module name"
+              />
+              { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
+              <label htmlFor="file" className={newCourse.label}>
+                <input
+                  key={`file_${item.id}`}
+                  className={newCourse.module_link}
+                  type="file"
+                  onChange={(e) => FileChange(item.id, e.target.files[0])}
+                  accept="application/pdf"
+                  id="file"
+                />
+                <span>Select a file</span>
+              </label>
+              <FaX className={newCourse.remove_module} onClick={RemoveModule} />
+            </div>
+          ))}
+          <button type="button" className={newCourse.add_module} onClick={addModule}> Add Module </button>
+          <div>
+            <button className={newCourse.submit} type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
       <ToastContainer />
     </div>
   );

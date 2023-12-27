@@ -109,20 +109,23 @@
 
 .Section2 {
     display: grid;
-    column-count: 2;
+    grid-template-columns: 60% 40%;
+    height: 30em;
+    align-items: stretch; /* Vertically stretch items to fill the container */
 }
 
 .SpanImage {
     grid-column-start: 1;
     display: flex;
-    width: 160%;
-    height: 100%;
+    height: 60%;
+    aspect-ratio: auto;
 }
 
 .textcontainer1 {
     grid-column-start: 2;
     background-color: #115a65;
     text-align: center;
+    height: 60%;
 }
 
 .AboutUstitle {
@@ -142,22 +145,33 @@
     font-size: 1em;
     font-weight: 400;
     margin-bottom: 0.01em;
-    padding-left: 20%;
-    padding-right: 20%;
+    padding-left: 10%;
+    padding-right: 10%;
     padding-bottom: 3%;
 }
 
 .loginbutton {
+    color: aliceblue;
     border: solid;
-    margin-bottom: 1em;
+    margin-bottom: 3em;
     margin-top: 1em;
     background-color: rgb(0, 0, 0, 0);
-    border-color: aliceblue/*#011e31*/;
+    border-color: aliceblue;
+    /*background-color: #3824cd;*/
     border-radius: 50px;
-    width: 20%;
-    height: 10%;
+    width: 40%;
+    height: 3em;
 
-    margin-left: 2em;
+    margin-bottom: 10%;
+
+    font-family: 'Oxygen', sans-serif;
+    font-size: 1em;
+    text-decoration: none;
+}
+
+.loginbutton:hover {
+    color: #115a65;
+    background-color: aliceblue;
 }
 
 .Section3 {
@@ -174,7 +188,6 @@
 .title3 {
     font-family: 'Oxygen', sans-serif;
     color: rgb(38, 48, 48);
-    font-weight: 200;
 
     font-size: 2.5em;
 }
@@ -182,7 +195,6 @@
 .subText {
     color: #115a65;
     font-family: 'Oxygen', sans-serif;
-    margin-top: 2%;
 }
 
 .ImageSlides {
@@ -251,7 +263,7 @@
 
 .Activitytitle {
     font-family: 'Oxygen', sans-serif;
-    font-weight: 200;
+    font-weight: bold;
     margin-top: 5%;
     margin-bottom: 10%;
     /*color: rgb(38, 48, 48);*/
@@ -278,11 +290,11 @@
 .title4 {
     font-family: 'Oxygen', sans-serif;
     color: rgb(38, 48, 48);
-    margin-top: 0px;
+    margin-top: 10px;
     margin-bottom: 5%;
 
     font-size: 2.5em;
-    font-weight: 200;
+    font-weight: bold;
 }
 
 .instructors {
@@ -360,25 +372,25 @@
 .contactus {
     grid-column-start: 1;
     padding-top: 15%;
-    height: 20em;
+    height: auto;
     padding-left: 15%;
+    background-color: #115a65;
+    color: aliceblue;
 }
 
 .reachout {
     font-family: 'Oxygen', sans-serif;
-    color: #115a65;
+    font-size: 2em;
 }
 
 .contacttitle {
     font-family: 'Oxygen', sans-serif;
-    color: #115a65;
-    margin-top: 7%;
+    margin-top: 10%;
 }
 
 .contactinfo {
     font-family: 'Oxygen', sans-serif;
-    color: rgb(38, 48, 48);
-    margin-top: 5%;
+    margin-top: 2%;
 }
 
 .contactimage {
@@ -401,7 +413,7 @@ footer {
 }
 
 footer p {
-    color: aliceblue;
+    color: rgb(38, 48, 48);
     padding-top: 2.5%;
     font-family: 'Oxygen', sans-serif;
 }
