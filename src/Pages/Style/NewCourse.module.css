@@ -106,33 +106,32 @@ label.label input[type="file"] {
     border: 1px solid #115a65;
     border-radius: 5px;
     padding: 5px 5px;
-    background: #115a65;
+    background: aliceblue;
     display: inline-block;
-    height: 1.9em;
-    width: 15%;
+    height: 1.6em;
+    width: 7.5em;
 
     text-align: center;
     vertical-align: middle;
-    color: aliceblue;
-}
-.label:hover {
-    background: aliceblue;
     color: #115a65;
 }
-.label:active {
-    background: #9fa1a0;
-}
-.label:invalid+span {
-    color: #000000;
-}
-.label:valid+span {
-    color: #ffffff;
+
+.FileSelected {
+    color: aliceblue;
+    background: #115a65;
 }
 
 .label span {
     margin: auto;
     font-family: 'Oxygen', sans-serif;
-    font-size: 1em;
+    font-size: 0.8em;
+    vertical-align: middle;
+
+    display: inline-block;
+    max-width: 6em;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Show ellipsis (...) for overflow text */
+    white-space: nowrap;
 }
 
 .module_link {
@@ -155,8 +154,10 @@ label.label input[type="file"] {
 
 .submit {
     padding: 0.75em 3em;
-    margin-left: 20em;
+    margin-left: 2em;
     margin-top: 4em;
+    width: 15em;
+    height: 3em;
 }
 
 .add_module,

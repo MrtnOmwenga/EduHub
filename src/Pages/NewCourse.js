@@ -8,7 +8,7 @@ import DataServices from '../Services/Data';
 const NewCourse = () => {
   const [courseName, setCourseName] = useState('');
   const [ModuleList, setModuleList] = useState([
-    { id: 1, name: 'Module 1', file: null },
+    { id: 1, name: '', file: null },
   ]);
   const [instructor, setInstructor] = useState('');
 
@@ -32,12 +32,16 @@ const NewCourse = () => {
   }, [user.id, navigate]);
 
   const ModuleChange = (id, name) => {
-    const updatedList = ModuleList.map((item) => (item.id === id ? { ...item, name } : item));
-    setModuleList(updatedList);
+    setModuleList((prevModuleList) => {
+      const updatedList = prevModuleList.map((item) => (item.id === id ? { ...item, name } : item));
+      return updatedList;
+    });
   };
-  const FileChange = (id, file) => {
-    const updatedList = ModuleList.map((item) => (item.id === id ? { ...item, file } : item));
-    setModuleList(updatedList);
+  const FileChange = async (id, file) => {
+    await setModuleList((prevModuleList) => {
+      const updatedList = prevModuleList.map((item) => (item.id === id ? { ...item, file } : item));
+      return updatedList;
+    });
   };
 
   const addModule = async (event) => {
@@ -48,10 +52,11 @@ const NewCourse = () => {
   };
 
   const RemoveModule = (id) => {
-    const updatedList = ModuleList.filter((item) => item.id !== id);
-    setModuleList(updatedList);
-
-    toast.success('Module removed');
+    setModuleList((prevModuleList) => {
+      const updatedList = prevModuleList.filter((item) => item.id !== id);
+      toast.success('Module removed');
+      return updatedList;
+    });
   };
 
   const courseChange = (event) => setCourseName(event.target.value);
@@ -67,6 +72,11 @@ const NewCourse = () => {
 
     ModuleList.map((module) => {
       console.log(module);
+
+      if (module.file === null) {
+        toast.error(`Please choose a file for ${module.name}`);
+        return null;
+      }
       NewCourseObject.modules.push({
         name: module.name,
         file: `${module.name}-${module.file.name}`,
@@ -166,13 +176,14 @@ const NewCourse = () => {
             <div className={newCourse.module_element}>
               <input
                 key={`name_${item.id}`}
+                value={item.name}
                 className={newCourse.module_name}
                 type="text"
                 onChange={(e) => ModuleChange(item.id, e.target.value)}
                 placeholder="Module name"
               />
               { /* eslint-disable-next-line jsx-a11y/label-has-associated-control */ }
-              <label htmlFor="file" className={newCourse.label}>
+              <label htmlFor="file" className={`${newCourse.label} ${item.file ? newCourse.FileSelected : ''}`}>
                 <input
                   key={`file_${item.id}`}
                   className={newCourse.module_link}
@@ -181,9 +192,9 @@ const NewCourse = () => {
                   accept="application/pdf"
                   id="file"
                 />
-                <span>Select a file</span>
+                <span>{item.file ? item.file.name : 'Select a file'}</span>
               </label>
-              <FaX className={newCourse.remove_module} onClick={RemoveModule} />
+              <FaX className={newCourse.remove_module} onClick={() => RemoveModule(item.id)} />
             </div>
           ))}
           <button type="button" className={newCourse.add_module} onClick={addModule}> Add Module </button>
