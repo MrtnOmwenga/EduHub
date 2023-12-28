@@ -3,12 +3,12 @@ import { FaArrowLeft } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import login from './Style/Login.module.css';
-import LoginForm from '../Components/LoginForm';
-import LoginService from '../Services/Login';
-import DataServices from '../Services/Data';
+import login from './style/Login.module.css';
+import LoginForm from '../components/LoginForm';
+import LoginService from '../services/Login';
+import DataServices from '../services/Data';
 
-const eduhubJPG = require('./Style/Images/EduHub.png');
+const eduhubJPG = require('./style/images/EduHub.png');
 
 const Login = () => {
   const [UserType, setUsertype] = useState('Student');

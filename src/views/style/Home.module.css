@@ -1,5 +1,5 @@
 .Section1 {
-    background-image: url('./Images/EduHub.png');
+    background-image: url('./images/EduHub.png');
     width: 100%;
     height: 100%;
     background-position: center;
@@ -305,7 +305,7 @@
 
 .instructor1 {
     grid-column-start: 1;
-    background-image: url('./Images/Person2.png');
+    background-image: url('./images/Person2.png');
     width: 100%;
     height: 100%;
     background-position: center;
@@ -315,7 +315,7 @@
 
 .instructor2 {
     grid-column-start: 2;
-    background-image: url('./Images/Person1.jpeg');
+    background-image: url('./images/Person1.jpeg');
     width: 100%;
     height: 100%;
     background-position: center;
@@ -325,7 +325,7 @@
 
 .instructor3 {
     grid-column-start: 3;
-    background-image: url('./Images/Person3.jpeg');
+    background-image: url('./images/Person3.jpeg');
     width: 100%;
     height: 100%;
     background-position: center;

@@ -3,8 +3,8 @@ import { FaArrowRight } from 'react-icons/fa';
 import { FaArrowLeft } from 'react-icons/fa6';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import courseStyle from './Style/Courses.module.css';
-import DataServices from '../Services/Data';
+import courseStyle from './style/Courses.module.css';
+import DataServices from '../services/Data';
 
 const Courses = () => {
   const [courses, setCourse] = useState([]);

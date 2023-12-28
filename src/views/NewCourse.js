@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { FaX } from 'react-icons/fa6';
-import newCourse from './Style/NewCourse.module.css';
-import DataServices from '../Services/Data';
+import newCourse from './style/NewCourse.module.css';
+import DataServices from '../services/Data';
 
 const NewCourse = () => {
   const [courseName, setCourseName] = useState('');

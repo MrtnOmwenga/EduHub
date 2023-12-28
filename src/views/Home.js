@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import style from './Style/Home.module.css';
+import style from './style/Home.module.css';
 
-const meetingJPG = require('./Style/Images/BoardMeeting.png');
-const backgroundJPG = require('./Style/Images/Background.jpg');
+const meetingJPG = require('./style/images/BoardMeeting.png');
+const backgroundJPG = require('./style/images/Background.jpg');
 
 const Home = () => (
   <div className={style.stylePage}>

@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
-import { AiOutlinePlusCircle } from 'react-icons/ai';
-import dash from './Style/InstructorDashboard.module.css';
-import DataServices from '../Services/Data';
+import dash from './style/Dashboard.module.css';
+import DataServices from '../services/Data';
 
-const InstructorsDashboard = () => {
+const StudentsDashboard = () => {
   const location = useLocation();
   const data = location.state;
   const [user, setUser] = useState({});
@@ -20,7 +19,7 @@ const InstructorsDashboard = () => {
     DataServices.SetToken(token);
 
     const _ = async () => {
-      const response = await DataServices.GetUser(data.id, 'instructors');
+      const response = await DataServices.GetUser(data.id, 'students');
       setUser(response);
     };
     _();
@@ -50,13 +49,19 @@ const InstructorsDashboard = () => {
             <li className={dash.menu_item}> COURSES </li>
 
           </Link>
-          {' '}
           <Link
             to="/indevelopment"
             state={{ ...data }}
             className={dash.link}
           >
             <li className={dash.menu_item}>QUIZZES</li>
+          </Link>
+          <Link
+            to="/indevelopment"
+            state={{ ...data }}
+            className={dash.link}
+          >
+            <li className={dash.menu_item}>INSTRUCTORS</li>
           </Link>
           <Link
             to="/indevelopment"
@@ -84,7 +89,7 @@ const InstructorsDashboard = () => {
           <thead className={dash.table_head}>
             <tr>
               <th> COURSE NAME</th>
-              <th> STUDENTS</th>
+              <th> GRADE</th>
               <th>  </th>
             </tr>
           </thead>
@@ -92,11 +97,11 @@ const InstructorsDashboard = () => {
             {user.courses?.map((course) => (
               <tr className={dash.course_element} key={course.id}>
                 <th className={dash.course_name}>{course.name}</th>
-                <th className={dash.course_grade}>{course.students}</th>
+                <th className={dash.course_grade}>{course.grade}</th>
                 <th className={dash.course_button}>
                   <button type="button" className={dash.course_btn} onClick={() => viewCourse(course.id)}>
                     {' '}
-                    View
+                    Study
                     <FaArrowRight className={dash.course_txt} />
                   </button>
                 </th>
@@ -105,13 +110,8 @@ const InstructorsDashboard = () => {
           </tbody>
         </table>
       </div>
-      <Link to="/newcourse" state={{ ...data }}>
-        {' '}
-        <AiOutlinePlusCircle size={30} className={dash.plus_button} />
-        {' '}
-      </Link>
     </div>
   );
 };
 
-export default InstructorsDashboard;
+export default StudentsDashboard;
