@@ -1,0 +1,58 @@
+.DocumentContainer {
+      display: grid;
+      grid-template-columns: 1fr 5fr;
+}
+
+.menu {
+      grid-column-start: 1;
+
+      background-color: #115a65;
+      height: 100%;
+      position: absolute;
+      padding-right: 5%;
+
+      font-family: 'Oxygen', sans-serif;
+      color: aliceblue;
+}
+
+.title {
+      margin-top: 2em;
+      margin-bottom: 3em;
+      margin-left: 1em
+}
+
+.menu_item {
+      margin-top: 2em;
+      margin-left: 3em;
+      list-style: none;
+      padding-bottom: 3%;
+      font-size: small;
+}
+
+.logout {
+      margin-top: 2em;
+      margin-left: 3em;
+      list-style: none;
+      padding-bottom: 3%;
+      font-size: small;
+      position: absolute;
+      bottom: 20px;
+}
+
+.link {
+      text-decoration: none;
+      color: aliceblue;
+}
+
+.menu_item:hover {
+      color: rgb(38, 58, 58);
+}
+
+.logout:hover {
+      color: rgb(38, 58, 58);
+}
+
+.Document {
+      grid-column-start: 2;
+}
+  

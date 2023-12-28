@@ -84,7 +84,7 @@ const MyCourses = () => {
             <li className={MyCourseStyle.course_element} key={course.id}>
               <Link
                 to="/documentviewer"
-                state={{ file: course.file }}
+                state={{ file: course.file, user }}
                 className={`${MyCourseStyle.course_info} ${MyCourseStyle.document_link} `}
               >
                 <h4 className={MyCourseStyle.course_name}>
