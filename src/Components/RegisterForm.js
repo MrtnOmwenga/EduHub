@@ -1,5 +1,5 @@
 import React from 'react';
-import register from '../Pages/Style/Register.module.css';
+import register from '../views/style/Register.module.css';
 
 const RegisterForm = ({
   user, nameChange, emailChange,

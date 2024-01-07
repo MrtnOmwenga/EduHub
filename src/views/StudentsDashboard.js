@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
-import dash from './Style/Dashboard.module.css';
-import DataServices from '../Services/Data';
+import dash from './style/Dashboard.module.css';
+import DataServices from '../services/Data';
 
 const StudentsDashboard = () => {
   const location = useLocation();
@@ -15,6 +15,9 @@ const StudentsDashboard = () => {
   }
 
   useEffect(() => {
+    const token = window.localStorage.getItem('token');
+    DataServices.SetToken(token);
+
     const _ = async () => {
       const response = await DataServices.GetUser(data.id, 'students');
       setUser(response);
@@ -72,7 +75,7 @@ const StudentsDashboard = () => {
             state={{ ...data }}
             className={dash.link}
           >
-            <li className={dash.menu_item}> LOGOUT </li>
+            <li className={dash.logout}> LOGOUT </li>
           </Link>
         </ul>
       </div>

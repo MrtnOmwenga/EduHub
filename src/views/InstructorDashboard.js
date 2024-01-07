@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
-import dash from './Style/InstructorDashboard.module.css';
-import DataServices from '../Services/Data';
+import dash from './style/InstructorDashboard.module.css';
+import DataServices from '../services/Data';
 
 const InstructorsDashboard = () => {
   const location = useLocation();
@@ -16,6 +16,9 @@ const InstructorsDashboard = () => {
   }
 
   useEffect(() => {
+    const token = window.localStorage.getItem('token');
+    DataServices.SetToken(token);
+
     const _ = async () => {
       const response = await DataServices.GetUser(data.id, 'instructors');
       setUser(response);
@@ -24,7 +27,7 @@ const InstructorsDashboard = () => {
   }, [data.id, navigate]);
 
   const viewCourse = (id) => {
-    navigate('/coursepage', { replace: true, state: { id, user: { ...data } } });
+    navigate('/mycourses', { replace: true, state: { id, user: { ...data } } });
   };
 
   return (
@@ -67,7 +70,7 @@ const InstructorsDashboard = () => {
             state={{ ...data }}
             className={dash.link}
           >
-            <li className={dash.menu_item}> LOGOUT </li>
+            <li className={dash.logout}> LOGOUT </li>
           </Link>
         </ul>
       </div>

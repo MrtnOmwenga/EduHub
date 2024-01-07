@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
-import register from './Style/Register.module.css';
-import RegisterService from '../Services/Register';
-import RegisterForm from '../Components/RegisterForm';
-import DataServices from '../Services/Data';
+import register from './style/Register.module.css';
+import RegisterService from '../services/Register';
+import RegisterForm from '../components/RegisterForm';
+import DataServices from '../services/Data';
 
-const eduhubJPG = require('./Style/Images/EduHub.png');
+const eduhubJPG = require('./style/images/EduHub.png');
 
 const Register = () => {
   const [UserType, setUserType] = useState('Student');

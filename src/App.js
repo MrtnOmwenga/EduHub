@@ -1,16 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './Pages/Home';
-import Login from './Pages/Login';
-import Register from './Pages/Register';
-import StudentsDashboard from './Pages/StudentsDashboard';
-import InstructorsDashboard from './Pages/InstructorDashboard';
-import Courses from './Pages/Courses';
-import NewCourse from './Pages/NewCourse';
-import CoursePage from './Pages/CoursePage';
-import ErrorPage from './Pages/Error';
-import InDevelopmentPage from './Pages/InDevelopment';
-import DocumentViewer from './Components/DocumentViewer';
+import Home from './views/Home';
+import Login from './views/Login';
+import Register from './views/Register';
+import StudentsDashboard from './views/StudentsDashboard';
+import InstructorsDashboard from './views/InstructorDashboard';
+import Courses from './views/Courses';
+import NewCourse from './views/NewCourse';
+import CoursePage from './views/CoursePage';
+import MyCourses from './views/MyCourses';
+import ErrorPage from './views/Error';
+import InDevelopmentPage from './views/InDevelopment';
+import DocumentViewer from './components/DocumentViewer';
 
 const App = () => (
   <Router>
@@ -24,6 +25,7 @@ const App = () => (
       <Route path="/courses" element={<Courses />} />
       <Route path="/newcourse" element={<NewCourse />} />
       <Route path="/coursepage" element={<CoursePage />} />
+      <Route path="/mycourses" element={<MyCourses />} />
       <Route path="/errorpage" element={<ErrorPage />} />
       <Route path="/indevelopment" element={<InDevelopmentPage />} />
       <Route path="/documentviewer" element={<DocumentViewer />} />

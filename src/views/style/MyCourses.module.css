@@ -1,0 +1,149 @@
+.outer_container {
+    height: 100%;
+    color: #115a65;
+    font-family: 'Oxygen', sans-serif;
+
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+
+.menu {
+    grid-column-start: 1;
+
+    background-color: #115a65;
+    height: 100%;
+    position: absolute;
+    padding-right: 5%;
+
+    font-family: 'Oxygen', sans-serif;
+    color: aliceblue;
+}
+
+.title {
+    margin-top: 2em;
+    margin-bottom: 3em;
+    margin-left: 1em
+}
+
+.menu_item {
+    margin-top: 2em;
+    margin-left: 3em;
+    list-style: none;
+    padding-bottom: 3%;
+    font-size: small;
+}
+
+.logout {
+    margin-top: 2em;
+    margin-left: 3em;
+    list-style: none;
+    padding-bottom: 3%;
+    font-size: small;
+    position: absolute;
+    bottom: 20px;
+}
+
+.link {
+    text-decoration: none;
+    color: aliceblue;
+}
+
+.menu_item:hover {
+    color: rgb(38, 58, 58);
+}
+
+.logout:hover {
+    color: rgb(38, 58, 58);
+}
+
+.main_content {
+    grid-column-start: 2;
+    margin-top: 5em;
+}
+
+.main_title {
+    margin-bottom: 2em;
+    margin-left: 2em;
+    font-size: 2em;
+}
+
+.course_element {
+    list-style: none;
+    margin-bottom: 2em;
+    padding-left: 1em;
+    margin-left: 1em;
+    margin-right: 2em;
+    border-bottom: 0.05em solid;
+    padding-bottom: 1em;
+
+    display: grid;
+    column-count: 2;
+}
+
+.course_info {
+    grid-column-start: 1;
+}
+
+.course_name {
+    font-size: 1.2em;
+    margin-bottom: 0.3em;
+}
+
+.course_instructor {
+    color: rgb(0,0,0,0.5);
+    margin-left: 2%;
+}
+
+.btn_container {
+    grid-column-start: 2;
+    align-items: center;
+    justify-content: center;
+}
+
+.enroll_button {
+    display: flex;
+    gap: 1em;
+
+    background-color: transparent;
+    color: #115a65;
+    text-align: right;
+    float:right;
+    margin-top: 0.5em;
+    margin-right: 3em;
+    padding: 0.5em;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.enroll_button:hover {
+    background-color: #115a65;
+    color: aliceblue;
+}
+
+.course_icon {
+    margin-left: 1%;
+    padding-top: 1%;
+}
+
+.document_link {
+    text-decoration: none;
+    color: #115a65;
+}
+
+.delete {
+    background-color: aliceblue;
+    border-style: solid;
+    border-color: #d90000;
+    color: #d90000;
+    width: 10em;
+    height: 2.5em;
+    margin-left: 2em;
+    border-radius: 5px;
+    font-family: 'Oxygen', sans-serif;
+}
+
+.delete:hover {
+    color: aliceblue;
+    background-color: #d90000;
+}

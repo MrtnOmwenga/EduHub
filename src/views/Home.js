@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import style from './Style/Home.module.css';
+import style from './style/Home.module.css';
 
-const meetingJPG = require('./Style/Images/BoardMeeting.png');
-const backgroundJPG = require('./Style/Images/Background.jpg');
+const meetingJPG = require('./style/images/BoardMeeting.png');
+const backgroundJPG = require('./style/images/Background.jpg');
 
 const Home = () => (
   <div className={style.stylePage}>
@@ -47,7 +47,7 @@ const Home = () => (
         <div className={style.ImageSlides}>
           <div className={`${style.slide1} ${style.slides}`}>
             <div className={style.Activities}>
-              <h1 className={style.Activitytitle}>DETAILED NOTES</h1>
+              <h1 className={style.Activitytitle}>Detailed Notes</h1>
               <p className={style.activitiestext}>
                 Our notes are sufficiently detailed, simply written and
                 thoroughly vetted to allow you to learn as fast as possible
@@ -58,7 +58,7 @@ const Home = () => (
           </div>
           <div className={`${style.slide2} ${style.slides}`}>
             <div className={style.Activities}>
-              <h1 className={style.Activitytitle}> INTERACTIVE QUIZZES </h1>
+              <h1 className={style.Activitytitle}> Interactive Quizzes </h1>
               <p className={style.activitiestext}>
                 {' '}
                 Quizzes are specially
@@ -69,7 +69,7 @@ const Home = () => (
           </div>
           <div className={`${style.slide3} ${style.slides}`}>
             <div className={style.Activities}>
-              <h1 className={style.Activitytitle}> ONE ON ONE COACHING</h1>
+              <h1 className={style.Activitytitle}> One on One Coaching</h1>
               <p className={style.activitiestext}>
                 Instructors are available round the clock
                 for questions and consultation to support you and ensure you achieve
@@ -90,7 +90,7 @@ const Home = () => (
           and earning certifications. It&aposs user friendly, accessible from anywhere globally,
           and offers various courses across various subjects.
         </p>
-        <button type="button" className={style.registerbutton}>
+        <button type="button" className={style.loginbutton}>
           {' '}
           <p className={style.buttontext}> Learn More </p>
         </button>
@@ -141,7 +141,7 @@ const Home = () => (
           <h3 className={style.contacttitle}>Phone Number</h3>
           <p className={style.contactinfo}>(123) 456 7890</p>
         </div>
-        <img src={backgroundJPG} className={style.contactimage} alt="" />
+        <img src={backgroundJPG} className={style.contactimage} alt="" loading="lazy" />
       </div>
     </section>
     <footer>

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa6';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
-import courseStyle from './Style/Courses.module.css';
-import DataServices from '../Services/Data';
+import courseStyle from './style/Courses.module.css';
+import DataServices from '../services/Data';
 
 const CoursePage = () => {
   const [courses, setCourse] = useState();
@@ -16,6 +16,9 @@ const CoursePage = () => {
   }
 
   useEffect(() => {
+    const token = window.localStorage.getItem('token');
+    DataServices.SetToken(token);
+
     const _ = async () => {
       try {
         const response = await DataServices.GetCourse(location.state.id);
