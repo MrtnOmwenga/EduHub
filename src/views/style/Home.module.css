@@ -105,8 +105,16 @@
 .buttontext {
     font-family: 'Oxygen', sans-serif;
     text-decoration: none;
+    font-size: 0.8em;
 }
 
+.alttext {
+    font-family: 'Oxygen', sans-serif;
+    font-size: 0.8em;
+    background-color: transparent;
+    border: none;
+    color: aliceblue;
+}
 .Section2 {
     display: grid;
     grid-template-columns: 60% 40%;
@@ -132,17 +140,17 @@
     color: aliceblue;
     font-family: 'Oxygen', sans-serif;
 
-    font-size: 2.0em;
+    font-size: 1.5em;
     font-weight: 700;
     margin-bottom: 1em;
-    padding-top: 10%;
+    padding-top: 5em;
 }
 
 .aboutus {
     color: aliceblue;
     font-family: 'Oxygen', sans-serif;
 
-    font-size: 1em;
+    font-size: 0.8em;
     font-weight: 400;
     margin-bottom: 0.01em;
     padding-left: 10%;
@@ -189,12 +197,14 @@
     font-family: 'Oxygen', sans-serif;
     color: rgb(38, 48, 48);
 
-    font-size: 2.5em;
+    font-size: 2.25em;
 }
 
 .subText {
     color: #115a65;
     font-family: 'Oxygen', sans-serif;
+    font-size: 1.0em;
+    padding-top: 1%;
 }
 
 .ImageSlides {
@@ -266,12 +276,14 @@
     font-weight: bold;
     margin-top: 5%;
     margin-bottom: 10%;
+    font-size: 1.5em;
     /*color: rgb(38, 48, 48);*/
 }
 
 .activitiestext {
     font-family: 'Oxygen', sans-serif;
     font-weight: 100;
+    font-size: 0.8em;
     /*color: rgb(38, 48, 48);*/
 }
 
@@ -351,6 +363,7 @@
 .instructordetails {
     color: aliceblue;
     font-family: 'Oxygen', sans-serif;
+    font-size: 0.8em;
     padding: 0% 5% 2% 5%;
 }
 
@@ -391,6 +404,7 @@
 .contactinfo {
     font-family: 'Oxygen', sans-serif;
     margin-top: 2%;
+    font-size: 0.8em;
 }
 
 .contactimage {

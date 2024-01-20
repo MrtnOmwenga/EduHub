@@ -8,9 +8,11 @@ const DocumentViewer = () => {
   const location = useLocation();
   const { file } = location.state;
   const { user } = location.state;
+  const { courses } = location.state;
   const [pdfUrl, setPdfUrl] = useState('');
-  const fileUrl = 'resources/files'; // 'https://hubeducation-express-server.onrender.com/file';
+  const fileUrl = 'resources/files';
 
+  console.log(courses.modules);
   useEffect(() => {
     // Fetch the PDF file from the server
     axios.get(fileUrl, {
@@ -31,6 +33,8 @@ const DocumentViewer = () => {
     };
   }, []);
 
+  const DashLink = user.UserType === 'Student' ? '/studentsdashboard' : 'instructorsdashboard';
+
   return (
     <div className={DocuStyle.DocumentContainer}>
       <div className={DocuStyle.menu}>
@@ -43,7 +47,7 @@ const DocumentViewer = () => {
         </h3>
         <ul className={DocuStyle.menu_list}>
           <Link
-            to="/instructorsdashboard"
+            to={DashLink}
             state={{ ...user }}
             className={DocuStyle.link}
           >
@@ -81,6 +85,18 @@ const DocumentViewer = () => {
             <li className={DocuStyle.logout}> LOGOUT </li>
           </Link>
         </ul>
+      </div>
+      <div className={DocuStyle.ModulesList}>
+        {courses.modules.map((module) => (
+          <Link
+            to="/documentviewer"
+            state={{ file: module.file, user, courses }}
+            key={module._id}
+            className={DocuStyle.module_name}
+          >
+            {module.name}
+          </Link>
+        ))}
       </div>
       {pdfUrl ? (
         <embed src={pdfUrl} width="100%" height="700px" type="application/pdf" className={DocuStyle.Document} />

@@ -53,7 +53,7 @@ const CoursePage = () => {
           <li className={courseStyle.course_element} key={course.id}>
             <Link
               to="/documentviewer"
-              state={{ file: course.file }}
+              state={{ file: course.file, user, courses }}
               className={`${courseStyle.course_info} ${courseStyle.document_link} `}
             >
               <h4 className={courseStyle.course_name}>
