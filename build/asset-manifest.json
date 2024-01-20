@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e3a68c23.css",
+    "main.js": "/static/js/main.1f8bafa4.js",
+    "static/media/Background.jpg": "/static/media/Background.87a1cf78f6d12fa29903.jpg",
+    "static/media/BoardMeeting.png": "/static/media/BoardMeeting.5659450c7597ba4f39fe.png",
+    "static/media/EduHub.png": "/static/media/EduHub.0c29d3878707885d223f.png",
+    "static/media/Person2.png": "/static/media/Person2.7173f52c69f61672f98c.png",
+    "static/media/Person1.jpeg": "/static/media/Person1.34cea073fe1a73832a34.jpeg",
+    "static/media/Person3.jpeg": "/static/media/Person3.dd7a3ec9d40a0d714732.jpeg",
+    "index.html": "/index.html",
+    "main.e3a68c23.css.map": "/static/css/main.e3a68c23.css.map",
+    "main.1f8bafa4.js.map": "/static/js/main.1f8bafa4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e3a68c23.css",
+    "static/js/main.1f8bafa4.js"
+  ]
+}
