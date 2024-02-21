@@ -1,0 +1,108 @@
+{
+    "instructors":[
+      { 
+        "name": "Martin Omwenga", 
+        "email": "artohellas@gmail.com",
+        "password": "$2a$10$m.LqguHbxRa4UKzCw.t6mudaRPZrethCZsSS9FpZMuttaM476T5.C",
+        "courses": [
+          {
+            "name": "Financial Analysis",
+            "students": 101
+          },
+          {
+            "name": "Solid and Structureal Mechanics",
+            "students": 79
+          },
+          {
+            "name": "Network Monitoring",
+            "students": 186
+          },
+          {
+            "name": "Coud Engineering",
+            "students": 201
+          },
+          {
+            "name": "Civil Structures",
+            "students": 98
+          }
+        ]
+      },
+      { 
+        "name": "Ada Lovelace", 
+        "email": "adalovelace@gmail.com",
+        "password": "$2a$10$m.LqguHbxRa4UKzCw.t6mudaRPZrethCZsSS9FpZMuttaM476T5.C",
+        "courses": [
+          {
+            "name": "Business Development",
+            "students": 77
+          },
+          {
+            "name": "Engineering Drawing",
+            "students": 91
+          },
+          {
+            "name": "Cybersecurity Fundamentals",
+            "students": 111
+          },
+          {
+            "name": "Software Engineering",
+            "students": 123
+          },
+          {
+            "name": "Neural Networks",
+            "students": 211
+          },
+          {
+            "name": "Hydraulics",
+            "students": 126
+          }
+        ]
+      },
+      { 
+        "name": "Dan Abramov", 
+        "email": "danabramov@gmail.com",
+        "password": "$2a$10$m.LqguHbxRa4UKzCw.t6mudaRPZrethCZsSS9FpZMuttaM476T5.C",
+        "courses": [
+          {
+            "name": "Investment Banking",
+            "students": 81
+          },
+          {
+            "name": "Engineering Accounting",
+            "students": 49
+          },
+          {
+            "name": "Python Programming",
+            "students": 36
+          },
+          {
+            "name": "Data Structures and Algorithms",
+            "students": 121
+          }
+        ]
+      },
+      { 
+        "name": "Mary Poppendieck", 
+        "email": "marypoppendieck@gmail.com",
+        "password": "$2a$10$m.LqguHbxRa4UKzCw.t6mudaRPZrethCZsSS9FpZMuttaM476T5.C",
+        "courses": [
+          {
+            "name": "Mechanical Testing",
+            "students": 196
+          },
+          {
+            "name": "IT Maintenance",
+            "students": 169
+          },
+          {
+            "name": "JavaScript Programming",
+            "students": 189
+          },
+          {
+            "name": "Network Maintenanve",
+            "students": 225
+          }
+        ]
+      }
+    ]
+  }
