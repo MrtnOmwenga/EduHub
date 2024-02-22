@@ -37,10 +37,12 @@ CoursesRoutes.post('/', async (request, response) => {
     return response.status(400).send(error.details[0].message);
   }
 
-  const CourseModel = new Courses(NewCourseObject);
-  const result = await CourseModel.save();
-
-  return response.status(201).json(result);
+  try {
+    const result = await Courses.create(NewCourseObject);
+    return response.status(201).json(result);
+  } catch (error) {
+    return response.status(500).send('Error creating course');
+  }
 });
 
 // PUT (Update) an existing course
@@ -58,11 +60,20 @@ CoursesRoutes.put('/:id', async (request, response) => {
     return response.status(400).send(error.details[0].message);
   }
 
-  const result = await Courses.findByIdAndUpdate(courseId, updatedCourseData, {
-    new: true, // Return the updated document
-  });
+  try {
+    // Update the course and return the updated data
+    const result = await Courses.findByIdAndUpdate(courseId, updatedCourseData, {
+      new: true, // Return the updated document
+    });
 
-  return response.status(200).json(result);
+    if (!result) {
+      return response.status(404).send('Course not found');
+    }
+
+    return response.status(200).json(result);
+  } catch (error) {
+    return response.status(500).send('Error updating course');
+  }
 });
 
 // DELETE a course by ID

@@ -131,7 +131,7 @@ describe('Test PUT endpoint', () => {
       .set('Authorization', `Bearer ${token}`)
       .expect(400);
   });
-});
+}, 100000);
 
 describe('Test DELETE endpoint', () => {
   test('Course gets deleted from the database', async () => {

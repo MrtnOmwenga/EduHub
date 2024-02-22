@@ -40,24 +40,31 @@ InstructorRoutes.post('/', async (request, response) => {
     return response.status(400).send(error.details[0].message);
   }
 
-  const passwordHash = await bcrypt.hash(password, 10);
-  const NewInstructor = new Instructors({
-    name,
-    email,
-    password: passwordHash,
-  });
+  try {
+    // Hash the password
+    const passwordHash = await bcrypt.hash(password, 10);
 
-  const result = await NewInstructor.save();
+    // Create and save the new instructor object
+    const result = await Instructors.create({
+      name,
+      email,
+      password: passwordHash,
+    });
 
-  const forToken = {
-    name: result.name,
-    id: result.id,
-  };
-  const token = jwt.sign(forToken, process.env.SECRET);
+    const forToken = {
+      name: result.name,
+      id: result.id,
+    };
+    const token = jwt.sign(forToken, process.env.SECRET);
+  
+    return response
+      .status(201)
+      .json({ token, name: result.name, id: result.id });
 
-  return response
-    .status(201)
-    .json({ token, name: result.name, id: result.id });
+    return response.status(201).json(result);
+  } catch (error) {
+    return response.status(500).send('Error creating instructor');
+  }
 });
 
 InstructorRoutes.put('/:id', async (request, response) => {
@@ -71,8 +78,21 @@ InstructorRoutes.put('/:id', async (request, response) => {
     return response.status(400).send(error.details[0].message);
   }
 
-  const result = await Instructors.findByIdAndUpdate(request.params.id, request.body, { new: true });
-  return response.status(200).json(result);
+  try {
+    const instructorId = request.params.id;
+    const updatedInstructorData = request.body;
+
+    // Update the instructor using findOneAndUpdate
+    const result = await Instructors.findOneAndUpdate(
+      { _id: instructorId },
+      updatedInstructorData,
+      { new: true }
+    );
+
+    return response.status(200).json(result);
+  } catch (error) {
+    return response.status(500).send('Error updating instructor');
+  }
 });
 
 module.exports = InstructorRoutes;
