@@ -9,6 +9,8 @@ const api = supertest(app);
 
 // Global variables
 let token;
+let csrfToken; // To store the CSRF token globally
+let csrfCookie; // To store the CSRF cookie globally
 
 beforeAll(async () => {
   await Instructors.deleteMany({});
@@ -35,6 +37,11 @@ beforeAll(async () => {
 
   await Promise.all(PromiseArray);
 
+  // Get csrf token
+  const csrfResponse = await api.get('/services/csrf');
+  csrfToken = csrfResponse.body.csrfToken;
+  csrfCookie = csrfResponse.headers['set-cookie'];
+
   // Make a request to /services/login to get the token
   const credentials = {
     email: 'artohellas@gmail.com',
@@ -44,6 +51,8 @@ beforeAll(async () => {
   const loginResponse = await api
       .post('/services/login')
       .send(credentials)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(200);
 
   // Extract the token from the response
@@ -63,6 +72,8 @@ describe('Test get url', () => {
     const response = await api
       .get('/api/instructors')
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(200)
       .expect('Content-Type', /application\/json/);
     
@@ -78,6 +89,8 @@ describe('Test get url', () => {
     const response = await api
       .get(`/api/instructors/${InstructorToCheck._id}`)
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(200);
 
     expect(response.body.name).toContain(InstructorToCheck.name); // Validate the name property
@@ -91,6 +104,8 @@ describe('Test get url', () => {
     await api
       .get(`/api/instructors/${nonExistentId}`)
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(400);
   });
 
@@ -99,12 +114,16 @@ describe('Test get url', () => {
     await api
       .get(`/api/instructors/${invalidId}`)
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(400);
   });
 
   test('API returns 400 error when no token is provided', async () => {
     await api
       .get('/api/instructors/somevalidid')
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(400)
       .expect('Invalid Token');
   });
@@ -121,6 +140,8 @@ describe('Test post url', () => {
     const response = await api
       .post('/api/instructors')
       .send(ValidUser)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(201);
 
     // Ensure the response contains the expected properties
@@ -142,6 +163,8 @@ describe('Test post url', () => {
     await api
       .post('/api/instructors')
       .send(DuplicateUser)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(400)
       .expect('Email already exists');
   });
@@ -156,6 +179,8 @@ describe('Test post url', () => {
     await api
       .post('/api/instructors')
       .send(InvalidUser)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .set('Authorization', `Bearer ${token}`)
       .expect(400);
 
@@ -189,6 +214,8 @@ describe('PUT /api/instructors/:id', () => {
       .put(`/api/instructors/${instructorToUpdateId}`)
       .send(updatedData)
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(200)
 
     expect(response.body.name).toBe(updatedData.name);
@@ -204,6 +231,8 @@ describe('PUT /api/instructors/:id', () => {
       .put(`/api/instructors/${invalidId}`)
       .send(newData)
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(400)
       .expect('Invalid ID format');
   });
@@ -221,8 +250,28 @@ describe('PUT /api/instructors/:id', () => {
       .put(`/api/instructors/${nonExistentId}`)
       .send(updateData)
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(400)
       .expect('Instructor ID does not exist');
+  });
+});
+
+describe('Test delete url', () => {
+  test('Delete student by ID', async () => {
+    const InstructorsInDB = await Instructors.find({});
+    const instructorToDelete = InstructorsInDB[0];
+
+    const response = await api
+      .delete(`/api/instructors/${instructorToDelete._id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
+      .expect(204);
+
+    // Check that the student is deleted from the database
+    const deletedInstructor = await Instructors.findById(instructorToDelete._id);
+    expect(deletedInstructor).toBeNull();
   });
 });
 

@@ -9,6 +9,8 @@ const api = supertest(app);
 
 // Global variables.
 let token;
+let csrfToken; // To store the CSRF token globally
+let csrfCookie; // To store the CSRF cookie globally
 
 beforeAll(async () => {
   await Students.deleteMany({});
@@ -35,6 +37,11 @@ beforeAll(async () => {
 
   await Promise.all(PromiseArray);
 
+  // Get csrf token
+  const csrfResponse = await api.get('/services/csrf');
+  csrfToken = csrfResponse.body.csrfToken;
+  csrfCookie = csrfResponse.headers['set-cookie'];
+
   // Make a request to /services/login to get the token
   const credentials = {
     email: 'kevincozner@gmail.com',
@@ -44,6 +51,8 @@ beforeAll(async () => {
   const loginResponse = await api
       .post('/services/login')
       .send(credentials)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(200);
 
   // Extract the token from the response
@@ -63,6 +72,8 @@ describe('Test get url', () => {
     const response = await api
       .get('/api/students')
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(200)
       .expect('Content-Type', /application\/json/);
     
@@ -78,6 +89,8 @@ describe('Test get url', () => {
     const response = await api
       .get(`/api/students/${StudentToCheck._id}`)
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(200);
 
     expect(response.body.name).toContain(StudentToCheck.name); // Validate the name property
@@ -91,6 +104,8 @@ describe('Test get url', () => {
     await api
       .get(`/api/students/${nonExistentId}`)
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(400);
   });
 
@@ -99,12 +114,16 @@ describe('Test get url', () => {
     await api
       .get(`/api/students/${invalidId}`)
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(400);
   });
 
   test('API returns 400 error when no token is provided', async () => {
     await api
       .get('/api/students/somevalidid')
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(400)
       .expect('Invalid Token');
   });
@@ -122,6 +141,8 @@ describe('Test post url', () => {
     const response = await api
       .post('/api/students')
       .send(ValidUser)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(201);
 
     // Ensure the response contains the expected properties
@@ -143,6 +164,8 @@ describe('Test post url', () => {
     await api
       .post('/api/students')
       .send(DuplicateUser)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(400)
       .expect('Email already exists');
   });
@@ -157,6 +180,8 @@ describe('Test post url', () => {
     await api
       .post('/api/students')
       .send(InvalidUser)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .set('Authorization', `Bearer ${token}`)
       .expect(400);
 
@@ -176,6 +201,8 @@ describe('POST /api/students', () => {
     await api
       .post('/api/students')
       .send(incompleteUser)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .set('Authorization', `Bearer ${token}`)
       .expect(400);
   });
@@ -191,6 +218,8 @@ describe('POST /api/students', () => {
       .post('/api/students')
       .send(userWithInvalidEmail)
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(400);
   });
 });
@@ -219,6 +248,8 @@ describe('PUT /api/students/:id', () => {
       .put(`/api/students/${studentToUpdateId}`)
       .send(updatedData)
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(200)
 
     expect(response.body.name).toBe(updatedData.name);
@@ -234,6 +265,8 @@ describe('PUT /api/students/:id', () => {
       .put(`/api/students/${invalidId}`)
       .send(newData)
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(400)
       .expect('Invalid ID format');
   });
@@ -251,8 +284,28 @@ describe('PUT /api/students/:id', () => {
       .put(`/api/students/${nonExistentId}`)
       .send(updateData)
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(400)
       .expect('Student ID does not exist');
+  });
+});
+
+describe('Test delete url', () => {
+  test('Delete student by ID', async () => {
+    const StudentsInDB = await Students.find({});
+    const studentToDelete = StudentsInDB[0];
+
+    const response = await api
+      .delete(`/api/students/${studentToDelete._id}`)
+      .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
+      .expect(204);
+
+    // Check that the student is deleted from the database
+    const deletedStudent = await Students.findById(studentToDelete._id);
+    expect(deletedStudent).toBeNull();
   });
 });
 

@@ -1,9 +1,12 @@
 const InstructorRoutes = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const csrf = require('csurf');
 const Instructors = require('../models/instructors.model');
 const { validateInstructorCreation, validateInstructorUpdate, validateInstructorGet } = require('../services/instructor-validator.service');
 require('express-async-errors');
+
+const csrfProtection = csrf({ cookie: true });
 
 InstructorRoutes.get('/', async (request, response) => {
   const auth = request.token;
@@ -32,7 +35,7 @@ InstructorRoutes.get('/:id', async (request, response) => {
   return response.json(instructors);
 });
 
-InstructorRoutes.post('/', async (request, response) => {
+InstructorRoutes.post('/', csrfProtection, async (request, response) => {
   const { name, email, password } = request.body;
 
   const { error } = await validateInstructorCreation({ name, email, password });
@@ -67,7 +70,7 @@ InstructorRoutes.post('/', async (request, response) => {
   }
 });
 
-InstructorRoutes.put('/:id', async (request, response) => {
+InstructorRoutes.put('/:id', csrfProtection, async (request, response) => {
   const auth = request.token;
   if (!auth) {
     return response.status(400).send('Invalid Token');
@@ -92,6 +95,29 @@ InstructorRoutes.put('/:id', async (request, response) => {
     return response.status(200).json(result);
   } catch (error) {
     return response.status(500).send('Error updating instructor');
+  }
+});
+
+InstructorRoutes.delete('/:id', csrfProtection, async (request, response) => {
+  const auth = request.token;
+  if (!auth) {
+    return response.status(400).send('Invalid Token');
+  }
+
+  const instructorId = request.params.id;
+
+  // Validate the ID for both format and existence
+  const validation = await validateInstructorGet(instructorId);
+  if (!validation.isValid) {
+    return response.status(400).send(validation.message);
+  }
+
+  try {
+    // Find and delete the student
+    await Instructors.findByIdAndDelete(instructorId);
+    return response.status(204).send(); // No content
+  } catch (error) {
+    return response.status(500).send('Internal Server Error');
   }
 });
 

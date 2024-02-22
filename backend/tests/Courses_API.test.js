@@ -7,6 +7,8 @@ const app = require('../App');
 const api = supertest(app);
 
 let token;
+let csrfToken; // To store the CSRF token globally
+let csrfCookie; // To store the CSRF cookie globally
 
 beforeAll(async () => {
   await Courses.deleteMany({});
@@ -14,6 +16,11 @@ beforeAll(async () => {
     .map((course) => new Courses(course))
     .map((courseModel) => courseModel.save());
   await Promise.all(PromiseArray);
+
+  // Get csrf token
+  const csrfResponse = await api.get('/services/csrf');
+  csrfToken = csrfResponse.body.csrfToken;
+  csrfCookie = csrfResponse.headers['set-cookie'];
 
   // Make a request to /services/login to get the token
   const credentials = {
@@ -24,6 +31,8 @@ beforeAll(async () => {
   const loginResponse = await api
       .post('/services/login')
       .send(credentials)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(200);
 
   // Extract the token from the response
@@ -42,6 +51,8 @@ describe('Test GET endpoint', () => {
     const response = await api
       .get('/api/courses')
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(200)
       .expect('Content-Type', /application\/json/);
     expect(response.body).toHaveLength(courses.length);
@@ -53,6 +64,8 @@ describe('Test GET endpoint', () => {
     const response = await api
       .get(`/api/courses/${courseToCheck._id}`)
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(200);
     expect(response.body.name).toBe(courseToCheck.name);
   });
@@ -62,6 +75,8 @@ describe('Test GET endpoint', () => {
     await api
       .get(`/api/courses/${invalidId}`)
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(400);
   });
 });
@@ -75,6 +90,8 @@ describe('Test POST endpoint', () => {
     const response = await api
       .post('/api/courses')
       .send(validCourse)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .set('Authorization', `Bearer ${token}`)
       .expect(201);
 
@@ -89,6 +106,8 @@ describe('Test POST endpoint', () => {
       .post('/api/courses')
       .send(invalidCourse)
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(400);
   });
 });
@@ -105,6 +124,8 @@ describe('Test PUT endpoint', () => {
       .put(`/api/courses/${courseIdToUpdate}`)
       .send(updatedCourseData)
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(200);
 
     expect(response.body.name).toBe(updatedCourseData.name);
@@ -120,6 +141,8 @@ describe('Test PUT endpoint', () => {
       .put(`/api/courses/${courseIdToUpdate}`)
       .send(invalidCourseData)
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(400);
   });
 
@@ -129,6 +152,8 @@ describe('Test PUT endpoint', () => {
       .put(`/api/courses/${invalidId}`)
       .send({ name: 'Updated Course', instructor: 'Updated Instructor' })
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(400);
   });
 }, 100000);
@@ -140,6 +165,8 @@ describe('Test DELETE endpoint', () => {
     const response = await api
       .delete(`/api/courses/${courseIdToDelete}`)
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(204);
   });
 
@@ -148,6 +175,8 @@ describe('Test DELETE endpoint', () => {
     await api
       .delete(`/api/courses/${invalidId}`)
       .set('Authorization', `Bearer ${token}`)
+      .set('Cookie', csrfCookie)
+      .set('x-csrf-token', csrfToken)
       .expect(400);
   });
 });

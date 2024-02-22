@@ -1,7 +1,10 @@
 const CoursesRoutes = require('express').Router();
+const csrf = require('csurf');
 const Courses = require('../models/courses.model');
 const { validateCourseCreation, validateCourseUpdate, validateCourseDeletion, validateCourseGet } = require('../services/course-validator.service');
 require('express-async-errors');
+
+const csrfProtection = csrf({ cookie: true });
 
 CoursesRoutes.get('/', async (request, response) => {
   const courses = await Courses.find({});
@@ -24,7 +27,7 @@ CoursesRoutes.get('/:id', async (request, response) => {
   response.json(courses);
 });
 
-CoursesRoutes.post('/', async (request, response) => {
+CoursesRoutes.post('/', csrfProtection, async (request, response) => {
   const auth = request.token;
   if (!auth) {
     return response.status(400).send('Invalid Token');
@@ -46,7 +49,7 @@ CoursesRoutes.post('/', async (request, response) => {
 });
 
 // PUT (Update) an existing course
-CoursesRoutes.put('/:id', async (request, response) => {
+CoursesRoutes.put('/:id', csrfProtection, async (request, response) => {
   const auth = request.token;
   if (!auth) {
     return response.status(400).send('Invalid Token');
@@ -77,7 +80,7 @@ CoursesRoutes.put('/:id', async (request, response) => {
 });
 
 // DELETE a course by ID
-CoursesRoutes.delete('/:id', async (request, response) => {
+CoursesRoutes.delete('/:id', csrfProtection, async (request, response) => {
   const auth = request.token;
   if (!auth) {
     return response.status(400).send('Invalid Token');

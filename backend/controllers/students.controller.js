@@ -1,9 +1,12 @@
 const StudentRoutes = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const csrf = require('csurf');
 const Students = require('../models/students.model');
 const { validateStudentCreation, validateStudentUpdate, validateStudentGet } = require('../services/students-validator.service');
 require('express-async-errors');
+
+const csrfProtection = csrf({ cookie: true });
 
 StudentRoutes.get('/', async (request, response) => {
   const auth = request.token;
@@ -32,7 +35,7 @@ StudentRoutes.get('/:id', async (request, response) => {
   return response.json(students);
 });
 
-StudentRoutes.post('/', async (request, response) => {
+StudentRoutes.post('/', csrfProtection, async (request, response) => {
   const { name, email, password } = request.body;
 
   const { error } = await validateStudentCreation({ name, email, password });
@@ -60,7 +63,7 @@ StudentRoutes.post('/', async (request, response) => {
     .json({ token, name: result.name, id: result.id });
 });
 
-StudentRoutes.put('/:id', async (request, response) => {
+StudentRoutes.put('/:id', csrfProtection, async (request, response) => {
   const auth = request.token;
   if (!auth) {
     return response.status(400).send('Invalid Token');
@@ -73,6 +76,29 @@ StudentRoutes.put('/:id', async (request, response) => {
 
   const result = await Students.findByIdAndUpdate(request.params.id, request.body, { new: true });
   return response.status(200).json(result);
+});
+
+StudentRoutes.delete('/:id', csrfProtection, async (request, response) => {
+  const auth = request.token;
+  if (!auth) {
+    return response.status(400).send('Invalid Token');
+  }
+
+  const studentId = request.params.id;
+
+  // Validate the ID for both format and existence
+  const validation = await validateStudentGet(studentId);
+  if (!validation.isValid) {
+    return response.status(400).send(validation.message);
+  }
+
+  try {
+    // Find and delete the student
+    await Students.findByIdAndDelete(studentId);
+    return response.status(204).send(); // No content
+  } catch (error) {
+    return response.status(500).send('Internal Server Error');
+  }
 });
 
 module.exports = StudentRoutes;
